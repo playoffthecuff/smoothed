@@ -1,6 +1,6 @@
-import { SparkleIcon } from "@/components/ui/icons/sparkle";
 import { Button } from "@/components/ui/buttons/button";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
+import { SparkleIcon } from "@/components/ui/icons/sparkle";
 
 export default function ButtonPage() {
 	return (
@@ -66,7 +66,7 @@ export default function ButtonPage() {
 					<Button appearance={"solid"}>Solid</Button>
 					<Button appearance={"subtle"}>Subtle</Button>
 					<Button appearance={"outline"}>Outline</Button>
-					<Button appearance={"text"}>Text</Button>
+					<Button appearance={"ghost"}>Ghost</Button>
 					<Button appearance={"link"}>Link</Button>
 					<Button appearance={"solid"} intent={"destructive"}>
 						Solid
@@ -77,8 +77,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} intent={"destructive"}>
 						Outline
 					</Button>
-					<Button appearance={"text"} intent={"destructive"}>
-						Text
+					<Button appearance={"ghost"} intent={"destructive"}>
+						Ghost
 					</Button>
 					<Button appearance={"link"} intent={"destructive"}>
 						Link
@@ -92,8 +92,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} intent={"secondary"}>
 						Outline
 					</Button>
-					<Button appearance={"text"} intent={"secondary"}>
-						Text
+					<Button appearance={"ghost"} intent={"secondary"}>
+						Ghost
 					</Button>
 					<Button appearance={"link"} intent={"secondary"}>
 						Link
@@ -107,8 +107,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} intent={"visited"}>
 						Outline
 					</Button>
-					<Button appearance={"text"} intent={"visited"}>
-						Text
+					<Button appearance={"ghost"} intent={"visited"}>
+						Ghost
 					</Button>
 					<Button appearance={"link"} intent={"visited"}>
 						Link
@@ -122,8 +122,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} intent={"warning"}>
 						Outline
 					</Button>
-					<Button appearance={"text"} intent={"warning"}>
-						Text
+					<Button appearance={"ghost"} intent={"warning"}>
+						Ghost
 					</Button>
 					<Button appearance={"link"} intent={"warning"}>
 						Link
@@ -137,8 +137,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} intent={"success"}>
 						Outline
 					</Button>
-					<Button appearance={"text"} intent={"success"}>
-						Text
+					<Button appearance={"ghost"} intent={"success"}>
+						Ghost
 					</Button>
 					<Button appearance={"link"} intent={"success"}>
 						Link
@@ -157,8 +157,8 @@ export default function ButtonPage() {
 					<Button appearance={"outline"} lifted>
 						Outline
 					</Button>
-					<Button appearance={"text"} lifted>
-						Text
+					<Button appearance={"ghost"} lifted>
+						Ghost
 					</Button>
 				</div>
 			</div>
@@ -184,7 +184,7 @@ export default function ButtonPage() {
 						<Button appearance={"solid"} className="w-fit" loading>
 							Disabled
 						</Button>
-						<Button appearance={"solid"} className="w-fit" loading />
+						<Button appearance={"solid"} className="w-fit" loading  />
 						Loading
 					</div>
 				</div>

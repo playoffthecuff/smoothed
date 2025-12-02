@@ -16,6 +16,9 @@ export default function ComponentsPage() {
 				<Link href={"/components/button"} className="underline text-primary">
 					Button
 				</Link>
+				<Link href={"/components/toggle"} className="underline text-primary">
+					Toggle
+				</Link>
 			</div>
 		</main>
 	);

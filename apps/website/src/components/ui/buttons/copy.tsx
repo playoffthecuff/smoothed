@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { CopyIcon } from "@/components/ui/icons/copy";
-import { ToggleButton } from "./toggle";
+import { ToggleButton } from "./toggle2";
 
 interface Props {
 	className?: string;

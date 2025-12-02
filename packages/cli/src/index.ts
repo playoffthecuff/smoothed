@@ -22,8 +22,9 @@ cli.command("add [name]")
 		}
 				const uiSrc = path.join(dirName, "../templates/ui");
 		const compSrc = path.join(uiSrc, name);
-		if (name === "button") {
-			const dir = path.join(process.cwd(), "src", "components", "ui");			const ops = [{src: path.join(uiSrc, "use-wave-animate.tsx"), dest: path.join(dir, "use-wave-animate.tsx")}, {src: path.join(uiSrc, "icons", "spinner.tsx"), dest: path.join(dir, "icons", "spinner.tsx")}];
+		if (name === "button" || name === "toggle") {
+			const dir = path.join(process.cwd(), "src", "components", "ui");
+			const ops = [{src: path.join(uiSrc, "use-wave-animate.tsx"), dest: path.join(dir, "use-wave-animate.tsx")}, {src: path.join(uiSrc, "icons", "spinner.tsx"), dest: path.join(dir, "icons", "spinner.tsx")}];
 			try {
 				await fs.mkdir(path.join(dir, "icons"), {recursive: true});
 				await Promise.all(ops.map((op) => fs.copyFile(op.src, op.dest)));

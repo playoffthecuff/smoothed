@@ -31,7 +31,7 @@ export default function RootLayout({
 					disableTransitionOnChange
 					attribute={"class"}
 				>
-					<header className="px-16d py-12d bg-neutral-2 flex items-center justify-between sticky top-0 z-1">
+					<header className="px-16d py-12d bg-neutral-2 flex items-center justify-between sticky top-0 z-1 shadow-4d">
 							<Link href={"/"}>
 								{/** biome-ignore lint/performance/noImgElement: 'svg' */}
 								<img
