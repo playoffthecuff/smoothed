@@ -76,12 +76,12 @@ export default defineConfig({
 	],
 	shortcuts: [
 		{
-			"surface-primary": "bg-primary-500/25d dark:bg-primary-500/14d",
-			"surface-error": "bg-error-500/25d dark:bg-error-500/14d",
-			"surface-visited": "bg-visited-500/25d dark:bg-visited-500/14d",
-			"surface-warning": "bg-warning-500/25d dark:bg-warning-500/14d",
-			"surface-success": "bg-success-500/25d dark:bg-success-500/14d",
-			"surface-neutral": "bg-neutral-500/25d dark:bg-neutral-500/14d",
+			"surface-primary": "bg-primary-500/23d dark:bg-primary-500/14d",
+			"surface-error": "bg-error-500/23d dark:bg-error-500/14d",
+			"surface-visited": "bg-visited-500/23d dark:bg-visited-500/14d",
+			"surface-warning": "bg-warning-500/23d dark:bg-warning-500/14d",
+			"surface-success": "bg-success-500/23d dark:bg-success-500/14d",
+			"surface-neutral": "bg-neutral-500/23d dark:bg-neutral-500/14d",
 			"bg-neutral": "bg-neutral-150 dark:bg-neutral-600",
 			"bg-neutral-1": "bg-neutral-100 dark:bg-neutral-650",
 			"bg-neutral-2": "bg-neutral-50 dark:bg-neutral-700",
@@ -110,6 +110,7 @@ export default defineConfig({
 			"text-muted-interactive":	"hover:text-neutral-600/6d active:text-neutral-600/10d dark:hover:text-neutral-250/5d dark:active:text-neutral-250/9d",
 			"outline-neutral": "outline-neutral-600  dark:outline-neutral-300",
 			"outline-primary": "outline-primary-600  dark:outline-primary-300",
+			"shadow-lifted": "shadow-l-4d hover:shadow-l-5d active:shadow-l-1d dark:shadow-d-4d dark:hover:shadow-d-5d dark:active:shadow-d-1d",
 		},
 		[/^shadow-(\\d+)d$/, ([_, value]) => \`shadow-l-\${value}d dark:shadow-d-\${value}d\`],
 	],
@@ -145,9 +146,6 @@ ${colors.map((color) => `				"wave-${color}": "Attention Seekers"`).join(",\n")}
 		shadow: {
 			...theme.shadow,
 ${colors.map((color) => `			"focus-${color}": ["0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem) calc(var(--spacing-size) * 2rem) currentColor", "0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem / 2) calc(var(--spacing-size) * 4rem) oklch(from var(--colors-${color}-500) l c h / 0.9)"]`).join(",\n")},
-			"lifted-neutral": " calc(var(--spacing-size) * pow(2, 1.5) * 1rem) calc(var(--spacing-size) * pow(2, 1.5) * 1rem) calc(var(--spacing-size) * pow(2, 2) * 1rem) 0 oklch(from var(--colors-neutral-1000) l c h / 0.4)",
-			"lifted-neutral-hover": " calc(var(--spacing-size) * pow(2, 2) * 1rem) calc(var(--spacing-size) * pow(2, 2) * 1rem) calc(var(--spacing-size) * pow(2, 2.25) * 1rem) 0 oklch(from var(--colors-neutral-1000) l c h / 0.4)",
-			"lifted-neutral-active": " calc(var(--spacing-size) * pow(2, 1) * 1rem) calc(var(--spacing-size) * pow(2, 1) * 1rem) calc(var(--spacing-size) * pow(2, 1.5) * 1rem) 0 oklch(from var(--colors-neutral-1000) l c h / 0.4)",
 		},
 		media: {
 			...theme.media,

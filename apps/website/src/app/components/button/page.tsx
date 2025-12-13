@@ -10,7 +10,7 @@ export default function ButtonPage() {
 				<p>Interactive component activated by a user.</p>
 			</div>
 			<div className="relative">
-				<h2 className="text-6d font-11d">Installation</h2>
+				<h2 className="text-7d font-11d">Installation</h2>
 				<HighlightedCode
 					code="bunx @playoffthecuff/s-line@latest add button"
 					language="yaml"
@@ -145,23 +145,83 @@ export default function ButtonPage() {
 					</Button>
 				</div>
 			</div>
-			<div>
-				<h3 className="text-5d font-11d">Lifted</h3>
-				<div className="flex flex-wrap gap-16d items-start">
-					<Button appearance={"solid"} lifted>
-						Solid
-					</Button>
-					<Button appearance={"subtle"} lifted>
-						Subtle
-					</Button>
-					<Button appearance={"outline"} lifted>
-						Outline
-					</Button>
-					<Button appearance={"ghost"} lifted>
-						Ghost
-					</Button>
+				<div>
+					<h3 className="text-5d font-11d">Lifted</h3>
+					<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
+						<Button appearance={"solid"} lifted>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted>
+							Ghost
+						</Button>
+						<Button appearance={"solid"} lifted intent={"destructive"}>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted intent={"destructive"}>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted intent={"destructive"}>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted intent={"destructive"}>
+							Ghost
+						</Button>
+						<Button appearance={"solid"} lifted intent={"secondary"}>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted intent={"secondary"}>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted intent={"secondary"}>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted intent={"secondary"}>
+							Ghost
+						</Button>
+						<Button appearance={"solid"} lifted intent={"success"}>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted intent={"success"}>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted intent={"success"}>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted intent={"success"}>
+							Ghost
+						</Button>
+						<Button appearance={"solid"} lifted intent={"visited"}>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted intent={"visited"}>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted intent={"visited"}>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted intent={"visited"}>
+							Ghost
+						</Button>
+						<Button appearance={"solid"} lifted intent={"warning"}>
+							Solid
+						</Button>
+						<Button appearance={"subtle"} lifted intent={"warning"}>
+							Subtle
+						</Button>
+						<Button appearance={"outline"} lifted intent={"warning"}>
+							Outline
+						</Button>
+						<Button appearance={"ghost"} lifted intent={"warning"}>
+							Ghost
+						</Button>
+								</div>
 				</div>
-			</div>
 			<div>
 				<h3 className="text-5d font-11d">Shape</h3>
 				<div className="flex flex-wrap gap-16d items-start">

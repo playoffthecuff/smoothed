@@ -6,6 +6,7 @@ import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { DislikeIcon } from "@/components/ui/icons/dislike";
 import { HeartIcon } from "@/components/ui/icons/heart";
 import { LikeIcon } from "@/components/ui/icons/like";
+import { SmartphoneIcon } from "@/components/ui/icons/smartphone";
 
 export default function TogglePage() {
 	const [pressed, setPressed] = useState(true);
@@ -17,7 +18,7 @@ export default function TogglePage() {
 				<p>A user-activated, toggleable interactive component.</p>
 			</div>
 			<div className="relative">
-				<h2 className="text-6d font-11d">Installation</h2>
+				<h2 className="text-7d font-11d">Installation</h2>
 				<HighlightedCode
 					code="bunx @playoffthecuff/s-line@latest add toggle"
 					language="yaml"
@@ -64,10 +65,18 @@ export default function TogglePage() {
 				<h3 className="text-5d font-11d">Toggle Effect</h3>
 				<div className="flex flex-wrap gap-16d items-center">
 					<div className="flex gap-10d items-center">
-						<Toggle size={"m"} onPressedChange={handlePress} effect={undefined}>
+						<Toggle size={"m"} onPressedChange={handlePress} effect={undefined} pressed={pressed}>
 							{pressed ? <LikeIcon /> : <DislikeIcon />}
 						</Toggle>
 						None
+					</div>
+					<div className="flex gap-10d items-center">
+						<div className="flex">
+							<Toggle size={"m"} onPressedChange={handlePress} effect={"bgColor"} appearance={"outline"} pressed={pressed}>
+								<SmartphoneIcon />
+							</Toggle>
+						</div>
+						BgColor
 					</div>
 					<div className="flex gap-10d items-center">
 						<Toggle

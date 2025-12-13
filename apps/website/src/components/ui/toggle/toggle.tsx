@@ -43,11 +43,11 @@ const buttonVariants = cva(
 			},
 			disabled: {
 				false: null,
-				true: "saturate-50 opacity-50 pointer-events-none",
+				true: "saturate-75 opacity-50 pointer-events-none",
 			},
 			loading: {
 				false: null,
-				true: "saturate-50 opacity-50 pointer-events-none",
+				true: "saturate-75 opacity-50 pointer-events-none",
 			},
 			effect: {
 				fill: "[&[data-pressed]>svg]:fill-current",
@@ -59,7 +59,7 @@ const buttonVariants = cva(
 				appearance: ["outline", "solid", "subtle", "ghost", "text"],
 				lifted: true,
 				className:
-					"shadow-lifted-neutral hover:shadow-lifted-neutral-hover active:shadow-lifted-neutral-active",
+					"shadow-lifted",
 			},
 			{
 				appearance: "solid",
@@ -70,6 +70,7 @@ const buttonVariants = cva(
 			{
 				appearance: "subtle",
 				intent: "primary",
+				lifted: false,
 				className: [
 					"text-primary surface-primary",
 					"hover:bg-primary-500/17d focus-visible:bg-primary-500/17d active:bg-primary-500/11d",
@@ -77,23 +78,65 @@ const buttonVariants = cva(
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "primary",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-primary-500/23d dark:data-[pressed]:bg-primary-500/14d"
+				]
+			},
+			{
+				intent: "primary",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					"text-primary surface-primary",
+					"hover:bg-primary-500/29d focus-visible:bg-primary-500/29d active:bg-primary-500/20d",
+					"dark:hover:bg-primary-500/8d dark:focus-visible:bg-primary-500/8d dark:active:bg-primary-500/20d",
+				],
+			},
+			{
+				intent: "primary",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-primary",
-					"hover:bg-primary-500/25d active:bg-primary-500/17d focus-visible:bg-primary-500/25d",
+					"hover:bg-primary-500/23d active:bg-primary-500/17d focus-visible:bg-primary-500/23d",
 					"border-primary-600",
 					"dark:hover:bg-primary-500/14d dark:active:bg-primary-500/8d dark:focus-visible:bg-primary-500/14d",
 					"dark:border-primary-250 dark:hover:border-primary-250/50 dark:active:border-primary-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "primary",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-primary",
-					"hover:bg-primary-500/25d active:bg-primary-500/17d focus-visible:bg-primary-500/25d",
+					"hover:bg-primary-500/29d active:bg-primary-500/20d focus-visible:bg-primary-500/29d",
+					"border-primary-600",
+					"dark:hover:bg-primary-500/14d dark:active:bg-primary-500/20d dark:focus-visible:bg-primary-500/14d",
+					"dark:border-primary-250 dark:hover:border-primary-250/50 dark:active:border-primary-250/25",
+				],
+			},
+			{
+				appearance: "ghost",
+				intent: "primary",
+				lifted: false,
+				className: [
+					"text-primary",
+					"hover:bg-primary-500/23d active:bg-primary-500/17d focus-visible:bg-primary-500/23d",
 					"dark:hover:bg-primary-500/14d dark:active:bg-primary-500/8d dark:focus-visible:bg-primary-500/14d",
+				],
+			},
+			{
+				appearance: "ghost",
+				intent: "primary",
+				lifted: true,
+				className: [
+					"text-primary",
+					"hover:bg-primary-500/29d active:bg-primary-500/20d focus-visible:bg-primary-500/29d",
+					"dark:hover:bg-primary-500/14d dark:active:bg-primary-500/20d dark:focus-visible:bg-primary-500/14d",
 				],
 			},
 			{
@@ -109,8 +152,9 @@ const buttonVariants = cva(
 					"text-neutral-light bg-error-500 hover:bg-error-500|10l focus-visible:bg-error-500|10l active:bg-error-500|-5l",
 			},
 			{
-				appearance: "subtle",
 				intent: "destructive",
+				appearance: "subtle",
+				lifted: false,
 				className: [
 					"text-error surface-error",
 					"hover:bg-error-500/17d focus-visible:bg-error-500/17d active:bg-error-500/11d",
@@ -118,23 +162,65 @@ const buttonVariants = cva(
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "destructive",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					"text-error surface-error",
+					"hover:bg-error-500/29d focus-visible:bg-error-500/29d active:bg-error-500/20d",
+					"dark:hover:bg-error-500/14d dark:focus-visible:bg-error-500/14d dark:active:bg-error-500/20d",
+				],
+			},
+			{
+				intent: "destructive",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-error-500/23d dark:data-[pressed]:bg-error-500/14d"
+				]
+			},
+			{
+				intent: "destructive",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-error",
-					"hover:bg-error-500/25d active:bg-error-500/17d focus-visible:bg-error-500/25d",
+					"hover:bg-error-500/23d active:bg-error-500/17d focus-visible:bg-error-500/23d",
 					"border-error-600",
 					"dark:hover:bg-error-500/14d dark:active:bg-error-500/8d dark:focus-visible:bg-error-500/14d",
 					"dark:border-error-250 dark:hover:border-error-250/50 active:hover:border-error-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "destructive",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-error",
-					"hover:bg-error-500/25d active:bg-error-500/17d focus-visible:bg-error-500/25d",
+					"hover:bg-error-500/29d active:bg-error-500/20d focus-visible:bg-error-500/29d",
+					"border-error-600",
+					"dark:hover:bg-error-500/14d dark:active:bg-error-500/20d dark:focus-visible:bg-error-500/14d",
+					"dark:border-error-250 dark:hover:border-error-250/50 active:hover:border-error-250/25",
+				],
+			},
+			{
+				intent: "destructive",
+				appearance: "ghost",
+				lifted: false,
+				className: [
+					"text-error",
+					"hover:bg-error-500/23d active:bg-error-500/17d focus-visible:bg-error-500/23d",
 					"dark:hover:bg-error-500/14d dark:active:bg-error-500/8d dark:focus-visible:bg-error-500/14d",
+				],
+			},
+			{
+				intent: "destructive",
+				appearance: "ghost",
+				lifted: true,
+				className: [
+					"text-error",
+					"hover:bg-error-500/29d active:bg-error-500/20d focus-visible:bg-error-500/29d",
+					"dark:hover:bg-error-500/14d dark:active:bg-error-500/20d dark:focus-visible:bg-error-500/14d",
 				],
 			},
 			{
@@ -150,8 +236,9 @@ const buttonVariants = cva(
 					"text-neutral-light bg-visited-500 hover:bg-visited-500|10l focus-visible:bg-visited-500|10l active:bg-visited-500|-5l",
 			},
 			{
-				appearance: "subtle",
 				intent: "visited",
+				appearance: "subtle",
+				lifted: false,
 				className: [
 					[
 						"text-visited surface-visited",
@@ -161,23 +248,67 @@ const buttonVariants = cva(
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "visited",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					[
+						"text-visited surface-visited",
+						"hover:bg-visited-500/29d focus-visible:bg-visited-500/29d active:bg-visited-500/20d",
+						"dark:hover:bg-visited-500/8d dark:focus-visible:bg-visited-500/8d dark:active:bg-visited-500/20d",
+					],
+				],
+			},
+			{
+				intent: "visited",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-visited-500/23d dark:data-[pressed]:bg-visited-500/14d"
+				]
+			},
+			{
+				intent: "visited",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-visited",
-					"hover:bg-visited-500/25d active:bg-visited-500/17d focus-visible:bg-visited-500/25d",
+					"hover:bg-visited-500/23d active:bg-visited-500/17d focus-visible:bg-visited-500/23d",
 					"border-visited-600",
 					"dark:hover:bg-visited-500/14d dark:active:bg-visited-500/8d dark:focus-visible:bg-visited-500/14d",
 					"dark:border-visited-250 dark:hover:border-visited-250/50 active:hover:border-visited-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "visited",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-visited",
-					"hover:bg-visited-500/25d active:bg-visited-500/17d focus-visible:bg-visited-500/25d",
+					"hover:bg-visited-500/29d active:bg-visited-500/20d focus-visible:bg-visited-500/29d",
+					"border-visited-600",
+					"dark:hover:bg-visited-500/14d dark:active:bg-visited-500/20d dark:focus-visible:bg-visited-500/14d",
+					"dark:border-visited-250 dark:hover:border-visited-250/50 active:hover:border-visited-250/25",
+				],
+			},
+			{
+				intent: "visited",
+				appearance: "ghost",
+				lifted: false,
+				className: [
+					"text-visited",
+					"hover:bg-visited-500/23d active:bg-visited-500/17d focus-visible:bg-visited-500/23d",
 					"dark:hover:bg-visited-500/14d dark:active:bg-visited-500/8d dark:focus-visible:bg-visited-500/14d",
+				],
+			},
+			{
+				intent: "visited",
+				appearance: "ghost",
+				lifted: true,
+				className: [
+					"text-visited",
+					"hover:bg-visited-500/29d active:bg-visited-500/20d focus-visible:bg-visited-500/29d",
+					"dark:hover:bg-visited-500/14d dark:active:bg-visited-500/20d dark:focus-visible:bg-visited-500/14d",
 				],
 			},
 			{
@@ -193,8 +324,9 @@ const buttonVariants = cva(
 					"text-neutral-dark bg-warning-300 hover:bg-warning-300|10l focus-visible:bg-warning-300|10l active:bg-warning-300|-5l",
 			},
 			{
-				appearance: "subtle",
 				intent: "warning",
+				appearance: "subtle",
+				lifted: false,
 				className: [
 					"text-warning surface-warning",
 					"hover:bg-warning-500/17d focus-visible:bg-warning-500/17d active:bg-warning-500/11d",
@@ -202,24 +334,71 @@ const buttonVariants = cva(
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "warning",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					"text-warning surface-warning",
+					"hover:bg-warning-500/29d focus-visible:bg-warning-500/29d active:bg-warning-500/20d",
+					"dark:hover:bg-warning-500/8d dark:focus-visible:bg-warning-500/8d dark:active:bg-warning-500/20d",
+				],
+			},
+			{
+				intent: "warning",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-warning-500/23d dark:data-[pressed]:bg-warning-500/14d"
+				]
+			},
+			{
+				intent: "warning",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-warning",
-					"hover:bg-warning-500/25d active:bg-warning-500/17d focus-visible:bg-warning-500/25d",
+					"hover:bg-warning-500/23d active:bg-warning-500/17d focus-visible:bg-warning-500/23d",
 					"border-warning-600",
 					"dark:hover:bg-warning-500/14d dark:active:bg-warning-500/8d dark:focus-visible:bg-warning-500/14d",
 					"dark:border-warning-250 dark:hover:border-warning-250/50 dark:active:border-warning-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "warning",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-warning",
-					"hover:bg-warning-500/25d active:bg-warning-500/17d focus-visible:bg-warning-500/25d",
+					"hover:bg-warning-500/29d active:bg-warning-500/20d focus-visible:bg-warning-500/29d",
+					"border-warning-600",
+					"dark:hover:bg-warning-500/14d dark:active:bg-warning-500/20d dark:focus-visible:bg-warning-500/14d",
+					"dark:border-warning-250 dark:hover:border-warning-250/50 dark:active:border-warning-250/25",
+				],
+			},
+			{
+				intent: "warning",
+				appearance: "ghost",
+				lifted: false,
+				className: [
+					"text-warning",
+					"hover:bg-warning-500/23d active:bg-warning-500/17d focus-visible:bg-warning-500/23d",
 					"dark:hover:bg-warning-500/14d dark:active:bg-warning-500/8d dark:focus-visible:bg-warning-500/14d",
 				],
+			},
+			{
+				intent: "warning",
+				appearance: "ghost",
+				lifted: true,
+				className: [
+					"text-warning",
+					"hover:bg-warning-500/29d active:bg-warning-500/20d focus-visible:bg-warning-500/29d",
+					"dark:hover:bg-warning-500/14d dark:active:bg-warning-500/20d dark:focus-visible:bg-warning-500/14d",
+				],
+			},
+			{
+				appearance: "text",
+				intent: "warning",
+				className: ["text-warning"],
 			},
 
 			{
@@ -229,32 +408,75 @@ const buttonVariants = cva(
 					"text-neutral-dark bg-success-350 hover:bg-success-350|10l focus-visible:bg-success-350|10l active:bg-success-350|-5l",
 			},
 			{
-				appearance: "subtle",
 				intent: "success",
+				appearance: "subtle",
+				lifted: false,
 				className: [
-					"text-success surface-neutral",
+					"text-success surface-success",
 					"hover:bg-success-500/17d focus-visible:bg-success-500/17d active:bg-success-500/11d",
-					"dark:bg-success-500/14d dark:hover:bg-success-500/8d dark:focus-visible:bg-success-500/8d dark:active:bg-success-500/5d",
+					"dark:hover:bg-success-500/8d dark:focus-visible:bg-success-500/8d dark:active:bg-success-500/5d",
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "success",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					"text-success surface-success",
+					"hover:bg-success-500/29d focus-visible:bg-success-500/29d active:bg-success-500/20d",
+					"dark:hover:bg-success-500/8d dark:focus-visible:bg-success-500/8d dark:active:bg-success-500/20d",
+				],
+			},
+			{
+				intent: "success",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-success-500/23d dark:data-[pressed]:bg-success-500/14d"
+				]
+			},
+			{
+				intent: "success",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-success",
-					"hover:bg-success-500/25d active:bg-success-500/17d focus-visible:bg-success-500/17d",
+					"hover:bg-success-500/23d active:bg-success-500/17d focus-visible:bg-success-500/17d",
 					"border-success-600",
 					"dark:hover:bg-success-500/14d dark:active:bg-success-500/8d dark:focus-visible:bg-success-500/8d",
 					"dark:border-success-250 dark:hover:border-success-250/50 dark:active:border-success-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "success",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-success",
-					"hover:bg-success-500/25d active:bg-success-500/25d focus-visible:bg-success-500/17d",
+					"hover:bg-success-500/29d active:bg-success-500/20d focus-visible:bg-success-500/29d",
+					"border-success-600",
+					"dark:hover:bg-success-500/14d dark:active:bg-success-500/14d dark:focus-visible:bg-success-500/20d",
+					"dark:border-success-250 dark:hover:border-success-250/50 dark:active:border-success-250/25",
+				],
+			},
+			{
+				intent: "success",
+				appearance: "ghost",
+				lifted: false,
+				className: [
+					"text-success",
+					"hover:bg-success-500/23d active:bg-success-500/23d focus-visible:bg-success-500/17d",
 					"dark:hover:bg-success-500/14d dark:active:bg-success-500/8d dark:focus-visible:bg-success-500/14d",
+				],
+			},
+			{
+				intent: "success",
+				appearance: "ghost",
+				lifted: true,
+				className: [
+					"text-success",
+					"hover:bg-success-500/29d active:bg-success-500/29d focus-visible:bg-success-500/20d",
+					"dark:hover:bg-success-500/14d dark:active:bg-success-500/20d dark:focus-visible:bg-success-500/14d",
 				],
 			},
 			{
@@ -270,8 +492,9 @@ const buttonVariants = cva(
 					"text-neutral-light bg-neutral-500 hover:bg-neutral-500|10l focus-visible:bg-neutral-500|10l active:bg-neutral-500|-5l",
 			},
 			{
-				appearance: "subtle",
 				intent: "secondary",
+				appearance: "subtle",
+				lifted: false,
 				className: [
 					"text-muted surface-neutral",
 					"hover:bg-neutral-500/17d focus-visible:bg-neutral-500/17d active:bg-neutral-500/11d",
@@ -279,23 +502,65 @@ const buttonVariants = cva(
 				],
 			},
 			{
-				appearance: "outline",
 				intent: "secondary",
+				appearance: "subtle",
+				lifted: true,
+				className: [
+					"text-muted surface-neutral",
+					"hover:bg-neutral-500/29d focus-visible:bg-neutral-500/29d active:bg-neutral-500/20d",
+					"dark:hover:bg-neutral-500/8d dark:focus-visible:bg-neutral-500/8d dark:active:bg-neutral-500/20d",
+				],
+			},
+						{
+				intent: "secondary",
+				appearance: "outline",
+				effect: "bgColor",
+				className: [
+					"data-[pressed]:bg-neutral-500/23d dark:data-[pressed]:bg-neutral-500/14d"
+				]
+			},
+			{
+				intent: "secondary",
+				appearance: "outline",
+				lifted: false,
 				className: [
 					"text-muted",
-					"hover:bg-neutral-500/25d active:bg-neutral-500/17d focus-visible:bg-neutral-500/17d",
+					"hover:bg-neutral-500/23d active:bg-neutral-500/17d focus-visible:bg-neutral-500/17d",
 					"border-neutral-600",
 					"dark:hover:bg-neutral-500/14d dark:active:bg-neutral-500/8d dark:focus-visible:bg-neutral-500/5d",
 					"dark:border-neutral-250 dark:hover:border-neutral-250/50 dark:active:border-neutral-250/25",
 				],
 			},
 			{
-				appearance: "ghost",
 				intent: "secondary",
+				appearance: "outline",
+				lifted: true,
 				className: [
 					"text-muted",
-					"hover:bg-neutral-500/25d active:bg-neutral-500/17d focus-visible:bg-neutral-500/25d",
+					"hover:bg-neutral-500/29d active:bg-neutral-500/20d focus-visible:bg-neutral-500/29d",
+					"border-neutral-600",
+					"dark:hover:bg-neutral-500/14d dark:active:bg-neutral-500/20d dark:focus-visible:bg-neutral-500/14d",
+					"dark:border-neutral-250 dark:hover:border-neutral-250/50 dark:active:border-neutral-250/25",
+				],
+			},
+			{
+				intent: "secondary",
+				appearance: "ghost",
+				lifted: false,
+				className: [
+					"text-muted",
+					"hover:bg-neutral-500/23d active:bg-neutral-500/17d focus-visible:bg-neutral-500/23d",
 					"dark:hover:bg-neutral-500/14d dark:active:bg-neutral-500/8d dark:focus-visible:bg-neutral-500/14d",
+				],
+			},
+			{
+				intent: "secondary",
+				appearance: "ghost",
+				lifted: true,
+				className: [
+					"text-muted",
+					"hover:bg-neutral-500/29d active:bg-neutral-500/20d focus-visible:bg-neutral-500/29d",
+					"dark:hover:bg-neutral-500/14d dark:active:bg-neutral-500/14d dark:focus-visible:bg-neutral-500/20d",
 				],
 			},
 			{
@@ -309,6 +574,9 @@ const buttonVariants = cva(
 			size: "m",
 			shape: "rounded",
 			appearance: "solid",
+			lifted: false,
+			disabled: false,
+			loading: false,
 		},
 	},
 );

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button/button";
 import Link from "next/link";
 
 export default function Home() {
@@ -15,6 +16,22 @@ export default function Home() {
 				<Link href="/components" className="underline text-primary">
 					Components
 				</Link>	
+			</div>
+			<div className="p-16d bg-neutral-1 rounded-12d shadow-4d flex gap-16d"> 
+				<Button intent={"secondary"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"primary"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"destructive"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"success"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"warning"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"visited"} appearance={"subtle"} lifted>OK</Button>
+			</div>
+			<div className="p-16d bg-neutral rounded-12d flex gap-16d"> 
+				<Button intent={"secondary"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"primary"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"destructive"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"success"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"warning"} appearance={"subtle"} lifted>OK</Button>
+				<Button intent={"visited"} appearance={"subtle"} lifted>OK</Button>
 			</div>
 		</div>
 	);
