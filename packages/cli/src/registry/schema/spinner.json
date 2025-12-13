@@ -1,0 +1,6 @@
+{
+	"$schema": "https://s3-line.vercel.app/item-schema.json",
+	"files":[{"path": "icons/spinner.tsx"}],
+	"name":"spinner",
+	"type":"component"
+}

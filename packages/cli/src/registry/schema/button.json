@@ -4,6 +4,5 @@
 	"name":"button",
 	"type":"component",
 	"dependencies":["clsx", "class-variance-authority"],
-	"description":"",
-	"registryDependencies":["use-wave-animate.json"]
+	"registryDependencies":["use-wave-animate.json", "spinner.json"]
 }
