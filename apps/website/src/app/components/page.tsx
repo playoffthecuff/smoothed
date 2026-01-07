@@ -1,25 +1,27 @@
-import Link from "next/link";
+import { Link } from "@/components/ui/link/link";
+import { Title } from "@/components/ui/typography/title";
 
 export default function ComponentsPage() {
 	return (
-		<main className="flex gap-16d">
-			{/* <div
-				className="flex flex-col gap-8d min-w-100 sticky top-12 overflow-x-hidden overflow-y-auto bg-neutral-2"
-				style={{
-					height: "calc(100dvh - 3rem)",
-				}}
-			></div> */}
-			<div className="p-16d flex gap-16d self-start flex-col w-full max-w-200 mx-auto overflow-x-auto">
-				<h1 className="text-8d font-11d">
-					Components
-				</h1>
-				<Link href={"/components/button"} className="underline text-primary">
-					Button
-				</Link>
-				<Link href={"/components/toggle"} className="underline text-primary">
-					Toggle
-				</Link>
-			</div>
-		</main>
+		<div
+			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex gap-10d self-start flex-col w-full overflow-x-auto grow"
+			style={{ width: "clamp(320px, 100%, 800px)" }}
+		>
+			<Title>Components</Title>
+			<Link href={"/components/button"}>Button</Link>
+			<Link href={"/components/toggle"}>Toggle</Link>
+			<Link href={"/components/text-input"}>Text Input</Link>
+			<Link href={"/components/number-input"}>Number Input</Link>
+			<Link href={"/components/intent-message"}>Intent Message</Link>
+			<Link href={"/components/label"}>Label</Link>
+			<Link href={"/components/select"}>Select</Link>
+			<Link href={"/components/checkbox"}>Checkbox</Link>
+			<Link href={"/components/slider"}>Slider</Link>
+			<Link href={"/components/text-field"}>Text Field</Link>
+			<Link href={"/components/number-field"}>Number Field</Link>
+			<Link href={"/components/checkbox-field"}>Checkbox Field</Link>
+			<Link href={"/components/select-field"}>Select Field</Link>
+			<Link href={"/components/slider-field"}>Slider Field</Link>
+		</div>
 	);
 }
