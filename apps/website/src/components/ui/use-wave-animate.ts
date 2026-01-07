@@ -5,24 +5,24 @@ import {
 	useRef,
 } from "react";
 
-interface Props {
-	onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
-	onKeyUp?: KeyboardEventHandler<HTMLButtonElement>;
-	onMouseDown?: MouseEventHandler<HTMLButtonElement>;
-	onMouseUp?: MouseEventHandler<HTMLButtonElement>;
+interface Props<T extends HTMLElement> {
+	onKeyDown?: KeyboardEventHandler<T>;
+	onKeyUp?: KeyboardEventHandler<T>;
+	onMouseDown?: MouseEventHandler<T>;
+	onMouseUp?: MouseEventHandler<T>;
 	disabled?: boolean;
 	animateClassName: string;
 }
 
-export const useWaveAnimate = ({
+export const useWaveAnimate = <T extends HTMLElement>({
 	onKeyDown,
 	onKeyUp,
 	onMouseDown,
 	onMouseUp,
 	disabled,
 	animateClassName,
-}: Props) => {
-	const ref = useRef<HTMLButtonElement>(null);
+}: Props<T>) => {
+	const ref = useRef<T>(null);
 	const animate = () => {
 		const el = ref.current;
 		if (el) {
@@ -36,11 +36,11 @@ export const useWaveAnimate = ({
 		}
 	};
 	const r: {
-		ref?: RefObject<HTMLButtonElement | null>;
-		onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
-		onKeyUp?: KeyboardEventHandler<HTMLButtonElement>;
-		onMouseDown?: MouseEventHandler<HTMLButtonElement>;
-		onMouseUp?: MouseEventHandler<HTMLButtonElement>;
+		ref?: RefObject<T | null>;
+		onKeyDown?: KeyboardEventHandler<T>;
+		onKeyUp?: KeyboardEventHandler<T>;
+		onMouseDown?: MouseEventHandler<T>;
+		onMouseUp?: MouseEventHandler<T>;
 	} = {};
 	if (!disabled) {
 		r.ref = ref;
