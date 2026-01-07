@@ -24,18 +24,18 @@ const SURFACE_CONFIG = {
 	THRESHOLD_TEXT_LIGHTNESS: 600,
 	LIGHT_BG_DELTA_LIGHTNESS: 20,
 	DARK_BG_DELTA_LIGHTNESS: 32,
-	LIGHT_TEXT_DELTA_LIGHTNESS: 36,
-	DARK_TEXT_DELTA_LIGHTNESS: 24,
+	LIGHT_TEXT_DELTA_LIGHTNESS: 24,
+	DARK_TEXT_DELTA_LIGHTNESS: 16,
 	MIN_LIGHT_TEXT_LIGHTNESS: 400,
 	MAX_DARK_TEXT_LIGHTNESS: 750,
 	MAX_LIGHT_TRANSPARENCY: 20,
 	MIN_LIGHT_TRANSPARENCY: 10,
 	MAX_DARK_TRANSPARENCY: 32,
 	MIN_DARK_TRANSPARENCY: 20,
+	MIN_SPECTRAL_CHROMA: 150,
 	MUTED_BORDER_TRANSPARENCY: 50,
-	HOVER_TRANSPARENCY_K: 1.8,
-	ACTIVE_TRANSPARENCY_K: 2.5,
-	BG_DELTA_LIGHTNESS_K: 1.8,
+	INTERACTIVE_TRANSPARENCY_K: 1.8,
+	BG_DELTA_LIGHTNESS_K: 0.868,
 } as const;
 
 export default defineConfig({
@@ -50,26 +50,36 @@ export default defineConfig({
 			};
 		},
 		(matcher) => {
-			const re = /^.+-\d{1,3}d\|l(?:(-|\+))?(\d{1,2})$/;
+			const re = /^.+-\d{1,3}d\|l(-|\+)(\d{1,2})(?:\/(\d{1,2}))?$/;
 			if (!re.test(matcher)) return matcher;
-			const [, sign, value] = matcher.match(re) ?? [];
+			const [, sign, value, alpha] = matcher.match(re) ?? [];
 			return {
 				body: ([entry]) => {
 					const lch = parseCSS(`${entry[1]}`, "oklch");
 					const k = (lch.l - 0.5) * 2;
 					const direction = sign === "+" ? 1 : -1;
-					const multiplier = 2 ** (k * direction);
-					const normalizedValue = +value * multiplier;
-					return [[entry[0], `color-mix(in oklch, ${entry[1]}, ${sign === '-' ? "#000" : "#fff"} ${normalizedValue}%)`]];
+					const color = formatCSS({l: lch.l, h: lch.h, c: lch.c}, {format: "oklch", alpha: alpha ? +alpha / 100 : 1});
+					const signMultiplier = 2 ** (k * direction);
+					const lightnessMultiplier = (2 - lch.l) ** 1.5;
+					const normalizedValue = +value * signMultiplier * lightnessMultiplier;
+					return [[entry[0], `color-mix(in oklch, ${color}, ${sign === '-' ? "#000" : "#fff"} ${normalizedValue}%)`]];
 				}
 			};
 		},
 		(matcher) => {
-			const re = /^.+-\d{1,3}d\|h(?:(-|\+))?(\d{1,3})$/;
+			const re = /^.+-\d{1,3}d\|h(-|\+)(\d{1,3})$/;
 			if (!re.test(matcher)) return matcher;
 			const [, sign, value] = matcher.match(re) ?? [];
 			return {
 				body: ([entry]) => [[entry[0], `oklch(from ${entry[1]} l c calc(h ${sign} ${value}))`]]
+			};
+		},
+		(matcher) => {
+			const re = /^.+-\d{1,3}d\|c=(\d{1,3})(?:\/(\d{1,2}))?$/;
+			if (!re.test(matcher)) return matcher;
+			const [, value, alpha] = matcher.match(re) ?? [];
+			return {
+				body: ([entry]) => [[entry[0], `oklch(from ${entry[1]} l ${+value / 1000} h / ${alpha ?? 100}%)`]]
 			};
 		},
 	],
@@ -147,8 +157,8 @@ export default defineConfig({
 	shortcuts: [
 		{
 			"border-muted": "border-foreground-700d dark:border-foreground-450d",
-			"shadow-lifted":
-				"shadow-l-4d hover:shadow-l-5d active:shadow-l-1d dark:shadow-d-4d dark:hover:shadow-d-5d dark:active:shadow-d-1d",
+			"shadow-lifted-ia":
+				"shadow-l-4d hover:shadow-l-6d active:shadow-l-2d dark:shadow-d-4d dark:hover:shadow-d-6d dark:active:shadow-d-2d",
 		},
 		[/^border-([a-z]+)$/, ([_, value], { theme }) => {
 			const lightness = theme.colors?.[`${value}-lightness`];
@@ -160,10 +170,10 @@ export default defineConfig({
 			return `border-${value}-d${isSwapped ? ` dark:border-${value}-${swappedLightness}d` : ''}`;
 		},],
 		[/^size-(\d+)d$/, ([_, value]) => `w-${value}d h-${value}d`,],
-		[/^shadow(?:-([a-z]+))?-(\d+)d$/, ([_, color, value], { theme }) => {
+		[/^shadow-lifted(?:-([a-z]+))?-(\d+)$/, ([_, color, value], { theme }) => {
 			color = color ? color : 'background';
 			if (!theme.colors?.[`${color}-hue`]) return;
-			return `shadow-l-${color}-${value}d dark:shadow-d-${color}-${value}d`;
+			return `shadow-l-${color}-${+value * 2}d dark:shadow-d-${color}-${+value * 2}d`;
 		},],
 		[/^ring(?:-([a-z]+))?-(\d+)d$/, ([_, color, value], { theme }) => {
 			color = color ? color : 'background';
@@ -219,158 +229,161 @@ export default defineConfig({
 
 			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
 		},],
-		[/^surface-([a-z]+)-solid(?:-(\d{1}))?(?:-(ia))?$/, ([_, color, variant, ia], { theme }) => {
+		[/^surface-([a-z]+)-solid(?:-(ia))?$/, ([_, color, ia], { theme }) => {
 			if (!theme.colors?.[`${color}-hue`]) return;
-			const { BG_DELTA_LIGHTNESS_K, DARK_BG_DELTA_LIGHTNESS, LIGHT_BG_DELTA_LIGHTNESS, MAX_LIGHTNESS, MAX_RANGE_LIGHTNESS, MIN_RANGE_LIGHTNESS, THRESHOLD_BG_LIGHTNESS, THRESHOLD_TEXT_LIGHTNESS } = SURFACE_CONFIG;
+			const { DARK_BG_DELTA_LIGHTNESS, LIGHT_BG_DELTA_LIGHTNESS, MAX_LIGHTNESS, MAX_RANGE_LIGHTNESS, MIN_RANGE_LIGHTNESS, THRESHOLD_BG_LIGHTNESS, THRESHOLD_TEXT_LIGHTNESS } = SURFACE_CONFIG;
 
 			const lightBgLightness = Math.max(+theme.colors?.[`${color}-lightness`] * MAX_LIGHTNESS, MAX_LIGHTNESS * LIGHT_BG_DELTA_LIGHTNESS / 100);
 			const isTextLightnessSwapped = lightBgLightness < THRESHOLD_TEXT_LIGHTNESS;
 			const lightTextLightness = isTextLightnessSwapped ? MAX_RANGE_LIGHTNESS : MIN_RANGE_LIGHTNESS;
-			const lightHoverSignBgDeltaLightness = lightBgLightness < THRESHOLD_TEXT_LIGHTNESS || variant === "1" ? "+" : "-";
-			const lightActiveSignBgDeltaLightness = variant === "1" ? "-" : lightHoverSignBgDeltaLightness;
-			const lightHoverBgDeltaLightness = LIGHT_BG_DELTA_LIGHTNESS;
-			const lightActiveBgDeltaLightness = Math.round(LIGHT_BG_DELTA_LIGHTNESS * (variant === "1" ? 1 : BG_DELTA_LIGHTNESS_K));
 			const lightBgColor = color;
 			const lightInteractiveBgColor = ia && lightBgColor;
 			const lightTextColor = "foreground";
+			const lightBgDeltaLightness = Math.round(LIGHT_BG_DELTA_LIGHTNESS / 1.5);
 
 			const darkBgLightness = lightBgLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS / 2) / 100 : lightBgLightness;
 			const darkTextLightness = isTextLightnessSwapped && MIN_RANGE_LIGHTNESS;
-			const darkHoverSignBgDeltaLightness = lightBgLightness > THRESHOLD_TEXT_LIGHTNESS || variant === "1" ? "+" : "-";
-			const darkActiveSignBgDeltaLightness = variant === "1" ? "-" : darkHoverSignBgDeltaLightness;
-			const darkHoverBgDeltaLightness = DARK_BG_DELTA_LIGHTNESS;
-			const darkActiveBgDeltaLightness = Math.round(DARK_BG_DELTA_LIGHTNESS * (BG_DELTA_LIGHTNESS_K * (variant === "1" ? 0.5 : 1)));
 			const darkBgColor = color === "foreground" && color;
 			const darkInteractiveBgColor = ia && darkBgColor;
 			const darkTextColor = color === "foreground" && "foreground";
+			const darkBgDeltaLightness = lightBgDeltaLightness;
 
 			const rules = {
 				"bg": [lightBgColor, `-${lightBgLightness}d`],
-				"hover:bg": [lightInteractiveBgColor, `-${lightBgLightness}d`, `|l${lightHoverSignBgDeltaLightness}${lightHoverBgDeltaLightness}`],
-				"active:bg": [lightInteractiveBgColor, `-${lightBgLightness}d`, `|l${lightActiveSignBgDeltaLightness}${lightActiveBgDeltaLightness}`],
+				"hover:bg": [lightInteractiveBgColor, `-${lightBgLightness}d`, `|l+${lightBgDeltaLightness}`],
+				"active:bg": [lightInteractiveBgColor, `-${lightBgLightness}d`, `|l-${lightBgDeltaLightness}`],
 				"text": [lightTextColor, `-${lightTextLightness}d`],
 				"dark:bg": [darkBgColor, `-${darkBgLightness}d`],
-				"dark:hover:bg": [darkInteractiveBgColor, `-${darkBgLightness}d`, `|l${darkHoverSignBgDeltaLightness}${darkHoverBgDeltaLightness}`],
-				"dark:active:bg": [darkInteractiveBgColor, `-${darkBgLightness}d`, `|l${darkActiveSignBgDeltaLightness}${darkActiveBgDeltaLightness}`],
+				"dark:hover:bg": [darkInteractiveBgColor, `-${darkBgLightness}d`, `|l+${darkBgDeltaLightness}`],
+				"dark:active:bg": [darkInteractiveBgColor, `-${darkBgLightness}d`, `|l-${darkBgDeltaLightness}`],
 				"dark:text": [darkTextColor, `-${darkTextLightness}d`],
 			};
 
 			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
 		},],
-		[/^surface-([a-z]+)-subtle(?:-(\d{1}))?(?:-(ia))?$/, ([_, color, variant, ia], { theme }) => {
+		[/^surface-([a-z]+)-subtle(?:-(ia))?$/, ([_, color, ia], { theme }) => {
 			if (!theme.colors?.[`${color}-hue`]) return;
-			const { ACTIVE_TRANSPARENCY_K, DARK_BG_DELTA_LIGHTNESS, HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS } = SURFACE_CONFIG;
+			const { DARK_BG_DELTA_LIGHTNESS, INTERACTIVE_TRANSPARENCY_K: HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS, MIN_SPECTRAL_CHROMA } = SURFACE_CONFIG;
+			const chroma = Math.round(+theme.colors?.[`${color}-chroma`] * MIN_SPECTRAL_CHROMA);
 
 			const interactiveBgColor = ia && color;
 
 			const lightBgLightness = Math.max(+theme.colors?.[`${color}-lightness`] * MAX_LIGHTNESS, MAX_LIGHTNESS * LIGHT_BG_DELTA_LIGHTNESS / 100);
 			const lightBgTransparency = Math.round(MIN_LIGHT_TRANSPARENCY + lightBgLightness * MAX_LIGHT_TRANSPARENCY / MAX_LIGHTNESS);
-			const lightColorTextLightness = Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightBgLightness);
-			const lightHoverBgTransparency = Math.round(lightBgTransparency * (variant === "1" ? 1 / HOVER_TRANSPARENCY_K : HOVER_TRANSPARENCY_K));
-			const lightActiveBgTransparency = Math.round(lightBgTransparency * (variant === "1" ? HOVER_TRANSPARENCY_K : ACTIVE_TRANSPARENCY_K));
+			const lightTextLightness = Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightBgLightness);
+			const lightHoverBgTransparency = Math.round(lightBgTransparency / HOVER_TRANSPARENCY_K);
+			const lightActiveBgTransparency = Math.round(lightBgTransparency * HOVER_TRANSPARENCY_K);
 
-			const darkBgLightness = lightBgLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS) / 100 : lightBgLightness;
+			const darkBgLightness = lightBgLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS / 2) / 100 : lightBgLightness;
 			const darkBgTransparency = Math.round(MAX_DARK_TRANSPARENCY - darkBgLightness * MIN_DARK_TRANSPARENCY / MAX_LIGHTNESS);
 			const darkTextLightness = Math.max(MAX_DARK_TEXT_LIGHTNESS, darkBgLightness || 0);
 			const darkHoverBgTransparency = Math.round(darkBgTransparency * HOVER_TRANSPARENCY_K);
-			const darkActiveBgTransparency = Math.round(darkBgTransparency * (variant === "1" ? 0.5 : ACTIVE_TRANSPARENCY_K));
+			const darkActiveBgTransparency = Math.round(darkBgTransparency * 0.5);
 
 			const rules = {
-				"bg": [color, `-${lightBgLightness}d`, `/${lightBgTransparency}`],
-				"hover:bg": [interactiveBgColor, `-${lightBgLightness}d`, `/${lightHoverBgTransparency}`],
-				"active:bg": [interactiveBgColor, `-${lightBgLightness}d`, `/${lightActiveBgTransparency}`],
-				"text": [color, `-${lightColorTextLightness}d`],
-				"dark:bg": [color, `-${darkBgLightness}d`, `/${darkBgTransparency}`],
-				"dark:hover:bg": [interactiveBgColor, `-${darkBgLightness}d`, `/${darkHoverBgTransparency}`],
-				"dark:active:bg": [interactiveBgColor, `-${darkBgLightness}d`, `/${darkActiveBgTransparency}`],
+				"bg": [color, `-${lightBgLightness}d`, `|c=${chroma}`, `/${lightBgTransparency}`],
+				"hover:bg": [interactiveBgColor, `-${lightBgLightness}d`, `|c=${chroma}`, `/${lightHoverBgTransparency}`],
+				"active:bg": [interactiveBgColor, `-${lightBgLightness}d`, `|c=${chroma}`, `/${lightActiveBgTransparency}`],
+				"text": [color, `-${lightTextLightness}d`],
+				"dark:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`, `/${darkBgTransparency}`],
+				"dark:hover:bg": [interactiveBgColor, `-${darkBgLightness}d`, `|c=${chroma}`, `/${darkHoverBgTransparency}`],
+				"dark:active:bg": [interactiveBgColor, `-${darkBgLightness}d`, `|c=${chroma}`, `/${darkActiveBgTransparency}`],
 				"dark:text": [color, `-${darkTextLightness}d`],
 			};
 
 			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
 		},],
-		[/^surface-([a-z]+)-outline(?:-(\d{1}))?(?:-(ia))?$/, ([_, color, variant, ia], { theme }) => {
+		[/^surface-([a-z]+)-outline(?:-(ia))?$/, ([_, color, ia], { theme }) => {
 			if (!theme.colors?.[`${color}-hue`]) return;
-			const { DARK_BG_DELTA_LIGHTNESS, HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_RANGE_LIGHTNESS, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, MUTED_BORDER_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS, MAX_RANGE_LIGHTNESS } = SURFACE_CONFIG;
-
+			const { BG_DELTA_LIGHTNESS_K, DARK_BG_DELTA_LIGHTNESS, INTERACTIVE_TRANSPARENCY_K: HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_RANGE_LIGHTNESS, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, MUTED_BORDER_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS, MAX_RANGE_LIGHTNESS, MIN_SPECTRAL_CHROMA } = SURFACE_CONFIG;
+			const chroma = Math.round(+theme.colors?.[`${color}-chroma`] * MIN_SPECTRAL_CHROMA / 3);
 			const interactiveBgColor = ia && color;
-			const pressedBgColor = variant === "2" && interactiveBgColor;
-			const borderTransparency = MUTED_BORDER_TRANSPARENCY * (variant === "1" ? 0.5 : 1);
+			const borderTransparency = MUTED_BORDER_TRANSPARENCY;
 
 			const lightBorderLightness = Math.max(+theme.colors?.[`${color}-lightness`] * MAX_LIGHTNESS, MAX_LIGHTNESS * LIGHT_BG_DELTA_LIGHTNESS / 100);
-			const lightInteractiveBgLightness = Math.max(lightBorderLightness, variant === "1" ? MAX_RANGE_LIGHTNESS : 0);
-			const lightActiveBgLightness = Math.round(lightInteractiveBgLightness * (variant === "1" ? 0.9 : 1));
-			const lightTextLightness = Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightInteractiveBgLightness);
-			const lightBaseBgTransparency = Math.round((MIN_LIGHT_TRANSPARENCY + lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY / MAX_LIGHTNESS) * (variant === "1" ? 2 : 1));
-			const lightHoverBgTransparency = variant === "2" ? 0 : lightBaseBgTransparency;
-			const lightActiveBgTransparency = Math.round(lightBaseBgTransparency * (variant === "2" ? 1 : HOVER_TRANSPARENCY_K));
-			const lightPressedBgTransparency = Math.round(lightBaseBgTransparency * HOVER_TRANSPARENCY_K);
+			const lightInteractiveBgLightness = MAX_RANGE_LIGHTNESS;
+			const lightActiveBgLightness = Math.round(lightInteractiveBgLightness * BG_DELTA_LIGHTNESS_K);
+			const lightTextLightness =  Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightBorderLightness);
+			const lightBaseBgTransparency = Math.round((MIN_LIGHT_TRANSPARENCY + lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY / MAX_LIGHTNESS) * 2);
+			const lightHoverBgTransparency = lightBaseBgTransparency;
 
-			const darkBorderLightness = lightBorderLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS) / 100 : lightBorderLightness;
-			const darkInteractiveBgLightness = Math.max(darkBorderLightness, !!variant ? MIN_RANGE_LIGHTNESS : 0);
+			const darkBorderLightness = lightBorderLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS / 2) / 100 : lightBorderLightness;
+			const darkInteractiveBgLightness = darkBorderLightness;
+			const darkHoverBgLightness = MAX_RANGE_LIGHTNESS;
+			const darkActiveBgLightness = MIN_RANGE_LIGHTNESS;
 			const darkBgLightness = darkInteractiveBgLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS) / 100 : darkInteractiveBgLightness;
 			const darkTextLightness = Math.max(MAX_DARK_TEXT_LIGHTNESS, darkBgLightness || 0);
-			const darkBaseBgTransparency = Math.round(MAX_DARK_TRANSPARENCY - darkBgLightness * MIN_DARK_TRANSPARENCY / MAX_LIGHTNESS);
-			const darkHoverBgTransparency = variant === "2" ? 0 : darkBaseBgTransparency;
-			const darkActiveBgTransparency = Math.round(darkBaseBgTransparency * (variant === "1" ? 1 / HOVER_TRANSPARENCY_K : variant === "2" ? 1 : HOVER_TRANSPARENCY_K));
-			const darkPressedBgTransparency = Math.round(darkBaseBgTransparency * HOVER_TRANSPARENCY_K);
+			const darkBaseBgTransparency = Math.round(MAX_DARK_TRANSPARENCY - darkHoverBgLightness * MIN_DARK_TRANSPARENCY / MAX_LIGHTNESS);
+			const darkHoverBgTransparency = darkBaseBgTransparency;
+			const darkActiveBgTransparency = Math.round(darkBaseBgTransparency * HOVER_TRANSPARENCY_K);
 
 			const rules = {
-				"hover:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `/${lightHoverBgTransparency}`],
-				"hover:data-[pressed]:bg": [pressedBgColor, `-${lightInteractiveBgLightness}d`, `/${lightPressedBgTransparency}`],
-				"active:bg": [interactiveBgColor, `-${lightActiveBgLightness}d`, `/${lightActiveBgTransparency}`],
-				"active:data-[pressed]:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `/${lightActiveBgTransparency}`],
-				"data-[pressed]:bg": [pressedBgColor, `-${lightInteractiveBgLightness}d`, `/${lightPressedBgTransparency}`],
+				"hover:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `|c=${chroma}`, `/${lightHoverBgTransparency}`],
+				"active:bg": [interactiveBgColor, `-${lightActiveBgLightness}d`, `|c=${chroma}`],
 				"text": [color, `-${lightTextLightness}d`],
 				"border": [color, `-${lightBorderLightness}d`, `/${borderTransparency}`],
-				"dark:hover:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkHoverBgTransparency}`],
-				"dark:hover:data-[pressed]:bg": [pressedBgColor, `-${darkInteractiveBgLightness}d`, `/${darkPressedBgTransparency}`],
-				"dark:active:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkActiveBgTransparency}`],
-				"dark:active:data-[pressed]:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkActiveBgTransparency}`],
-				"dark:data-[pressed]:bg": [pressedBgColor, `-${darkInteractiveBgLightness}d`, `/${darkPressedBgTransparency}`],
+				"dark:hover:bg": [interactiveBgColor, `-${darkHoverBgLightness}d`, `|c=${chroma}`, `/${darkHoverBgTransparency}`],
+				"dark:active:bg": [interactiveBgColor, `-${darkActiveBgLightness}d`, `|c=${chroma}`, `/${darkActiveBgTransparency}`],
 				"dark:text": [color, `-${darkTextLightness}d`],
 				"dark:border": [color, `-${darkBgLightness}d`, `/${borderTransparency}`],
 			};
 
 			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
 		},],
-		[/^surface-([a-z]+)-ghost(?:-(\d{1}))?(?:-(ia))?$/, ([_, color, variant, ia], { theme }) => {
+		[/^surface-([a-z]+)-ghost(?:-(ia))?$/, ([_, color, ia], { theme }) => {
 			if (!theme.colors?.[`${color}-hue`]) return;
-			const { DARK_BG_DELTA_LIGHTNESS, HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_RANGE_LIGHTNESS, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS, MAX_RANGE_LIGHTNESS } = SURFACE_CONFIG;
-
+			const { BG_DELTA_LIGHTNESS_K, DARK_BG_DELTA_LIGHTNESS, INTERACTIVE_TRANSPARENCY_K: HOVER_TRANSPARENCY_K, LIGHT_BG_DELTA_LIGHTNESS, MAX_DARK_TEXT_LIGHTNESS, MAX_DARK_TRANSPARENCY, MAX_LIGHTNESS, MAX_LIGHT_TRANSPARENCY, MIN_RANGE_LIGHTNESS, MIN_DARK_TRANSPARENCY, MIN_LIGHT_TEXT_LIGHTNESS, MIN_LIGHT_TRANSPARENCY, THRESHOLD_BG_LIGHTNESS, MAX_RANGE_LIGHTNESS, MIN_SPECTRAL_CHROMA } = SURFACE_CONFIG;
+			const chroma = Math.round(+theme.colors?.[`${color}-chroma`] * MIN_SPECTRAL_CHROMA / 3);
 			const interactiveBgColor = ia && color;
-			const pressedBgColor = variant === "2" && interactiveBgColor;
 
 			const lightBorderLightness = Math.max(+theme.colors?.[`${color}-lightness`] * MAX_LIGHTNESS, MAX_LIGHTNESS * LIGHT_BG_DELTA_LIGHTNESS / 100);
-			const lightInteractiveBgLightness = Math.max(lightBorderLightness, variant === "1" ? MAX_RANGE_LIGHTNESS : 0);
-			const lightActiveBgLightness = Math.round(lightInteractiveBgLightness * (variant === "1" ? 0.9 : 1));
-			const lightTextLightness = Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightInteractiveBgLightness);
-			const lightBaseBgTransparency = Math.round((MIN_LIGHT_TRANSPARENCY + lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY / MAX_LIGHTNESS) * (variant === "1" ? 2 : 1));
-			const lightHoverBgTransparency = variant === "2" ? 0 : lightBaseBgTransparency;
-			const lightActiveBgTransparency = Math.round(lightBaseBgTransparency * (variant === "2" ? 1 : HOVER_TRANSPARENCY_K));
-			const lightPressedBgTransparency = Math.round(lightBaseBgTransparency * HOVER_TRANSPARENCY_K);
+			const lightInteractiveBgLightness = MAX_RANGE_LIGHTNESS;
+			const lightActiveBgLightness = Math.round(lightInteractiveBgLightness * BG_DELTA_LIGHTNESS_K);
+			const lightTextLightness =  Math.min(MIN_LIGHT_TEXT_LIGHTNESS, lightBorderLightness);
+			const lightBaseBgTransparency = Math.round((MIN_LIGHT_TRANSPARENCY + lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY / MAX_LIGHTNESS) * 2);
+			const lightHoverBgTransparency = lightBaseBgTransparency;
 
-			const darkBorderLightness = lightBorderLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS) / 100 : lightBorderLightness;
-			const darkInteractiveBgLightness = Math.max(darkBorderLightness, variant === "1" ? MIN_RANGE_LIGHTNESS : 0);
+			const darkBorderLightness = lightBorderLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS / 2) / 100 : lightBorderLightness;
+			const darkInteractiveBgLightness = darkBorderLightness;
+			const darkHoverBgLightness = MAX_RANGE_LIGHTNESS;
+			const darkActiveBgLightness = MIN_RANGE_LIGHTNESS;
 			const darkBgLightness = darkInteractiveBgLightness <= THRESHOLD_BG_LIGHTNESS ? MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS) / 100 : darkInteractiveBgLightness;
 			const darkTextLightness = Math.max(MAX_DARK_TEXT_LIGHTNESS, darkBgLightness || 0);
-			const darkBaseBgTransparency = Math.round(MAX_DARK_TRANSPARENCY - darkBgLightness * MIN_DARK_TRANSPARENCY / MAX_LIGHTNESS);
-			const darkHoverBgTransparency = variant === "2" ? 0 : darkBaseBgTransparency;
-			const darkActiveBgTransparency = Math.round(darkBaseBgTransparency * (variant === "1" ? 1 / HOVER_TRANSPARENCY_K : variant === "2" ? 1 : HOVER_TRANSPARENCY_K));
-			const darkPressedBgTransparency = Math.round(darkBaseBgTransparency * HOVER_TRANSPARENCY_K);
+			const darkBaseBgTransparency = Math.round(MAX_DARK_TRANSPARENCY - darkHoverBgLightness * MIN_DARK_TRANSPARENCY / MAX_LIGHTNESS);
+			const darkHoverBgTransparency = darkBaseBgTransparency;
+			const darkActiveBgTransparency = Math.round(darkBaseBgTransparency * HOVER_TRANSPARENCY_K);
 
 			const rules = {
-				"hover:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `/${lightHoverBgTransparency}`],
-				"hover:data-[pressed]:bg": [pressedBgColor, `-${lightInteractiveBgLightness}d`, `/${lightPressedBgTransparency}`],
-				"active:bg": [interactiveBgColor, `-${lightActiveBgLightness}d`, `/${lightActiveBgTransparency}`],
-				"active:data-[pressed]:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `/${lightActiveBgTransparency}`],
-				"data-[pressed]:bg": [pressedBgColor, `-${lightInteractiveBgLightness}d`, `/${lightPressedBgTransparency}`],
+				"hover:bg": [interactiveBgColor, `-${lightInteractiveBgLightness}d`, `|c=${chroma}`, `/${lightHoverBgTransparency}`],
+				"active:bg": [interactiveBgColor, `-${lightActiveBgLightness}d`, `|c=${chroma}`],
 				"text": [color, `-${lightTextLightness}d`],
-				"dark:hover:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkHoverBgTransparency}`],
-				"dark:hover:data-[pressed]:bg": [pressedBgColor, `-${darkInteractiveBgLightness}d`, `/${darkPressedBgTransparency}`],
-				"dark:active:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkActiveBgTransparency}`],
-				"dark:active:data-[pressed]:bg": [interactiveBgColor, `-${darkInteractiveBgLightness}d`, `/${darkActiveBgTransparency}`],
-				"dark:data-[pressed]:bg": [pressedBgColor, `-${darkInteractiveBgLightness}d`, `/${darkPressedBgTransparency}`],
+				"dark:hover:bg": [interactiveBgColor, `-${darkHoverBgLightness}d`, `|c=${chroma}`, `/${darkHoverBgTransparency}`],
+				"dark:active:bg": [interactiveBgColor, `-${darkActiveBgLightness}d`, `|c=${chroma}`, `/${darkActiveBgTransparency}`],
 				"dark:text": [color, `-${darkTextLightness}d`],
+			};
+			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
+		},],
+		[/^surface-([a-z]+)-toggleable$/, ([_, color], { theme }) => {
+			if (!theme.colors?.[`${color}-hue`]) return;
+			const { MIN_RANGE_LIGHTNESS, MAX_RANGE_LIGHTNESS, MIN_SPECTRAL_CHROMA, BG_DELTA_LIGHTNESS_K } = SURFACE_CONFIG;
+			const chroma = Math.round(+theme.colors?.[`${color}-chroma`] * MIN_SPECTRAL_CHROMA / 3);
+			const k = BG_DELTA_LIGHTNESS_K ** 2;
+			const lightBgLightness = Math.round(MAX_RANGE_LIGHTNESS * k);
+			const activeTransparency = 50;
+
+			const darkBgLightness = Math.round(MIN_RANGE_LIGHTNESS / k);
+
+			const rules = {
+				"hover:data-[pressed]:bg": [color, `-${lightBgLightness}d`, `|c=${chroma}`],
+				"hover:not-[data-pressed]:bg": ['transparent'],
+				"[&&]-active:bg": [color, `-${lightBgLightness}d`,`|c=${chroma}`, `/${activeTransparency}`],
+				"hover:active:data-[pressed]:bg": [color, `-${lightBgLightness}d`,`|c=${chroma}`, `/${activeTransparency}`],
+				"data-[pressed]:bg": [color, `-${lightBgLightness}d`,`|c=${chroma}`],
+				"dark:hover:data-[pressed]:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`],
+				"dark:hover:not-[data-pressed]:bg": ['transparent'],
+				"[&&]-dark:active:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`, `/${activeTransparency}`],
+				"dark:hover:active:data-[pressed]:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`, `/${activeTransparency}`],
+				"dark:data-[pressed]:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`],
 			};
 			return Object.entries(rules).filter(([_, v]) => !!v[0]).map(([k, v]) => `${k}-${v.filter(Boolean).join("")}`).join(" ");
 		},],
