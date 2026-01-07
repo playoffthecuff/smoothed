@@ -1,25 +1,32 @@
 import { Button } from "@/components/ui/button/button";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { SparkleIcon } from "@/components/ui/icons/sparkle";
+import { Title } from "@/components/ui/typography/title";
 
 export default function ButtonPage() {
 	return (
-		<div className="max-w-200 mx-auto p-16d flex flex-col gap-16d">
+		<div
+			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex flex-col gap-16d grow [&&]-pb-20"
+			style={{
+				width: "clamp(320px, 100%, 800px)",
+			}}
+		>
 			<div>
-				<h1 className="text-8d font-11d">Button</h1>
+				<Title>Button</Title>
 				<p>Interactive component activated by a user.</p>
 			</div>
-			<div className="relative">
-				<h2 className="text-7d font-11d">Installation</h2>
+			<div>
+				<Title size={2}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/s3-line@latest add button"
 					language="yaml"
 					lineNumbers={false}
 				/>
 			</div>
-			<h2 className="text-7d font-11d -mb-2">Variants:</h2>
+			<hr className="mt-16d mb-12d" />
+			<Title size={2}>Variants:</Title>
 			<div>
-				<h3 className="text-5d font-11d">Size</h3>
+				<Title size={3}>Size</Title>
 				<div className="flex flex-wrap gap-16d items-center">
 					<Button size="s">Small - S</Button>
 					<Button>Default - M</Button>
@@ -27,22 +34,22 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<h3 className="text-5d font-11d">Aspect Ratio</h3>
+				<Title size={3}>Width</Title>
 				<div className="flex flex-wrap gap-16d items-center">
 					<div className="flex gap-10d items-center">
-						<Button aspect={"square"}>
+						<Button width={"narrow"}>
 							<SparkleIcon />
 						</Button>
-						<Button aspect={"square"}>Square</Button>
+						<Button width={"narrow"}>Square</Button>
 					</div>
 					<div className="flex gap-10d items-center">
-						<Button aspect={"normal"}>
+						<Button width={"normal"}>
 							<SparkleIcon />
 							<span>Normal</span>
 						</Button>
 					</div>
 					<div className="flex gap-10d items-center">
-						<Button aspect={"wide"}>
+						<Button width={"wide"}>
 							<SparkleIcon />
 							<span>Wide</span>
 						</Button>
@@ -50,8 +57,9 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<h3 className="text-5d font-11d">Intent</h3>
+				<Title size={3}>Intent</Title>
 				<div className="flex flex-wrap gap-16d items-start">
+					<Button intent={"neutral"}>Neutral</Button>
 					<Button intent={"primary"}>Primary</Button>
 					<Button intent={"secondary"}>Secondary</Button>
 					<Button intent={"visited"}>Visited</Button>
@@ -61,13 +69,28 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<h3 className="text-5d font-11d">Appearance</h3>
+				<Title size={3}>Appearance</Title>
 				<div className="grid grid-cols-[repeat(5,max-content)] w-fit gap-16d">
 					<Button appearance={"solid"}>Solid</Button>
 					<Button appearance={"subtle"}>Subtle</Button>
 					<Button appearance={"outline"}>Outline</Button>
 					<Button appearance={"ghost"}>Ghost</Button>
 					<Button appearance={"link"}>Link</Button>
+					<Button appearance={"solid"} intent={"primary"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} intent={"primary"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} intent={"primary"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} intent={"primary"}>
+						Ghost
+					</Button>
+					<Button appearance={"link"} intent={"primary"}>
+						Link
+					</Button>
 					<Button appearance={"solid"} intent={"destructive"}>
 						Solid
 					</Button>
@@ -145,85 +168,97 @@ export default function ButtonPage() {
 					</Button>
 				</div>
 			</div>
-				<div>
-					<h3 className="text-5d font-11d">Lifted</h3>
-					<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
-						<Button appearance={"solid"} lifted>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted>
-							Ghost
-						</Button>
-						<Button appearance={"solid"} lifted intent={"destructive"}>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted intent={"destructive"}>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted intent={"destructive"}>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted intent={"destructive"}>
-							Ghost
-						</Button>
-						<Button appearance={"solid"} lifted intent={"secondary"}>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted intent={"secondary"}>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted intent={"secondary"}>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted intent={"secondary"}>
-							Ghost
-						</Button>
-						<Button appearance={"solid"} lifted intent={"success"}>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted intent={"success"}>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted intent={"success"}>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted intent={"success"}>
-							Ghost
-						</Button>
-						<Button appearance={"solid"} lifted intent={"visited"}>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted intent={"visited"}>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted intent={"visited"}>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted intent={"visited"}>
-							Ghost
-						</Button>
-						<Button appearance={"solid"} lifted intent={"warning"}>
-							Solid
-						</Button>
-						<Button appearance={"subtle"} lifted intent={"warning"}>
-							Subtle
-						</Button>
-						<Button appearance={"outline"} lifted intent={"warning"}>
-							Outline
-						</Button>
-						<Button appearance={"ghost"} lifted intent={"warning"}>
-							Ghost
-						</Button>
-								</div>
-				</div>
 			<div>
-				<h3 className="text-5d font-11d">Shape</h3>
+				<Title size={3}>Lifted</Title>
+				<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
+					<Button appearance={"solid"} lifted>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"primary"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"primary"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"primary"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"primary"}>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"destructive"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"destructive"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"destructive"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"destructive"}>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"secondary"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"secondary"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"secondary"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"secondary"}>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"visited"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"visited"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"visited"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"visited"}>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"warning"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"warning"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"warning"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"warning"}>
+						Ghost
+					</Button>
+					<Button appearance={"solid"} lifted intent={"success"}>
+						Solid
+					</Button>
+					<Button appearance={"subtle"} lifted intent={"success"}>
+						Subtle
+					</Button>
+					<Button appearance={"outline"} lifted intent={"success"}>
+						Outline
+					</Button>
+					<Button appearance={"ghost"} lifted intent={"success"}>
+						Ghost
+					</Button>
+				</div>
+			</div>
+			<div>
+				<Title size={3}>Shape</Title>
 				<div className="flex flex-wrap gap-16d items-start">
 					<Button shape={"square"}>Square</Button>
 					<Button shape={"rounded"} className="before:font-11d">
@@ -233,23 +268,28 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<h3 className="text-5d font-11d">State</h3>
+				<Title size={3}>State</Title>
 				<div className="flex gap-16d mb-10 items-center">
 					<div className="flex gap-8d items-center">
 						<Button appearance={"solid"} className="w-fit" disabled>
 							Disabled
 						</Button>
 					</div>
-					<div className="flex gap-8d items-center">
-						<Button appearance={"solid"} className="w-fit" loading>
-							Disabled
-						</Button>
-						<Button appearance={"solid"} className="w-fit" loading  />
-						Loading
+					<div className="flex gap-16d items-center">
+						<div className="flex items-center gap-8d">
+							<Button appearance={"solid"} className="w-fit" loading >
+								Loading
+							</Button>
+							<Button appearance={"solid"} className="w-fit" loading />
+							Loading
+						</div>
+						<div className="flex items-center gap-8d">
+							<Button appearance={"solid"} className="w-fit" loading disabled />
+							Disabled & Loading
+						</div>
 					</div>
 				</div>
 			</div>
-			<div className="mb-20 flex gap-16d flex-wrap items-center"></div>
 		</div>
 	);
 }
