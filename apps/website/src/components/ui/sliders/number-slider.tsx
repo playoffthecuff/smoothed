@@ -1,7 +1,7 @@
 "use client";
 import { Slider } from "@base-ui-components/react/slider";
 import { useState } from "react";
-import { NumberField } from "../fields/number";
+import { NumberField } from "../fields/s/number";
 
 interface Props {
 	initialValue: number;
@@ -33,9 +33,9 @@ export default function NumberSlider({
 				onValueChange={handleChange}
 			>
 				<Slider.Control className="flex w-56 touch-none items-center py-2 select-none cursor-pointer">
-					<Slider.Track className="h-2 w-full rounded bg-neutral outline outline-2 outline-neutral-fg select-none">
-						<Slider.Indicator className="rounded bg-neutral-1fg select-none" />
-						<Slider.Thumb className="size-4 rounded-full bg-neutral-3 outline outline-2 outline-neutral-fg select-none has-[:focus-visible]:outline" />
+					<Slider.Track className="h-2 w-full rounded bg-secondary outline outline-2 outline-gray-fg select-none">
+						<Slider.Indicator className="rounded bg-secondary-fg-1 select-none" />
+						<Slider.Thumb className="size-4 rounded-full bg-secondary-3 outline outline-2 outline-gray-fg select-none has-[:focus-visible]:outline" />
 					</Slider.Track>
 				</Slider.Control>
 			</Slider.Root>

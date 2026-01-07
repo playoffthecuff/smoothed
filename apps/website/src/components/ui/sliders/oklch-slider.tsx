@@ -3,7 +3,7 @@ import { Slider } from "@base-ui-components/react/slider";
 import clsx from "clsx/lite";
 import { useState } from "react";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";
-import { NumberField } from "../fields/number";
+import { NumberField } from "../fields/s/number";
 import css from "./slider.module.css";
 
 interface Props {
@@ -29,12 +29,12 @@ export function OklchSlider({
 				<Slider.Control className="flex w-56 touch-none items-center py-2 select-none cursor-pointer">
 					<Slider.Track
 						className={clsx(
-							"h-2 w-full rounded select-none outline outline-1 outline-neutral-fg",
+							"h-2 w-full rounded select-none outline outline-1 outline-gray-fg",
 							css["oklch-gradient"],
 						)}
 					>
 						<Slider.Thumb
-							className="size-4 rounded-full bg-transparent outline outline-1 outline-neutral-fg select-none has-[:focus-visible]:outline has-[:focus-visible]:outline-2"
+							className="size-4 rounded-full bg-transparent outline outline-1 outline-gray-fg select-none has-[:focus-visible]:outline has-[:focus-visible]:outline-2"
 							style={{
 								backgroundColor: `oklch(${current.L} ${current.C} ${value})`,
 							}}
