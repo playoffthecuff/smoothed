@@ -1,15 +1,16 @@
 import type { IconProps } from "./types";
 
-export function LikeIcon({ width = "1.25em", height = "1.25em", strokeWidth = 2 }: IconProps) {
+export function LikeIcon({ size="1.25em", strokeWidth = 2, ...props }: IconProps) {
 	return (
 		<svg
-			width={width}
-			height={height}
+			width={size}
+			height={size}
 			viewBox="0 0 24 24"
 			fill="none"
 			stroke="currentColor"
 			strokeWidth={strokeWidth}
 			xmlns="http://www.w3.org/2000/svg"
+			{...props}
 		>
 			<path d="M2 12V19C2 20.3807 3.11929 21.5 4.5 21.5H17.5279C17.8384 21.5 18.1446 21.4277 18.4223 21.2889L18.6877 21.1562C19.5157 20.7422 20.1062 19.969 20.2878 19.0612L21.7004 11.9979C21.8773 11.1135 21.4404 10.2202 20.6337 9.81684L20.4223 9.71115C20.1446 9.57229 19.8384 9.5 19.5279 9.5H14.7883C14.6361 9.5 14.5192 9.36525 14.5408 9.21465L15.2777 4.05603C15.4082 3.14282 14.8971 2.25884 14.0406 1.91624L13.8993 1.85973C13.3981 1.65923 12.8282 1.89278 12.6118 2.38739L10.0243 8.30164C9.70579 9.02961 8.98656 9.5 8.19197 9.5H4.5C3.11929 9.5 2 10.6193 2 12Z" />
 			<path d="M6 10V22" />
