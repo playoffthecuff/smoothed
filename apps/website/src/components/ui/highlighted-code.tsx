@@ -11,9 +11,9 @@ export function HighlightedCode({
 }: Omit<HighlightProps, "children"> & { lineNumbers?: boolean }) {
 	const { theme } = useTheme();
 	return (
-		<div className="max-w-full">
+		<div className="max-w-full max-h-80 overflow-y-auto rounded-md relative">
 			<CopyButton
-				className="top-7 right-6"
+				className="top-2 right-2"
 				animationTimeout={1000}
 				onClick={() => navigator.clipboard.writeText(code)}
 			/>
@@ -25,7 +25,7 @@ export function HighlightedCode({
 				{({ style, tokens, getLineProps, getTokenProps }) => (
 					<pre
 						style={style}
-						className="px-3 py-4 rounded-md max-w-full overflow-x-auto"
+						className="px-3 py-4 overflow-x-auto"
 					>
 						{tokens.map((line, i) => (
 							<div key={i} {...getLineProps({ line })}>
