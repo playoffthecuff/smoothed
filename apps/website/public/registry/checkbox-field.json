@@ -1,0 +1,22 @@
+{
+  "name": "checkbox-field",
+  "regDeps": [
+    "checkbox",
+    "cn",
+    "error-icon",
+    "success-icon",
+    "warning-icon",
+    "intent-message",
+    "label",
+    "hint-button"
+  ],
+  "pkgDeps": [
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/fields/checkbox.tsx",
+      "content": "import { cn } from \"@/lib/utils/cn\";\nimport type { CheckboxProps } from \"../checkbox/checkbox\";\nimport Checkbox from \"../checkbox/checkbox\";\nimport { ErrorIcon } from \"../icons/error\";\nimport { SuccessIcon } from \"../icons/success\";\nimport { WarningIcon } from \"../icons/warning\";\nimport { IntentMessage } from \"../intent-message/intent-message\";\nimport { Label } from \"../label/label\";\nimport { HintButton } from \"./hint-button\";\n\ntype Props = CheckboxProps & { label: string; message?: string; hint?: string };\n\nconst statusToIntent = {\n\tvalid: \"success\",\n\twarning: \"warning\",\n\tinvalid: \"error\",\n} as const;\n\nconst intentToIcon = {\n\tsuccess: SuccessIcon,\n\twarning: WarningIcon,\n\terror: ErrorIcon,\n};\n\nexport function CheckboxField({\n\thint,\n\tlabel,\n\tmessage,\n\tsize,\n\trequired,\n\tshape,\n\tid,\n\t...checkboxProps\n}: Props) {\n\tconst intent = checkboxProps.status\n\t\t? statusToIntent[checkboxProps.status]\n\t\t: undefined;\n\treturn (\n\t\t\t<div className=\"grid grid-cols-[repeat(2,max-content)] gap-x-8d\">\n\t\t\t\t<Checkbox\n\t\t\t\t\tsize={size}\n\t\t\t\t\t{...checkboxProps}\n\t\t\t\t\trequired={required}\n\t\t\t\t\tshape={shape}\n\t\t\t\t\tid={id}\n\t\t\t\t/>\n\t\t\t\t<div className=\"flex items-center gap-x-8d\">\n\t\t\t\t\t<Label intent={intent} size={size} required={required} htmlFor={id}>\n\t\t\t\t\t\t{label}\n\t\t\t\t\t</Label>\n\t\t\t\t\t{hint && <HintButton description={hint} size={size} shape={shape} />}\n\t\t\t\t</div>\n\t\t\t{message && (\n\t\t\t\t<IntentMessage\n\t\t\t\t\tintent={intent}\n\t\t\t\t\tsize={size}\n\t\t\t\t\ticonStart={intent ? intentToIcon[intent] : undefined}\n\t\t\t\t\tclassName={cn(\"col-start-2\", size === \"m\" ? \"-translate-y-2\" : size === \"s\" ? \"-translate-y-[7px]\" : \"-translate-y-[10px]\")}\n\t\t\t\t>\n\t\t\t\t\t{message}\n\t\t\t\t</IntentMessage>\n\t\t\t)}\n\t\t</div>\n\t);\n}\n"
+    }
+  ]
+}

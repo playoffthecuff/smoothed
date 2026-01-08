@@ -1,0 +1,217 @@
+{
+	"name": "Smoothed",
+	"url": "https://smoothed.vercel.app",
+	"items": [
+		{
+			"name": "button",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["spinner-icon", "use-wave-animate"],
+			"files": [
+				{
+					"path": "src/components/ui/button/button.tsx"
+				}
+			]
+		},
+		{
+			"name": "checkbox",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["spinner-icon", "use-wave-animate", "check-icon"],
+			"files": [
+				{
+					"path":"src/components/ui/checkbox/checkbox.tsx"
+				}
+			]
+		},
+		{
+			"name": "number-input",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["spinner-icon", "triangle-down-rounded-icon", "triangle-down-sharp-icon", "cn"],
+			"files": [
+				{
+					"path":"src/components/ui/input/number.tsx"
+				}
+			]
+		},
+		{
+			"name": "text-input",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["spinner-icon", "eye-close-icon", "eye-open-icon", "cn"],
+			"files": [
+				{
+					"path":"src/components/ui/input/text.tsx"
+				}
+			]
+		},
+		{
+			"name": "checkbox-field",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["checkbox", "cn", "error-icon", "success-icon", "warning-icon", "intent-message", "label", "hint-button"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/checkbox.tsx"
+				}
+			]
+		},
+		{
+			"name": "number-field",
+			"regDeps": ["number-input", "error-icon", "success-icon", "warning-icon", "intent-message", "label", "hint-button"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/number.tsx"
+				}
+			]
+		},
+		{
+			"name": "select-field",
+			"regDeps": ["select", "error-icon", "success-icon", "warning-icon", "intent-message", "label", "hint-button"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/select.tsx"
+				}
+			]
+		},
+		{
+			"name": "slider-field",
+			"regDeps": ["slider", "error-icon", "success-icon", "warning-icon", "intent-message", "label", "hint-button"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/slider.tsx"
+				}
+			]
+		},
+		{
+			"name": "text-field",
+			"regDeps": ["text-input", "error-icon", "success-icon", "warning-icon", "intent-message", "label", "hint-button"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/text.tsx"
+				}
+			]
+		},
+		{
+			"name": "hint-button",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["button", "info-icon", "popover"],
+			"files": [
+				{
+					"path":"src/components/ui/fields/text.tsx"
+				}
+			]
+		},
+		{
+			"name": "chevron-up-down-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/chevron-up-down.tsx"
+				}
+			]
+		},
+		{
+			"name": "error-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/error.tsx"
+				}
+			]
+		},
+		{
+			"name": "eye-close-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/eye-close.tsx"
+				}
+			]
+		},
+		{
+			"name": "eye-open-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/eye-open.tsx"
+				}
+			]
+		},
+		{
+			"name": "spinner-icon",
+			"files": [
+				{
+					"path":"src/components/ui/icons/spinner.tsx"
+				}
+			]
+		},
+		{
+			"name": "success-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/success.tsx"
+				}
+			]
+		},
+		{
+			"name": "triangle-down-rounded-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/triangle-down-rounded.tsx"
+				}
+			]
+		},
+		{
+			"name": "triangle-down-sharp-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/triangle-down-sharp.tsx"
+				}
+			]
+		},
+		{
+			"name": "triangle-up-rounded-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/triangle-up-rounded.tsx"
+				}
+			]
+		},
+		{
+			"name": "triangle-up-sharp-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/triangle-up-sharp.tsx"
+				}
+			]
+		},
+		{
+			"name": "warning-icon",
+			"regDeps": ["icon-props"],
+			"files": [
+				{
+					"path":"src/components/ui/icons/warning.tsx"
+				}
+			]
+		},
+		{
+			"name": "cn",
+			"pkgDeps": ["clsx"],
+			"files": [
+				{
+					"path":"src/lib/utils/cn.ts"
+				}
+			]
+		},
+		{
+			"name": "use-wave-animate",
+			"files": [
+				{
+					"path":"src/components/ui/use-wave-animate.ts"
+				}
+			]
+		}
+	]
+}

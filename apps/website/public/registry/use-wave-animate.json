@@ -1,0 +1,9 @@
+{
+  "name": "use-wave-animate",
+  "files": [
+    {
+      "path": "src/components/ui/use-wave-animate.ts",
+      "content": "import {\n\ttype KeyboardEventHandler,\n\ttype MouseEventHandler,\n\ttype RefObject,\n\tuseRef,\n} from \"react\";\n\ninterface Props<T extends HTMLElement> {\n\tonKeyDown?: KeyboardEventHandler<T>;\n\tonKeyUp?: KeyboardEventHandler<T>;\n\tonMouseDown?: MouseEventHandler<T>;\n\tonMouseUp?: MouseEventHandler<T>;\n\tdisabled?: boolean;\n\tanimateClassName: string;\n}\n\nexport const useWaveAnimate = <T extends HTMLElement>({\n\tonKeyDown,\n\tonKeyUp,\n\tonMouseDown,\n\tonMouseUp,\n\tdisabled,\n\tanimateClassName,\n}: Props<T>) => {\n\tconst ref = useRef<T>(null);\n\tconst animate = () => {\n\t\tconst el = ref.current;\n\t\tif (el) {\n\t\t\trequestAnimationFrame(() => el.classList.add(animateClassName));\n\t\t}\n\t};\n\tconst clear = () => {\n\t\tconst el = ref.current;\n\t\tif (el) {\n\t\t\tel.classList.remove(animateClassName);\n\t\t}\n\t};\n\tconst r: {\n\t\tref?: RefObject<T | null>;\n\t\tonKeyDown?: KeyboardEventHandler<T>;\n\t\tonKeyUp?: KeyboardEventHandler<T>;\n\t\tonMouseDown?: MouseEventHandler<T>;\n\t\tonMouseUp?: MouseEventHandler<T>;\n\t} = {};\n\tif (!disabled) {\n\t\tr.ref = ref;\n\t\tr.onKeyDown = (e) => {\n\t\t\tonKeyDown?.(e);\n\t\t\te.code === \"Space\" && clear();\n\t\t};\n\t\tr.onKeyUp = (e) => {\n\t\t\tonKeyUp?.(e);\n\t\t\te.code === \"Space\" && animate();\n\t\t};\n\t\tr.onMouseDown = (e) => {\n\t\t\tonMouseDown?.(e);\n\t\t\t!e.button && clear();\n\t\t};\n\t\tr.onMouseUp = (e) => {\n\t\t\tonMouseUp?.(e);\n\t\t\t!e.button && animate();\n\t\t};\n\t} else {\n\t\tr.onKeyDown = onKeyDown;\n\t\tr.onKeyUp = onKeyUp;\n\t\tr.onMouseDown = onMouseDown;\n\t\tr.onMouseUp = onMouseUp;\n\t}\n\treturn r;\n};\n"
+    }
+  ]
+}

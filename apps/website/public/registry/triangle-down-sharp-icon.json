@@ -1,0 +1,12 @@
+{
+  "name": "triangle-down-sharp-icon",
+  "regDeps": [
+    "icon-props"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/icons/triangle-down-sharp.tsx",
+      "content": "import type { IconProps } from \"./types\";\n\nexport function TriangleDownSharpIcon({ size=\"1.25em\", strokeWidth = 2, fill=\"none\", ...props }: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M17.1963 7H6.80371L12 16L17.1963 7Z\"/>\n\t\t</svg>\n\t);\n}\n"
+    }
+  ]
+}

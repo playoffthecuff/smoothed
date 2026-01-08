@@ -1,0 +1,8 @@
+{
+	"$schema": "https://s3-line.vercel.app/item-schema.json",
+	"files":[{"path": "button/button.tsx"}],
+	"name":"button",
+	"type":"component",
+	"dependencies":["clsx", "class-variance-authority"],
+	"registryDependencies":["use-wave-animate.json", "spinner.json"]
+}
