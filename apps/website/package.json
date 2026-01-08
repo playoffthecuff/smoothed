@@ -1,5 +1,5 @@
 {
-  "name": "s3-line",
+  "name": "smoothed",
   "version": "0.1.0",
   "private": true,
   "author": {
@@ -9,15 +9,17 @@
   "license": "ISC",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "bun run --bun next build",
+    "start": "bun run --bun next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "registry:build": "smoothed build"
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-rc.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "colorizr": "^3.0.8",
     "colorjs.io": "^0.5.2",
     "next": "^16.0.7",
     "next-themes": "^0.4.6",
@@ -27,6 +29,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.6",
+    "@playoffthecuff/smoothed": "^0.0.4",
+    "@types/chroma-js": "^3.1.2",
     "@types/node": "^20.19.25",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
