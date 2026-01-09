@@ -20,7 +20,7 @@ export default function TextFieldPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add number-field"
+					code="bunx @playoffthecuff/smoothed@latest add number-field"
 					language="yaml"
 					lineNumbers={false}
 				/>

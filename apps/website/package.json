@@ -16,28 +16,28 @@
     "registry:build": "smoothed build"
   },
   "dependencies": {
-    "@base-ui-components/react": "^1.0.0-rc.0",
+    "@base-ui/react": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "colorizr": "^3.0.8",
+    "colorizr": "^3.0.9",
     "colorjs.io": "^0.5.2",
-    "next": "^16.0.7",
+    "next": "^16.1.1",
     "next-themes": "^0.4.6",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.6",
     "@playoffthecuff/smoothed": "^0.0.4",
     "@types/chroma-js": "^3.1.2",
-    "@types/node": "^20.19.25",
+    "@types/node": "^20.19.27",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@unocss/postcss": "^66.5.10",
-    "@unocss/preset-wind4": "^66.5.10",
+    "@unocss/postcss": "^66.5.12",
+    "@unocss/preset-wind4": "^66.5.12",
     "babel-plugin-react-compiler": "1.0.0",
     "typescript": "^5.9.3",
-    "unocss": "^66.5.10"
+    "unocss": "^66.5.12"
   }
 }

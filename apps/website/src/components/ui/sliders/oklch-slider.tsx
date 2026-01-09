@@ -1,5 +1,5 @@
 "use client";
-import { Slider } from "@base-ui-components/react/slider";
+import { Slider } from "@base-ui/react/slider";
 import clsx from "clsx/lite";
 import { useState } from "react";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";

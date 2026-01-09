@@ -1,4 +1,4 @@
-import { Select as BaseSelect } from "@base-ui-components/react/select"; // TODO Update to stable
+import { Select as BaseSelect } from "@base-ui/react/select";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import { CheckIcon } from "../icons/check";

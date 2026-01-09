@@ -1,6 +1,6 @@
 "use client";
 
-import { Toggle as BaseToggle } from "@base-ui-components/react/toggle";
+import { Toggle as BaseToggle } from "@base-ui/react/toggle";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx/lite";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";

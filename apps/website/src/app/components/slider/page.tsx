@@ -19,7 +19,7 @@ export default function SliderPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add slider"
+					code="bunx @playoffthecuff/smoothed@latest add slider"
 					language="yaml"
 					lineNumbers={false}
 				/>

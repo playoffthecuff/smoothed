@@ -21,7 +21,7 @@ export default function TogglePage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add toggle"
+					code="bunx @playoffthecuff/smoothed@latest add toggle"
 					language="yaml"
 					lineNumbers={false}
 				/>

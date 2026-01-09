@@ -29,7 +29,7 @@ export default function SelectFieldPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add select-field"
+					code="bunx @playoffthecuff/smoothed@latest add select-field"
 					language="yaml"
 					lineNumbers={false}
 				/>

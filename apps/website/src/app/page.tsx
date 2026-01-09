@@ -2,7 +2,6 @@ import { Link } from "@/components/ui/link/link";
 import { Title } from "@/components/ui/typography/title";
 
 export default function Home() {
-	// TODO Change Identify
 	return (
 		<div
 			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex flex-col gap-8d grow"

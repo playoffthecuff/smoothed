@@ -17,7 +17,7 @@ export default function InputPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add label"
+					code="bunx @playoffthecuff/smoothed@latest add label"
 					language="yaml"
 					lineNumbers={false}
 				/>

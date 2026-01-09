@@ -1,5 +1,5 @@
 "use client";
-import { Slider } from "@base-ui-components/react/slider";
+import { Slider } from "@base-ui/react/slider";
 import { useState } from "react";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";
 import { NumberField } from "../fields/s/number";

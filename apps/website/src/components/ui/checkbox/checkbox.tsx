@@ -1,6 +1,6 @@
 "use client";
 
-import { Checkbox as BaseCheckbox } from "@base-ui-components/react/checkbox";
+import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 import { cva, type VariantProps } from "class-variance-authority";
 import { CheckIcon } from "../icons/check";
 import { SpinnerIcon } from "../icons/spinner";

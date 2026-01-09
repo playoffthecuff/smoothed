@@ -1,4 +1,4 @@
-import { NumberField } from "@base-ui-components/react/number-field";
+import { NumberField } from "@base-ui/react/number-field";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import { SpinnerIcon } from "../icons/spinner";

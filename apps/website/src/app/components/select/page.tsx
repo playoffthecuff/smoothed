@@ -26,7 +26,7 @@ export default function SelectPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add select"
+					code="bunx @playoffthecuff/smoothed@latest add select"
 					language="yaml"
 					lineNumbers={false}
 				/>

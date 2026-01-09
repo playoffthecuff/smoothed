@@ -1,5 +1,5 @@
 "use client";
-import { Slider } from "@base-ui-components/react/slider";
+import { Slider } from "@base-ui/react/slider";
 import { getOkLCHMaxChroma } from "colorizr";
 import { useState } from "react";
 import { NumberField } from "../fields/s/number";

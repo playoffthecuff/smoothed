@@ -13,21 +13,15 @@ export default function Page() {
 		>
 			<Title>Get Started</Title>
 			<div>
-				<p>Add regular dependencies:</p>
+				<p>Install the necessary dependencies by running:</p>
 				<HighlightedCode
-					code="bun add @base-ui-components/react class-variance-authority clsx"
+					code="bunx @playoffthecuff/smoothed@latest init"
 					language="yaml"
 					lineNumbers={false}
 				/>
 			</div>
 
 			<div>
-				<p>Add dev dependencies:</p>
-				<HighlightedCode
-					code="bun add -D unocss @unocss/postcss @unocss/preset-wind4"
-					language="yaml"
-					lineNumbers={false}
-				/>
 				<p>
 					Follow the Uno CSS integration{" "}
 					<a

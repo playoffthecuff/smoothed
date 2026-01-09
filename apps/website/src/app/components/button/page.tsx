@@ -18,7 +18,7 @@ export default function ButtonPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add button"
+					code="bunx @playoffthecuff/smoothed@latest add button"
 					language="yaml"
 					lineNumbers={false}
 				/>

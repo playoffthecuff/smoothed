@@ -17,7 +17,7 @@ export default function NumberInputPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add number-input"
+					code="bunx @playoffthecuff/smoothed@latest add number-input"
 					language="yaml"
 					lineNumbers={false}
 				/>

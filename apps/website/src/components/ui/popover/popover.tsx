@@ -1,5 +1,5 @@
 "use client";
-import { Popover as BasePopover } from "@base-ui-components/react";
+import { Popover as BasePopover } from "@base-ui/react/popover";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const Arrow = () => (

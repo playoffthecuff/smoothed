@@ -17,7 +17,7 @@ export default function CheckboxPage() {
 			<div>
 				<Title size={2}>Installation</Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/s3-line@latest add checkbox"
+					code="bunx @playoffthecuff/smoothed@latest add checkbox"
 					language="yaml"
 					lineNumbers={false}
 				/>
