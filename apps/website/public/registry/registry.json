@@ -297,6 +297,14 @@
 					"path":"src/lib/utils/cn.ts"
 				}
 			]
+		},
+		{
+			"name": "default-theme-config",
+			"files": [
+				{
+					"path":"uno.config.ts"
+				}
+			]
 		}
 	]
 }

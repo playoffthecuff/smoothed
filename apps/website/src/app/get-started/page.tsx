@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { defaultThemeConfig } from "./default-theme-config";
 import { Title } from "@/components/ui/typography/title";
 
 export default function Page() {
@@ -36,7 +35,7 @@ export default function Page() {
 			</div>
 			<div>
 				<p>
-					Configure <code className="bg-2 px-8d">tsconfig.json</code>:
+					Configure <code className="bg px-8d">tsconfig.json</code>:
 				</p>
 				<HighlightedCode
 					code={`{
@@ -51,17 +50,13 @@ export default function Page() {
 			</div>
 			<div>
 				<p>
+					You can{" "}
 					<Link href="theme-editor" className="underline text-primary">
-						Customize the theme
-					</Link>{" "}
-					and use the generated configuration in the{" "}
-					<code className="bg-2 px-8d">uno.config.ts</code>
+						customize the theme
+					</Link>{". "}
+					Then replace the contents of the default configuration file{" "}
+					<code className="bg px-8d">uno.config.ts</code>
 				</p>
-			</div>
-			<div>
-				<p>or use the default configuration:</p>
-
-				<HighlightedCode code={defaultThemeConfig} language="js" />
 			</div>
 		</div>
 	);

@@ -3,7 +3,6 @@
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { HelpIcon } from "@/components/ui/icons/help";
 import { ChromaSlider } from "@/components/ui/sliders/chroma-slider";
 import { LightnessSlider } from "@/components/ui/sliders/lightness-slider";
 import NumberSlider from "@/components/ui/sliders/number-slider";
@@ -279,6 +278,10 @@ export default function ThemeEditorPage() {
 						></Card>
 					))}
 					<div className="flex gap-16d flex-wrap flex-col max-w-200 px-18d pt-12d">
+						<p>
+							Replace the contents of the default configuration file{" "}
+							<code className="bg px-8d">uno.config.ts</code>
+						</p>
 						<HighlightedCode
 							code={createUnoConfig(spacingSize, radius, textSize, colors)}
 							language="js"
