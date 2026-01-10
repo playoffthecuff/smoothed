@@ -122,7 +122,8 @@ export default defineConfig({
 				const cssProp = propToCss[prop as keyof typeof propToCss];
 				return {
 					[cssProp]: computeOklch(
-						+(lightness ?? +`${theme.colors?.[`${color}-lightness`]}` * 1000) / 1000,
+						+(lightness ?? +`${theme.colors?.[`${color}-lightness`]}` * 1000) /
+							1000,
 						+(theme.colors?.[`${color}-hue`] ?? 0),
 						+(theme.colors?.[`${color}-chroma`] ?? 0),
 					),
@@ -240,8 +241,11 @@ export default defineConfig({
 			([_, value], { theme }) => {
 				const lightness = theme.colors?.[`${value}-lightness`];
 				if (!lightness) return;
-				const { THRESHOLD_BG_LIGHTNESS, MAX_LIGHTNESS, DARK_BG_DELTA_LIGHTNESS } =
-					SURFACE_CONFIG;
+				const {
+					THRESHOLD_BG_LIGHTNESS,
+					MAX_LIGHTNESS,
+					DARK_BG_DELTA_LIGHTNESS,
+				} = SURFACE_CONFIG;
 				const l = +lightness * 1000;
 				const isSwapped = l <= THRESHOLD_BG_LIGHTNESS;
 				const swappedLightness =
@@ -377,14 +381,17 @@ export default defineConfig({
 					+theme.colors?.[`${color}-lightness`] * MAX_LIGHTNESS,
 					(MAX_LIGHTNESS * LIGHT_BG_DELTA_LIGHTNESS) / 100,
 				);
-				const isTextLightnessSwapped = lightBgLightness < THRESHOLD_TEXT_LIGHTNESS;
+				const isTextLightnessSwapped =
+					lightBgLightness < THRESHOLD_TEXT_LIGHTNESS;
 				const lightTextLightness = isTextLightnessSwapped
 					? MAX_RANGE_LIGHTNESS
 					: MIN_RANGE_LIGHTNESS;
 				const lightBgColor = color;
 				const lightInteractiveBgColor = ia && lightBgColor;
 				const lightTextColor = "foreground";
-				const lightBgDeltaLightness = Math.round(LIGHT_BG_DELTA_LIGHTNESS / 1.5);
+				const lightBgDeltaLightness = Math.round(
+					LIGHT_BG_DELTA_LIGHTNESS / 1.5,
+				);
 
 				const darkBgLightness =
 					lightBgLightness <= THRESHOLD_BG_LIGHTNESS
@@ -578,7 +585,8 @@ export default defineConfig({
 				);
 				const lightBaseBgTransparency = Math.round(
 					(MIN_LIGHT_TRANSPARENCY +
-						(lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY) / MAX_LIGHTNESS) *
+						(lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY) /
+							MAX_LIGHTNESS) *
 						2,
 				);
 				const lightHoverBgTransparency = lightBaseBgTransparency;
@@ -620,7 +628,11 @@ export default defineConfig({
 						`|c=${chroma}`,
 					],
 					text: [color, `-${lightTextLightness}d`],
-					border: [color, `-${lightBorderLightness}d`, `/${borderTransparency}`],
+					border: [
+						color,
+						`-${lightBorderLightness}d`,
+						`/${borderTransparency}`,
+					],
 					"dark:hover:bg": [
 						interactiveBgColor,
 						`-${darkHoverBgLightness}d`,
@@ -634,7 +646,11 @@ export default defineConfig({
 						`/${darkActiveBgTransparency}`,
 					],
 					"dark:text": [color, `-${darkTextLightness}d`],
-					"dark:border": [color, `-${darkBgLightness}d`, `/${borderTransparency}`],
+					"dark:border": [
+						color,
+						`-${darkBgLightness}d`,
+						`/${borderTransparency}`,
+					],
 				};
 
 				return Object.entries(rules)
@@ -683,7 +699,8 @@ export default defineConfig({
 				);
 				const lightBaseBgTransparency = Math.round(
 					(MIN_LIGHT_TRANSPARENCY +
-						(lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY) / MAX_LIGHTNESS) *
+						(lightInteractiveBgLightness * MAX_LIGHT_TRANSPARENCY) /
+							MAX_LIGHTNESS) *
 						2,
 				);
 				const lightHoverBgTransparency = lightBaseBgTransparency;
@@ -802,7 +819,11 @@ export default defineConfig({
 						`|c=${chroma}`,
 						`/${activeTransparency}`,
 					],
-					"dark:data-[pressed]:bg": [color, `-${darkBgLightness}d`, `|c=${chroma}`],
+					"dark:data-[pressed]:bg": [
+						color,
+						`-${darkBgLightness}d`,
+						`|c=${chroma}`,
+					],
 				};
 				return Object.entries(rules)
 					.filter(([_, v]) => !!v[0])

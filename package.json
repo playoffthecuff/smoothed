@@ -1,15 +1,24 @@
 {
-  "name": "smoothed",
-  "version": "0.0.1",
-  "author": "playoffthecuff",
-  "description": "",
-  "keywords": [],
-  "license": "ISC",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "type": "module",
-  "devDependencies": {
-    "@biomejs/biome": "2.3.11"
-  }
+	"name": "smoothed",
+	"version": "0.0.1",
+	"author": "playoffthecuff",
+	"description": "",
+	"keywords": [],
+	"license": "ISC",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "biome check",
+		"format": "biome format --write",
+		"format:migrate": "biome migrate --write",
+		"prepare": "husky"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "2.3.11",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7"
+	},
+	"lint-staged": {
+		"*": "biome format --write"
+	}
 }
