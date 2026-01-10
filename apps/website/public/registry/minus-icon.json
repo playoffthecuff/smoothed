@@ -1,0 +1,11 @@
+{
+	"name": "minus-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/minus.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function MinusIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill=\"none\"\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\tstrokeLinecap=\"round\"\n\t\t\tstroke=\"currentColor\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M19 12L5 12\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

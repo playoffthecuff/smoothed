@@ -1,18 +1,19 @@
 {
-  "name": "select-field",
-  "regDeps": [
-    "select",
-    "error-icon",
-    "success-icon",
-    "warning-icon",
-    "intent-message",
-    "label",
-    "hint-button"
-  ],
-  "files": [
-    {
-      "path": "src/components/ui/fields/select.tsx",
-      "content": "import { ErrorIcon } from \"../icons/error\";\nimport { SuccessIcon } from \"../icons/success\";\nimport { WarningIcon } from \"../icons/warning\";\nimport { IntentMessage } from \"../intent-message/intent-message\";\nimport { Label } from \"../label/label\";\nimport { Select, type SelectProps } from \"../select/select\";\nimport { HintButton } from \"./hint-button\";\n\ntype Props = SelectProps & { label: string; message?: string; hint?: string };\n\nconst statusToIntent = {\n\tvalid: \"success\",\n\twarning: \"warning\",\n\tinvalid: \"error\",\n} as const;\n\nconst intentToIcon = {\n\tsuccess: SuccessIcon,\n\twarning: WarningIcon,\n\terror: ErrorIcon,\n};\n\nexport function SelectField({\n\thint,\n\tlabel,\n\tmessage,\n\tsize,\n\trequired,\n\tshape,\n\tid,\n\t...selectProps\n}: Props) {\n\tconst intent = selectProps.status\n\t\t? statusToIntent[selectProps.status]\n\t\t: undefined;\n\treturn (\n\t\t<div className=\"flex flex-col w-max\">\n\t\t\t<div className=\"flex justify-between items-center\">\n\t\t\t\t<Label intent={intent} size={size} required={required} htmlFor={id}>\n\t\t\t\t\t{label}\n\t\t\t\t</Label>\n\t\t\t\t{hint && <HintButton description={hint} size={size} shape={shape} />}\n\t\t\t</div>\n\t\t\t<Select\n\t\t\t\tsize={size}\n\t\t\t\t{...selectProps}\n\t\t\t\trequired={required}\n\t\t\t\tshape={shape}\n\t\t\t\tid={id}\n\t\t\t/>\n\t\t\t{message && (\n\t\t\t\t<IntentMessage\n\t\t\t\t\tintent={intent}\n\t\t\t\t\tsize={size}\n\t\t\t\t\ticonStart={intent ? intentToIcon[intent] : undefined}\n\t\t\t\t>\n\t\t\t\t\t{message}\n\t\t\t\t</IntentMessage>\n\t\t\t)}\n\t\t</div>\n\t);\n}\n"
-    }
-  ]
+	"name": "select-field",
+	"regDeps": [
+		"select",
+		"error-icon",
+		"success-icon",
+		"warning-icon",
+		"intent-message",
+		"label",
+		"hint-button"
+	],
+	"files": [
+		{
+			"path": "src/components/ui/fields/select.tsx",
+			"content": "import { ErrorIcon } from \"../icons/error\";\nimport { SuccessIcon } from \"../icons/success\";\nimport { WarningIcon } from \"../icons/warning\";\nimport { IntentMessage } from \"../intent-message/intent-message\";\nimport { Label } from \"../label/label\";\nimport { Select, type SelectProps } from \"../select/select\";\nimport { HintButton } from \"./hint-button\";\n\ntype Props = SelectProps & { label: string; message?: string; hint?: string };\n\nconst statusToIntent = {\n\tvalid: \"success\",\n\twarning: \"warning\",\n\tinvalid: \"error\",\n} as const;\n\nconst intentToIcon = {\n\tsuccess: SuccessIcon,\n\twarning: WarningIcon,\n\terror: ErrorIcon,\n};\n\nexport function SelectField({\n\thint,\n\tlabel,\n\tmessage,\n\tsize,\n\trequired,\n\tshape,\n\tid,\n\t...selectProps\n}: Props) {\n\tconst intent = selectProps.status\n\t\t? statusToIntent[selectProps.status]\n\t\t: undefined;\n\treturn (\n\t\t<div className=\"flex flex-col w-max\">\n\t\t\t<div className=\"flex justify-between items-center\">\n\t\t\t\t<Label intent={intent} size={size} required={required} htmlFor={id}>\n\t\t\t\t\t{label}\n\t\t\t\t</Label>\n\t\t\t\t{hint && <HintButton description={hint} size={size} shape={shape} />}\n\t\t\t</div>\n\t\t\t<Select\n\t\t\t\tsize={size}\n\t\t\t\t{...selectProps}\n\t\t\t\trequired={required}\n\t\t\t\tshape={shape}\n\t\t\t\tid={id}\n\t\t\t/>\n\t\t\t{message && (\n\t\t\t\t<IntentMessage\n\t\t\t\t\tintent={intent}\n\t\t\t\t\tsize={size}\n\t\t\t\t\ticonStart={intent ? intentToIcon[intent] : undefined}\n\t\t\t\t>\n\t\t\t\t\t{message}\n\t\t\t\t</IntentMessage>\n\t\t\t)}\n\t\t</div>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

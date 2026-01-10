@@ -1,12 +1,11 @@
 {
-  "name": "cn",
-  "pkgDeps": [
-    "clsx"
-  ],
-  "files": [
-    {
-      "path": "src/lib/utils/cn.ts",
-      "content": "export {clsx as cn} from \"clsx/lite\";\n"
-    }
-  ]
+	"name": "cn",
+	"pkgDeps": ["clsx"],
+	"files": [
+		{
+			"path": "src/lib/utils/cn.ts",
+			"content": "export { clsx as cn } from \"clsx/lite\";\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

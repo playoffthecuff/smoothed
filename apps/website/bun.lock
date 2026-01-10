@@ -17,7 +17,7 @@
       },
       "devDependencies": {
         "@biomejs/biome": "2.3.11",
-        "@playoffthecuff/smoothed": "^0.0.4",
+        "@playoffthecuff/smoothed": "^0.0.7",
         "@types/chroma-js": "^3.1.2",
         "@types/node": "^20.19.27",
         "@types/react": "^19.2.7",
@@ -249,7 +249,7 @@
 
     "@next/swc-win32-x64-msvc": ["@next/swc-win32-x64-msvc@16.1.1", "", { "os": "win32", "cpu": "x64" }, "sha512-Ncwbw2WJ57Al5OX0k4chM68DKhEPlrXBaSXDCi2kPi5f4d8b3ejr3RRJGfKBLrn2YJL5ezNS7w2TZLHSti8CMw=="],
 
-    "@playoffthecuff/smoothed": ["@playoffthecuff/smoothed@0.0.4", "", { "dependencies": { "commander": "^14.0.2", "fs": "^0.0.1-security", "inquirer": "^12.10.0", "zod": "^4.1.13" }, "bin": { "smoothed": "build/index.js" } }, "sha512-7aeqkQmQCALyJAwJ8cuIkZvlGOYV+253PCGvHhlHIVA37Ef9WzHLgk/wIcuxRVpjpsIQkXz8nQtx0DtttCOMZg=="],
+    "@playoffthecuff/smoothed": ["@playoffthecuff/smoothed@0.0.7", "", { "dependencies": { "commander": "^14.0.2", "fs": "^0.0.1-security", "inquirer": "^12.11.1", "zod": "^4.3.5" }, "bin": { "smoothed": "build/index.js" } }, "sha512-p2UivodtaGvJAyMHfvLd3DB+PkMEGeWCJfZcX09Hx2VakFSgctxQl64BsxGFvQXZBsRo9/fyUFXoz3LDaCIYEg=="],
 
     "@polka/url": ["@polka/url@1.0.0-next.29", "", {}, "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="],
 
@@ -441,7 +441,7 @@
 
     "gzip-size": ["gzip-size@6.0.0", "", { "dependencies": { "duplexer": "^0.1.2" } }, "sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q=="],
 
-    "iconv-lite": ["iconv-lite@0.7.1", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-2Tth85cXwGFHfvRgZWszZSvdo+0Xsqmw8k8ZwxScfcBneNUraK+dxRxRm24nszx80Y0TVio8kKLt5sLE7ZCLlw=="],
+    "iconv-lite": ["iconv-lite@0.7.2", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3.0.0" } }, "sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw=="],
 
     "inquirer": ["inquirer@12.11.1", "", { "dependencies": { "@inquirer/ansi": "^1.0.2", "@inquirer/core": "^10.3.2", "@inquirer/prompts": "^7.10.1", "@inquirer/type": "^3.0.10", "mute-stream": "^2.0.0", "run-async": "^4.0.6", "rxjs": "^7.8.2" }, "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-9VF7mrY+3OmsAfjH3yKz/pLbJ5z22E23hENKw3/LNSaA/sAt3v49bDRY+Ygct1xwuKT+U+cBfTzjCPySna69Qw=="],
 

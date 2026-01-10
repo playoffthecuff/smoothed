@@ -30,7 +30,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.11",
-		"@playoffthecuff/smoothed": "^0.0.4",
+		"@playoffthecuff/smoothed": "^0.0.7",
 		"@types/chroma-js": "^3.1.2",
 		"@types/node": "^20.19.27",
 		"@types/react": "^19.2.7",

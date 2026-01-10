@@ -1,9 +1,10 @@
 {
-  "name": "spinner-icon",
-  "files": [
-    {
-      "path": "src/components/ui/icons/spinner.tsx",
-      "content": "export function SpinnerIcon({ size = \"1.25em\", className = \"\" }) {\n\treturn (\n\t\t<div\n\t\t\tclassName={className}\n\t\t\tstyle={{\n\t\t\t\twidth: size,\n\t\t\t\theight: size,\n\t\t\t\tbackground: \"conic-gradient(from 0deg, transparent, currentColor)\",\n\t\t\t\tborderRadius: \"50%\",\n\t\t\t\tmask: `radial-gradient(farthest-side, transparent calc(100% - ${size} / 5), black calc(100% - ${size} / 5 + 1px))`,\n\t\t\t}}\n\t\t/>\n\t);\n}\n"
-    }
-  ]
+	"name": "spinner-icon",
+	"files": [
+		{
+			"path": "src/components/ui/icons/spinner.tsx",
+			"content": "export function SpinnerIcon({ size = \"1.25em\", className = \"\" }) {\n\treturn (\n\t\t<div\n\t\t\tclassName={className}\n\t\t\tstyle={{\n\t\t\t\twidth: size,\n\t\t\t\theight: size,\n\t\t\t\tbackground: \"conic-gradient(from 0deg, transparent, currentColor)\",\n\t\t\t\tborderRadius: \"50%\",\n\t\t\t\tmask: `radial-gradient(farthest-side, transparent calc(100% - ${size} / 5), black calc(100% - ${size} / 5 + 1px))`,\n\t\t\t}}\n\t\t/>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

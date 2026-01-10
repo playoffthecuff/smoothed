@@ -1,9 +1,10 @@
 {
-  "name": "icon-types",
-  "files": [
-    {
-      "path": "src/components/ui/icons/types.ts",
-      "content": "import type { ComponentProps } from \"react\";\n\nexport type IconProps = ComponentProps<\"svg\"> & {size?: string};\n"
-    }
-  ]
+	"name": "icon-types",
+	"files": [
+		{
+			"path": "src/components/ui/icons/types.ts",
+			"content": "import type { ComponentProps } from \"react\";\n\nexport type IconProps = ComponentProps<\"svg\"> & { size?: string };\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

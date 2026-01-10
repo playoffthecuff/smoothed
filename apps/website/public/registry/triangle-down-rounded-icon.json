@@ -1,12 +1,11 @@
 {
-  "name": "triangle-down-rounded-icon",
-  "regDeps": [
-    "icon-types"
-  ],
-  "files": [
-    {
-      "path": "src/components/ui/icons/triangle-down-rounded.tsx",
-      "content": "import type { IconProps } from \"./types\";\n\nexport function TriangleDownRoundedIcon({ size=\"1.25em\", strokeWidth = 2, fill=\"none\", ...props }: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M17.1577 7H6.84227C6.46274 7 6.22158 7.40624 6.40332 7.73943L11.5611 17.1953C11.7506 17.5427 12.2494 17.5427 12.4389 17.1953L17.5967 7.73943C17.7784 7.40624 17.5373 7 17.1577 7Z\"/>\n\t\t</svg>\n\t);\n}\n"
-    }
-  ]
+	"name": "triangle-down-rounded-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/triangle-down-rounded.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function TriangleDownRoundedIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\tfill = \"none\",\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M17.1577 7H6.84227C6.46274 7 6.22158 7.40624 6.40332 7.73943L11.5611 17.1953C11.7506 17.5427 12.2494 17.5427 12.4389 17.1953L17.5967 7.73943C17.7784 7.40624 17.5373 7 17.1577 7Z\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

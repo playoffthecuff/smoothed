@@ -1,0 +1,11 @@
+{
+	"name": "info-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/info.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function InfoIcon({\n\tsize = \"1.25em\",\n\twidth,\n\theight,\n\tfill,\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size || width}\n\t\t\theight={size || height}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeLinecap=\"round\"\n\t\t\tstrokeWidth={2}\n\t\t\t{...props}\n\t\t>\n\t\t\t{fill ? (\n\t\t\t\t<path\n\t\t\t\t\td=\"M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 10.875C11.2406 10.875 10.625 11.4906 10.625 12.25V17.25C10.625 18.0094 11.2406 18.625 12 18.625C12.7594 18.625 13.375 18.0094 13.375 17.25V12.25C13.375 11.4906 12.7594 10.875 12 10.875ZM12 5.5C11.0335 5.5 10.25 6.2835 10.25 7.25C10.25 8.2165 11.0335 9 12 9C12.9665 9 13.75 8.2165 13.75 7.25C13.75 6.2835 12.9665 5.5 12 5.5Z\"\n\t\t\t\t\tstroke=\"none\"\n\t\t\t\t/>\n\t\t\t) : (\n\t\t\t\t<>\n\t\t\t\t\t<circle cx=\"12\" cy=\"12\" r=\"9\" fill=\"none\" />\n\t\t\t\t\t<circle\n\t\t\t\t\t\tcx=\"12\"\n\t\t\t\t\t\tcy=\"7.25\"\n\t\t\t\t\t\tr=\"1.75\"\n\t\t\t\t\t\tfill=\"currentColor\"\n\t\t\t\t\t\tstroke=\"none\"\n\t\t\t\t\t/>\n\t\t\t\t\t<path d=\"M12 17.25V12.25\" strokeWidth=\"2.75\" />\n\t\t\t\t</>\n\t\t\t)}\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

@@ -1,0 +1,11 @@
+{
+	"name": "grip-vertical-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/grip-vertical.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function GripVerticalIcon({ size = \"1.25em\", ...props }: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill=\"currentColor\"\n\t\t\t{...props}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t>\n\t\t\t<circle cx=\"9\" cy=\"6\" r=\"2\" />\n\t\t\t<circle cx=\"15\" cy=\"6\" r=\"2\" />\n\t\t\t<circle cx=\"9\" cy=\"12\" r=\"2\" />\n\t\t\t<circle cx=\"15\" cy=\"12\" r=\"2\" />\n\t\t\t<circle cx=\"9\" cy=\"18\" r=\"2\" />\n\t\t\t<circle cx=\"15\" cy=\"18\" r=\"2\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

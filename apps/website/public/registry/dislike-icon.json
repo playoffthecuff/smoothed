@@ -1,0 +1,11 @@
+{
+	"name": "dislike-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/dislike.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function DislikeIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill=\"none\"\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M2 12V5C2 3.61929 3.11929 2.5 4.5 2.5H17.5279C17.8384 2.5 18.1446 2.57229 18.4223 2.71115L18.6877 2.84383C19.5157 3.25784 20.1062 4.03097 20.2878 4.93876L21.7004 12.0021C21.8773 12.8865 21.4404 13.7798 20.6337 14.1832L20.4223 14.2889C20.1446 14.4277 19.8384 14.5 19.5279 14.5H14.7883C14.6361 14.5 14.5192 14.6347 14.5408 14.7854L15.2777 19.944C15.4082 20.8572 14.8971 21.7412 14.0406 22.0838L13.8993 22.1403C13.3981 22.3408 12.8282 22.1072 12.6118 21.6126L10.0243 15.6984C9.70579 14.9704 8.98656 14.5 8.19197 14.5H4.5C3.11929 14.5 2 13.3807 2 12Z\" />\n\t\t\t<path d=\"M6 14V2\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

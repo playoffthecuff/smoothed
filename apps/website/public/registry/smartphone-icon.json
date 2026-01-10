@@ -1,0 +1,10 @@
+{
+	"name": "smartphone-icon",
+	"files": [
+		{
+			"path": "src/components/ui/icons/smartphone.tsx",
+			"content": "import type { IconProps } from \"./types\";\nexport function SmartphoneIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tstroke=\"none\"\n\t\t\tfill=\"none\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path\n\t\t\t\td=\"M18 18V4C18 2.89543 17.1046 2 16 2H8C6.89543 2 6 2.89543 6 4V18\"\n\t\t\t\tstroke=\"currentColor\"\n\t\t\t/>\n\t\t\t<circle cx=\"12\" cy=\"5\" r=\"1\" fill=\"currentColor\" />\n\t\t\t<path\n\t\t\t\td=\"M19 21C19 22.1046 18.1046 23 17 23H7C5.89543 23 5 22.1046 5 21V18H19V21ZM10.5 20C10.2239 20 10 20.2239 10 20.5C10 20.7761 10.2239 21 10.5 21H13.5C13.7761 21 14 20.7761 14 20.5C14 20.2239 13.7761 20 13.5 20H10.5Z\"\n\t\t\t\tfill=\"currentColor\"\n\t\t\t/>\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

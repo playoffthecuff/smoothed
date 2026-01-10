@@ -1,0 +1,11 @@
+{
+	"name": "heart-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/heart.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function HeartIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\tfill = \"none\",\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M11.8147 7.5677L11.6575 7.2008C10.3846 4.23076 6.51455 3.48545 4.22967 5.77033C2.44597 7.55403 2.44597 10.446 4.22967 12.2297L8.59965 16.5997C9.53094 17.5309 10.368 18.5519 11.0985 19.6478L11.792 20.688C11.8909 20.8364 12.1091 20.8364 12.208 20.688L12.9015 19.6478C13.632 18.5519 14.4691 17.5309 15.4003 16.5997L19.7703 12.2297C21.554 10.446 21.554 7.55403 19.7703 5.77033C17.4855 3.48545 13.6154 4.23076 12.3425 7.2008L12.1853 7.5677C12.1155 7.73059 11.8845 7.73059 11.8147 7.5677Z\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

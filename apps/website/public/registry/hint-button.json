@@ -1,17 +1,12 @@
 {
-  "name": "hint-button",
-  "regDeps": [
-    "button",
-    "info-icon",
-    "popover"
-  ],
-  "pkgDeps": [
-    "class-variance-authority"
-  ],
-  "files": [
-    {
-      "path": "src/components/ui/fields/text.tsx",
-      "content": "import { ErrorIcon } from \"../icons/error\";\nimport { SuccessIcon } from \"../icons/success\";\nimport { WarningIcon } from \"../icons/warning\";\nimport { TextInput, type TextInputProps } from \"../input/text\";\nimport { IntentMessage } from \"../intent-message/intent-message\";\nimport { Label } from \"../label/label\";\nimport { HintButton } from \"./hint-button\";\n\ntype Props = TextInputProps & {\n\tlabel: string;\n\tmessage?: string;\n\thint?: string;\n};\n\nconst statusToIntent = {\n\tvalid: \"success\",\n\twarning: \"warning\",\n\tinvalid: \"error\",\n} as const;\n\nconst intentToIcon = {\n\tsuccess: SuccessIcon,\n\twarning: WarningIcon,\n\terror: ErrorIcon,\n};\n\nexport function TextField({\n\thint,\n\tlabel,\n\tmessage,\n\tsize,\n\trequired,\n\tshape,\n\tid,\n\t...inputProps\n}: Props) {\n\tconst intent = inputProps.status\n\t\t? statusToIntent[inputProps.status]\n\t\t: undefined;\n\treturn (\n\t\t<div className=\"flex flex-col w-max\">\n\t\t\t<div className=\"flex justify-between items-center\">\n\t\t\t\t<Label intent={intent} size={size} required={required} htmlFor={id}>\n\t\t\t\t\t{label}\n\t\t\t\t</Label>\n\t\t\t\t{hint && <HintButton description={hint} size={size} shape={shape} />}\n\t\t\t</div>\n\t\t\t<TextInput\n\t\t\t\tsize={size}\n\t\t\t\t{...inputProps}\n\t\t\t\trequired={required}\n\t\t\t\tshape={shape}\n\t\t\t\tid={id}\n\t\t\t/>\n\t\t\t{message && (\n\t\t\t\t<IntentMessage\n\t\t\t\t\tintent={intent}\n\t\t\t\t\tsize={size}\n\t\t\t\t\ticonStart={intent ? intentToIcon[intent] : undefined}\n\t\t\t\t>\n\t\t\t\t\t{message}\n\t\t\t\t</IntentMessage>\n\t\t\t)}\n\t\t</div>\n\t);\n}\n"
-    }
-  ]
+	"name": "hint-button",
+	"regDeps": ["button", "info-icon", "popover"],
+	"pkgDeps": ["class-variance-authority"],
+	"files": [
+		{
+			"path": "src/components/ui/fields/text.tsx",
+			"content": "import { ErrorIcon } from \"../icons/error\";\nimport { SuccessIcon } from \"../icons/success\";\nimport { WarningIcon } from \"../icons/warning\";\nimport { TextInput, type TextInputProps } from \"../input/text\";\nimport { IntentMessage } from \"../intent-message/intent-message\";\nimport { Label } from \"../label/label\";\nimport { HintButton } from \"./hint-button\";\n\ntype Props = TextInputProps & {\n\tlabel: string;\n\tmessage?: string;\n\thint?: string;\n};\n\nconst statusToIntent = {\n\tvalid: \"success\",\n\twarning: \"warning\",\n\tinvalid: \"error\",\n} as const;\n\nconst intentToIcon = {\n\tsuccess: SuccessIcon,\n\twarning: WarningIcon,\n\terror: ErrorIcon,\n};\n\nexport function TextField({\n\thint,\n\tlabel,\n\tmessage,\n\tsize,\n\trequired,\n\tshape,\n\tid,\n\t...inputProps\n}: Props) {\n\tconst intent = inputProps.status\n\t\t? statusToIntent[inputProps.status]\n\t\t: undefined;\n\treturn (\n\t\t<div className=\"flex flex-col w-max\">\n\t\t\t<div className=\"flex justify-between items-center\">\n\t\t\t\t<Label intent={intent} size={size} required={required} htmlFor={id}>\n\t\t\t\t\t{label}\n\t\t\t\t</Label>\n\t\t\t\t{hint && <HintButton description={hint} size={size} shape={shape} />}\n\t\t\t</div>\n\t\t\t<TextInput\n\t\t\t\tsize={size}\n\t\t\t\t{...inputProps}\n\t\t\t\trequired={required}\n\t\t\t\tshape={shape}\n\t\t\t\tid={id}\n\t\t\t/>\n\t\t\t{message && (\n\t\t\t\t<IntentMessage\n\t\t\t\t\tintent={intent}\n\t\t\t\t\tsize={size}\n\t\t\t\t\ticonStart={intent ? intentToIcon[intent] : undefined}\n\t\t\t\t>\n\t\t\t\t\t{message}\n\t\t\t\t</IntentMessage>\n\t\t\t)}\n\t\t</div>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }

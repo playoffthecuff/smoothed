@@ -1,12 +1,11 @@
 {
-  "name": "triangle-up-rounded-icon",
-  "regDeps": [
-    "icon-types"
-  ],
-  "files": [
-    {
-      "path": "src/components/ui/icons/triangle-up-rounded.tsx",
-      "content": "import type { IconProps } from \"./types\";\n\nexport function TriangleUpRoundedIcon({ size=\"1.25em\", strokeWidth = 2, fill=\"none\", ...props }: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M17.1577 17H6.84227C6.46274 17 6.22158 16.5938 6.40332 16.2606L11.5611 6.80474C11.7506 6.45731 12.2494 6.45731 12.4389 6.80474L17.5967 16.2606C17.7784 16.5938 17.5373 17 17.1577 17Z\"/>\n\t\t</svg>\n\t);\n}\n"
-    }
-  ]
+	"name": "triangle-up-rounded-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/triangle-up-rounded.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function TriangleUpRoundedIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\tfill = \"none\",\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M17.1577 17H6.84227C6.46274 17 6.22158 16.5938 6.40332 16.2606L11.5611 6.80474C11.7506 6.45731 12.2494 6.45731 12.4389 6.80474L17.5967 16.2606C17.7784 16.5938 17.5373 17 17.1577 17Z\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
 }
