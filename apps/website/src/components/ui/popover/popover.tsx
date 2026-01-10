@@ -1,6 +1,7 @@
 "use client";
 import { Popover as BasePopover } from "@base-ui/react/popover";
 import { cva, type VariantProps } from "class-variance-authority";
+import type { ReactNode } from "react";
 
 const Arrow = () => (
 	<div className="p-1">
@@ -12,7 +13,7 @@ const Arrow = () => (
 );
 
 export const popoverVariants = cva(
-	"origin-[var(--transform-origin)] bg-[canvas] px-12d py-4d shadow-lg border-1 border-muted transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none",
+	"origin-[var(--transform-origin)] bg-[canvas] p-12d shadow-lg border-1 border-muted transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none",
 	{
 		variants: {
 			size: {
@@ -22,25 +23,25 @@ export const popoverVariants = cva(
 			},
 			shape: {
 				rounded: null,
-				square: "rounded-none before:rounded-none",
-				circular: "rounded-full before:rounded-full",
+				square: "rounded-none",
+				circular: "rounded-full",
 			},
 		},
 		compoundVariants: [
 			{
 				size: "s",
 				shape: "rounded",
-				className: "rounded-7d before:rounded-7d",
+				className: "rounded-9d",
 			},
 			{
 				size: "m",
 				shape: "rounded",
-				className: "rounded-8d before:rounded-8d",
+				className: "rounded-10d",
 			},
 			{
 				size: "l",
 				shape: "rounded",
-				className: "rounded-9d before:rounded-9d",
+				className: "rounded-11d",
 			},
 		],
 		defaultVariants: {
@@ -66,20 +67,22 @@ const arrowVariants = cva(null, {
 
 export type PopoverProps = {
 	children: React.ReactNode;
-	description: string;
+	description?: string;
 	title?: string;
 	rootProps?: BasePopover.Root.Props;
-	triggerProps?: BasePopover.Trigger.Props;
+	content?: ReactNode;
+	openOnHover?: boolean;
 } & VariantProps<typeof popoverVariants> &
 	VariantProps<typeof arrowVariants>;
 
 export function Popover({
 	rootProps,
-	triggerProps,
+	content,
 	children,
 	title,
 	side,
 	description,
+	openOnHover,
 	size,
 	shape,
 }: PopoverProps) {
@@ -87,7 +90,6 @@ export function Popover({
 		<BasePopover.Root {...rootProps}>
 			<BasePopover.Trigger
 				className={"flex items-center justify-center leading-none"}
-				{...triggerProps}
 				nativeButton={false}
 				render={
 					<span
@@ -95,21 +97,23 @@ export function Popover({
 						tabIndex={-1}
 					></span>
 				}
+				openOnHover={openOnHover}
 			>
 				{children}
 			</BasePopover.Trigger>
 			<BasePopover.Portal>
 				<BasePopover.Positioner sideOffset={8} side={side ?? "top"}>
 					<BasePopover.Popup className={popoverVariants({ shape, size })}>
-						<BasePopover.Arrow className={arrowVariants({side})}>
+						<BasePopover.Arrow className={arrowVariants({ side })}>
 							<Arrow />
 						</BasePopover.Arrow>
 						{title && (
-							<BasePopover.Title className="text-base font-medium">
+							<BasePopover.Title className="font-11d text-5d">
 								{title}
 							</BasePopover.Title>
 						)}
 						<BasePopover.Description>{description}</BasePopover.Description>
+						{content}
 					</BasePopover.Popup>
 				</BasePopover.Positioner>
 			</BasePopover.Portal>
