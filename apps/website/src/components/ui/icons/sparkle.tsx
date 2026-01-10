@@ -1,7 +1,7 @@
 import type { IconProps } from "./types";
 
 export function SparkleIcon({
-	size="1.25em",
+	size = "1.25em",
 	strokeWidth = "1",
 	...props
 }: IconProps) {

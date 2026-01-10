@@ -9,9 +9,9 @@ export const createLightness = (
 	[...Array(steps)].map((_, i) =>
 		i > steps / 2
 			? Math.round(
-				(max * 100 - (max - min) * (10 ** k * 2 - (steps - i - 1) ** k) * 2) *
-				10,
-			) / 1000
+					(max * 100 - (max - min) * (10 ** k * 2 - (steps - i - 1) ** k) * 2) *
+						10,
+				) / 1000
 			: Math.round((max * 100 - i ** k * (max - min) * 2) * 10) / 1000,
 	);
 
@@ -63,14 +63,14 @@ const calcAsymmetricalHue = (H: number, L: number, k: number) =>
 	Math.round(
 		rotationCompensation(
 			H +
-			k *
-			(1 - L) *
-			(-51 * Math.exp(-((H - 98) ** 2 / 4000)) +
-				23 * Math.exp(-((H + 7) ** 2 / 2000)) +
-				31.4 * Math.exp(-((H - 201) ** 2 / 1000)) -
-				8 * Math.exp(-((H - 308) ** 2 / 1000)) +
-				20 * Math.exp(-((H - 353) ** 2 / 500)) -
-				10 * Math.exp(-((H - 372) ** 2 / 1000))),
+				k *
+					(1 - L) *
+					(-51 * Math.exp(-((H - 98) ** 2 / 4000)) +
+						23 * Math.exp(-((H + 7) ** 2 / 2000)) +
+						31.4 * Math.exp(-((H - 201) ** 2 / 1000)) -
+						8 * Math.exp(-((H - 308) ** 2 / 1000)) +
+						20 * Math.exp(-((H - 353) ** 2 / 500)) -
+						10 * Math.exp(-((H - 372) ** 2 / 1000))),
 		) * 100,
 	) / 100;
 
@@ -162,7 +162,44 @@ export const replaceChromaInOklchString = (oklch: string, newChroma: string) =>
 		(_, start, _old, end) => `${start}${newChroma}${end}`,
 	);
 
+const colorNames = [
+	"pink",
+	"rose",
+	"scarlet",
+	"red",
+	"tomato",
+	"coral",
+	"peach",
+	"vermilion",
+	"orange",
+	"amber",
+	"gold",
+	"yellow",
+	"chartreuse",
+	"khaki",
+	"lime",
+	"green",
+	"emerald",
+	"aquamarine",
+	"turquoise",
+	"aqua",
+	"cyan",
+	"teal",
+	"cerulean",
+	"azure",
+	"sky",
+	"cornflower",
+	"blue",
+	"navy",
+	"midnight",
+	"blue-violet",
+	"indigo",
+	"orchid",
+	"magenta",
+	"violet",
+	"purple",
+	"fuchsia",
+];
 
-const colorNames = ['pink', 'rose', 'scarlet', 'red', 'tomato', 'coral', 'peach', 'vermilion', 'orange', 'amber', 'gold', 'yellow', 'chartreuse', 'khaki', 'lime', 'green', 'emerald', 'aquamarine', 'turquoise', 'aqua', 'cyan', 'teal', 'cerulean', 'azure', 'sky', 'cornflower', 'blue', 'navy', 'midnight', 'blue-violet', 'indigo', 'orchid', 'magenta', 'violet', 'purple', 'fuchsia'];
-
-export const getColorNameByHue = (hue: number) => colorNames[~~Math.round(Math.abs(hue) / 10) % 36];
+export const getColorNameByHue = (hue: number) =>
+	colorNames[~~Math.round(Math.abs(hue) / 10) % 36];

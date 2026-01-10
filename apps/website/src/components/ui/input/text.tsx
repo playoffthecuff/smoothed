@@ -22,7 +22,7 @@ const textInputVariants = cva(
 				true: "pointer-events-none saturate-50 opacity-50 contrast-60 dark:contrast-90",
 			},
 			loading: {
-				true: "text-transparent placeholder:text-transparent pointer-events-none"
+				true: "text-transparent placeholder:text-transparent pointer-events-none",
 			},
 			lifted: {
 				true: null,
@@ -42,10 +42,13 @@ const textInputVariants = cva(
 					"border-error text-error [&&]-selection:surface-error-solid focus:ring-error-2d",
 			},
 		},
-		compoundVariants: [{
-			status: undefined,
-			className: "focus:ring-primary-2d focus:border-primary border-muted invalid:border-error invalid:focus:border-error invalid:text-error-3 invalid:selection:surface-error-solid invalid:focus:ring-error-2d", 
-		}],
+		compoundVariants: [
+			{
+				status: undefined,
+				className:
+					"focus:ring-primary-2d focus:border-primary border-muted invalid:border-error invalid:focus:border-error invalid:text-error-3 invalid:selection:surface-error-solid invalid:focus:ring-error-2d",
+			},
+		],
 		defaultVariants: {
 			size: "m",
 			lifted: false,
@@ -166,7 +169,9 @@ export function TextInput({
 					visible={visiblePassword}
 				/>
 			)}
-			{loading && <SpinnerIcon className="animate-spin absolute pointer-events-none" />}
+			{loading && (
+				<SpinnerIcon className="animate-spin absolute pointer-events-none" />
+			)}
 		</div>
 	);
 }

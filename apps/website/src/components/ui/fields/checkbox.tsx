@@ -36,26 +36,33 @@ export function CheckboxField({
 		? statusToIntent[checkboxProps.status]
 		: undefined;
 	return (
-			<div className="grid grid-cols-[repeat(2,max-content)] gap-x-8d">
-				<Checkbox
-					size={size}
-					{...checkboxProps}
-					required={required}
-					shape={shape}
-					id={id}
-				/>
-				<div className="flex items-center gap-x-8d">
-					<Label intent={intent} size={size} required={required} htmlFor={id}>
-						{label}
-					</Label>
-					{hint && <HintButton description={hint} size={size} shape={shape} />}
-				</div>
+		<div className="grid grid-cols-[repeat(2,max-content)] gap-x-8d">
+			<Checkbox
+				size={size}
+				{...checkboxProps}
+				required={required}
+				shape={shape}
+				id={id}
+			/>
+			<div className="flex items-center gap-x-8d">
+				<Label intent={intent} size={size} required={required} htmlFor={id}>
+					{label}
+				</Label>
+				{hint && <HintButton description={hint} size={size} shape={shape} />}
+			</div>
 			{message && (
 				<IntentMessage
 					intent={intent}
 					size={size}
 					iconStart={intent ? intentToIcon[intent] : undefined}
-					className={cn("col-start-2", size === "m" ? "-translate-y-2" : size === "s" ? "-translate-y-[7px]" : "-translate-y-[10px]")}
+					className={cn(
+						"col-start-2",
+						size === "m"
+							? "-translate-y-2"
+							: size === "s"
+								? "-translate-y-[7px]"
+								: "-translate-y-[10px]",
+					)}
 				>
 					{message}
 				</IntentMessage>

@@ -6,17 +6,20 @@ import { Toggle } from "../toggle/toggle";
 
 interface Props {
 	className?: string;
-	animationTimeout: number;
+	animationTimeout?: number;
 	onClick: () => void;
 }
 
-export function CopyButton({ className, animationTimeout, onClick }: Props) {
+export function CopyButton({
+	className,
+	animationTimeout = 1000,
+	onClick,
+}: Props) {
 	const [copied, setCopied] = useState(false);
 	const timerIdRef = useRef<NodeJS.Timeout>(null);
 	return (
 		<Toggle
 			className={className}
-			style={{ position: "absolute" }}
 			intent={"secondary"}
 			appearance={"text"}
 			render={(p) => (
@@ -24,7 +27,6 @@ export function CopyButton({ className, animationTimeout, onClick }: Props) {
 					type="button"
 					{...p}
 					onClick={() => {
-						console.log("hue");
 						setCopied(true);
 						if (timerIdRef.current) clearTimeout(timerIdRef.current);
 						timerIdRef.current = setTimeout(

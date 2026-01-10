@@ -1,6 +1,11 @@
 import type { IconProps } from "./types";
 
-export function SunIcon({ size = "1.25em", strokeWidth = 2, fill = "none", ...props }: IconProps) {
+export function SunIcon({
+	size = "1.25em",
+	strokeWidth = 2,
+	fill = "none",
+	...props
+}: IconProps) {
 	return (
 		<svg
 			width={size}

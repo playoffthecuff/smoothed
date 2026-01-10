@@ -27,8 +27,10 @@ const checkboxVariants = cva(
 			},
 			shape: {
 				square: "before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
-				rounded: "before:rounded-7d before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
-				circular: "before:rounded-full before:w-[1.186em] before:h-[1.186em] before:border-[0.1186em]",
+				rounded:
+					"before:rounded-7d before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
+				circular:
+					"before:rounded-full before:w-[1.186em] before:h-[1.186em] before:border-[0.1186em]",
 			},
 			size: {
 				s: "text-3d",
@@ -43,7 +45,8 @@ const checkboxVariants = cva(
 			},
 			filled: {
 				true: null,
-				false: "before:bg-3 hover:before:bg-1 active:before:bg-1 active:hover:before:bg-1",
+				false:
+					"before:bg-3 hover:before:bg-1 active:before:bg-1 active:hover:before:bg-1",
 			},
 		},
 		compoundVariants: [
@@ -54,7 +57,11 @@ const checkboxVariants = cva(
 			{ shape: "circular", size: "s", className: "before:text-4d" },
 			{ shape: "circular", size: "m", className: "before:text-5d" },
 			{ shape: "circular", size: "l", className: "before:text-6d" },
-			{status: undefined, className: "focus-visible:shadow-focus-foreground surface-foreground-ghost-ia before:border-foreground text-1"},
+			{
+				status: undefined,
+				className:
+					"focus-visible:shadow-focus-foreground surface-foreground-ghost-ia before:border-foreground text-1",
+			},
 			{
 				filled: true,
 				status: "invalid",
@@ -143,7 +150,9 @@ const iconVariants = cva(null, {
 });
 
 export type CheckboxProps = React.ComponentProps<"span"> &
-	VariantProps<typeof checkboxVariants> & { required?: boolean } & BaseCheckbox.Root.Props;
+	VariantProps<typeof checkboxVariants> & {
+		required?: boolean;
+	} & BaseCheckbox.Root.Props;
 
 export default function Checkbox({
 	onMouseDown,

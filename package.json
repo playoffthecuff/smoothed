@@ -1,15 +1,15 @@
 {
   "name": "smoothed",
   "version": "0.0.1",
+  "author": "playoffthecuff",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "playoffthecuff",
-  "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@biomejs/biome": "2.3.4"
+    "@biomejs/biome": "2.3.11"
   }
 }

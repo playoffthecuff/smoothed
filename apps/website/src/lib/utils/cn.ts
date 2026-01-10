@@ -1,1 +1,1 @@
-export {clsx as cn} from "clsx/lite";
+export { clsx as cn } from "clsx/lite";

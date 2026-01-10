@@ -277,7 +277,7 @@ export default function ButtonPage() {
 					</div>
 					<div className="flex gap-16d items-center">
 						<div className="flex items-center gap-8d">
-							<Button appearance={"solid"} className="w-fit" loading >
+							<Button appearance={"solid"} className="w-fit" loading>
 								Loading
 							</Button>
 							<Button appearance={"solid"} className="w-fit" loading />

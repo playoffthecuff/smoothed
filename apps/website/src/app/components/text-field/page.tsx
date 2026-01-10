@@ -13,8 +13,8 @@ export default function TextFieldPage() {
 			<div>
 				<Title>Text Field</Title>
 				<p>
-					Labeled control, with an optional
-					message and hint. Accepts string data from the user.
+					Labeled control, with an optional message and hint. Accepts string
+					data from the user.
 				</p>
 			</div>
 			<div>

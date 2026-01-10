@@ -1,6 +1,10 @@
 import type { IconProps } from "./types";
 
-export function DislikeIcon({ size="1.25em", strokeWidth = 2, ...props }: IconProps) {
+export function DislikeIcon({
+	size = "1.25em",
+	strokeWidth = 2,
+	...props
+}: IconProps) {
 	return (
 		<svg
 			width={size}

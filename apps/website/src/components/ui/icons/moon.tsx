@@ -1,7 +1,7 @@
 import type { IconProps } from "./types";
 
 export function MoonIcon({
-	size="1.25em",
+	size = "1.25em",
 	strokeWidth = 2,
 	...props
 }: IconProps) {

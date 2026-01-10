@@ -30,11 +30,16 @@ export default function CheckboxFieldPage() {
 			<div className="flex flex-col gap-16d items-start w-60">
 				<div>
 					<Title size={3}>Options</Title>
-					<div className="flex flex-col gap-16d" >
+					<div className="flex flex-col gap-16d">
 						<CheckboxField label="Only Label" id="ol" defaultChecked />
 						<CheckboxField label="Hint" hint="Hint" id="hint" defaultChecked />
 						<CheckboxField label="Required" required id="required" />
-						<CheckboxField label="With message" message="message" id="wm" defaultChecked />
+						<CheckboxField
+							label="With message"
+							message="message"
+							id="wm"
+							defaultChecked
+						/>
 					</div>
 				</div>
 				<div>

@@ -22,22 +22,46 @@ type Props = React.ComponentProps<"h1"> & VariantProps<typeof headingVariants>;
 export function Title({ size, children, className, ...props }: Props) {
 	switch (size) {
 		case 2: {
-			return <h2 className={cn(headingVariants({ size }), className)} {...props}>{children}</h2>;
+			return (
+				<h2 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h2>
+			);
 		}
 		case 3: {
-			return <h3 className={cn(headingVariants({ size }), className)} {...props}>{children}</h3>;
+			return (
+				<h3 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h3>
+			);
 		}
 		case 4: {
-			return <h4 className={cn(headingVariants({ size }), className)} {...props}>{children}</h4>;
+			return (
+				<h4 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h4>
+			);
 		}
 		case 5: {
-			return <h5 className={cn(headingVariants({ size }), className)} {...props}>{children}</h5>;
+			return (
+				<h5 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h5>
+			);
 		}
 		case 6: {
-			return <h6 className={cn(headingVariants({ size }), className)} {...props}>{children}</h6>;
+			return (
+				<h6 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h6>
+			);
 		}
 		default: {
-			return <h1 className={cn(headingVariants({ size }), className)} {...props}>{children}</h1>;
+			return (
+				<h1 className={cn(headingVariants({ size }), className)} {...props}>
+					{children}
+				</h1>
+			);
 		}
 	}
 }

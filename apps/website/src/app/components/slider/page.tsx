@@ -12,9 +12,7 @@ export default function SliderPage() {
 		>
 			<div>
 				<Title>Slider</Title>
-				<p>
-					An interactive control that accepts range's number(s) from the user.
-				</p>
+				<p>An interactive control that accepts range's number(s) from the user.</p>
 			</div>
 			<div>
 				<Title size={2}>Installation</Title>
@@ -37,9 +35,9 @@ export default function SliderPage() {
 				<div className="flex flex-col gap-12d">
 					<Title size={3}>Size</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] gap-16d items-center">
-						<Slider defaultValue={50} size={"s"}/> S - Small
-						<Slider defaultValue={50} size={"m"}/> M - Medium
-						<Slider defaultValue={50} size={"l"}/> L - Large
+						<Slider defaultValue={50} size={"s"} /> S - Small
+						<Slider defaultValue={50} size={"m"} /> M - Medium
+						<Slider defaultValue={50} size={"l"} /> L - Large
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
@@ -53,17 +51,17 @@ export default function SliderPage() {
 				<div className="flex flex-col gap-12d">
 					<Title size={3}>Status</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] gap-16d items-center">
-						<Slider defaultValue={50} status={"valid"}/> Valid
-						<Slider defaultValue={50} status={"warning"}/> Warning
-						<Slider defaultValue={50} status={"invalid"}/> Invalid
+						<Slider defaultValue={50} status={"valid"} /> Valid
+						<Slider defaultValue={50} status={"warning"} /> Warning
+						<Slider defaultValue={50} status={"invalid"} /> Invalid
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
 					<Title size={3}>State</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] gap-16d items-center">
-						<Slider defaultValue={50} disabled/> Disabled
+						<Slider defaultValue={50} disabled /> Disabled
 						<Slider defaultValue={50} loading /> Loading
-						<Slider defaultValue={50} disabled loading/> Disabled & Loading
+						<Slider defaultValue={50} disabled loading /> Disabled & Loading
 					</div>
 				</div>
 			</div>

@@ -13,8 +13,8 @@ export default function TextFieldPage() {
 			<div>
 				<Title>Number Field</Title>
 				<p>
-					Labeled control, with an optional
-					message and hint. Accepts number data from the user.
+					Labeled control, with an optional message and hint. Accepts number
+					data from the user.
 				</p>
 			</div>
 			<div>
@@ -38,11 +38,7 @@ export default function TextFieldPage() {
 							hint="Hint"
 							id="hint"
 						/>
-						<NumberField
-							label="Required"
-							required
-							id="required"
-						/>
+						<NumberField label="Required" required id="required" />
 						<NumberField
 							label="With message"
 							message="message"

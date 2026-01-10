@@ -31,9 +31,14 @@ export default function SliderFieldPage() {
 				<div className="w-full">
 					<Title size={3}>Options</Title>
 					<div className="flex flex-col gap-16d">
-						<SliderField label="Only Label" id="ol" defaultValue={50}/>
-						<SliderField label="Hint" hint="Hint" id="hint" defaultValue={50}/>
-						<SliderField label="With message" message="message" id="wm" defaultValue={50}/>
+						<SliderField label="Only Label" id="ol" defaultValue={50} />
+						<SliderField label="Hint" hint="Hint" id="hint" defaultValue={50} />
+						<SliderField
+							label="With message"
+							message="message"
+							id="wm"
+							defaultValue={50}
+						/>
 					</div>
 				</div>
 				<div className="w-full">

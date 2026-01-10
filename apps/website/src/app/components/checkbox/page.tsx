@@ -55,11 +55,11 @@ export default function CheckboxPage() {
 					<Title size={3}>Appearance</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] gap-x-12d">
 						<div className="flex items-center gap-12d ms-8d">
-							<Checkbox defaultChecked/>
+							<Checkbox defaultChecked />
 							Outline
 						</div>
 						<div className="flex items-center gap-12d ms-8d">
-							<Checkbox filled defaultChecked/>
+							<Checkbox filled defaultChecked />
 							Filled
 						</div>
 					</div>
@@ -84,7 +84,7 @@ export default function CheckboxPage() {
 				<div className="flex flex-col gap-12d">
 					<Title size={3}>State</Title>
 					<div className="flex items-center gap-12d ms-8d">
-						<Checkbox disabled defaultChecked/>
+						<Checkbox disabled defaultChecked />
 						Disabled
 					</div>
 					<div className="flex items-center gap-12d ms-8d">

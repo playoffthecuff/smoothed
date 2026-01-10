@@ -65,7 +65,13 @@ export function IntentMessage({
 				/>
 			)}
 			{children}
-			{IconEnd && <IconEnd size="1em" fill="currentColor" className={`fill-${intentColor}-d`} />}
+			{IconEnd && (
+				<IconEnd
+					size="1em"
+					fill="currentColor"
+					className={`fill-${intentColor}-d`}
+				/>
+			)}
 		</p>
 	);
 }

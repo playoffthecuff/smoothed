@@ -572,7 +572,9 @@ export default function TogglePage() {
 							<HeartIcon />
 						</Toggle>
 					</div>
-					<Title size={3} className="col-span-5 -mb-4">Lifted</Title>
+					<Title size={3} className="col-span-5 -mb-4">
+						Lifted
+					</Title>
 					<div className="flex gap-10d items-center">
 						<Toggle
 							appearance={"solid"}

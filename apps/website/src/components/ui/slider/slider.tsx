@@ -3,46 +3,49 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import { SpinnerIcon } from "../icons/spinner";
 
-const sliderVariants = cva("flex grow items-center gap-14d px-[1ch] bg-3 min-w-28d", {
-	variants: {
-		size: {
-			s: "text-3d font-10d",
-			m: "text-4d font-9d",
-			l: "text-5d font-8d",
+const sliderVariants = cva(
+	"flex grow items-center gap-14d px-[1ch] bg-3 min-w-28d",
+	{
+		variants: {
+			size: {
+				s: "text-3d font-10d",
+				m: "text-4d font-9d",
+				l: "text-5d font-8d",
+			},
+			status: {
+				valid: "text-success",
+				warning: "text-warning",
+				invalid: "text-error",
+			},
+			shape: {
+				square: null,
+				rounded: "rounded-[0.325em]",
+				circular: "rounded-full",
+			},
+			disabled: {
+				true: "cursor-not-allowed",
+				false: null,
+			},
+			loading: {
+				true: "cursor-wait",
+				false: null,
+			},
 		},
-		status: {
-			valid: "text-success",
-			warning: "text-warning",
-			invalid: "text-error",
-		},
-		shape: {
-			square: null,
-			rounded: "rounded-[0.325em]",
-			circular: "rounded-full",
-		},
-		disabled: {
-			true: "cursor-not-allowed",
-			false: null,
-		},
-		loading: {
-			true: "cursor-wait",
-			false: null,
-		},
-	},
-	compoundVariants: [
-		{
+		compoundVariants: [
+			{
+				disabled: false,
+				loading: false,
+				className: "cursor-pointer",
+			},
+		],
+		defaultVariants: {
+			size: "m",
 			disabled: false,
 			loading: false,
-			className: "cursor-pointer",
+			shape: "rounded",
 		},
-	],
-	defaultVariants: {
-		size: "m",
-		disabled: false,
-		loading: false,
-		shape: "rounded",
 	},
-});
+);
 
 const controlVariants = cva(
 	"flex grow touch-none items-center h-[2em] select-none",

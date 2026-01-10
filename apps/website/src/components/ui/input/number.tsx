@@ -370,7 +370,9 @@ export function NumberInput({
 					)}
 				</NumberField.Increment>
 			</NumberField.Group>
-			{loading && <SpinnerIcon className="animate-spin absolute pointer-events-none" />}
+			{loading && (
+				<SpinnerIcon className="animate-spin absolute pointer-events-none" />
+			)}
 		</NumberField.Root>
 	);
 }

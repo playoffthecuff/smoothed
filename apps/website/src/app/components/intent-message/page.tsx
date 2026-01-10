@@ -1,6 +1,5 @@
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { ErrorIcon } from "@/components/ui/icons/error";
-import { HeartIcon } from "@/components/ui/icons/heart";
 import { HelpIcon } from "@/components/ui/icons/help";
 import { InfoIcon } from "@/components/ui/icons/info";
 import { SparkleIcon } from "@/components/ui/icons/sparkle";

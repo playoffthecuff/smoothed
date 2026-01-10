@@ -1,6 +1,11 @@
 import type { IconProps } from "./types";
 
-export function TriangleUpSharpIcon({ size="1.25em", strokeWidth = 2, fill="none", ...props }: IconProps) {
+export function TriangleUpSharpIcon({
+	size = "1.25em",
+	strokeWidth = 2,
+	fill = "none",
+	...props
+}: IconProps) {
 	return (
 		<svg
 			width={size}
@@ -12,7 +17,7 @@ export function TriangleUpSharpIcon({ size="1.25em", strokeWidth = 2, fill="none
 			xmlns="http://www.w3.org/2000/svg"
 			{...props}
 		>
-			<path d="M17.1963 16H6.80371L12 7L17.1963 16Z"/>
+			<path d="M17.1963 16H6.80371L12 7L17.1963 16Z" />
 		</svg>
 	);
 }

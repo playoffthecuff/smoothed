@@ -13,7 +13,7 @@ export function HighlightedCode({
 	return (
 		<div className="max-w-full max-h-80 overflow-y-auto rounded-md relative">
 			<CopyButton
-				className="top-2 right-2"
+				className="top-2 right-2 [&&]-absolute"
 				animationTimeout={1000}
 				onClick={() => navigator.clipboard.writeText(code)}
 			/>
@@ -23,10 +23,7 @@ export function HighlightedCode({
 				language={language}
 			>
 				{({ style, tokens, getLineProps, getTokenProps }) => (
-					<pre
-						style={style}
-						className="px-3 py-4 overflow-x-auto"
-					>
+					<pre style={style} className="px-3 py-4 overflow-x-auto">
 						{tokens.map((line, i) => (
 							<div key={i} {...getLineProps({ line })}>
 								{lineNumbers && (

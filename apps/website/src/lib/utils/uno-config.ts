@@ -35,8 +35,11 @@ const borderRadiusSideSize = JSON.stringify({
 });
 const gapSide = JSON.stringify({ x: "column-", y: "row-" });
 
-const computeOklch = (l: number, h: number, c: number, alpha?: number) => formatCSS({ l, c: getOkLCHMaxChroma({ c: 0, h, l }) * c, h }, { format: "oklch", precision: 4, alpha });
-
+const computeOklch = (l: number, h: number, c: number, alpha?: number) =>
+	formatCSS(
+		{ l, c: getOkLCHMaxChroma({ c: 0, h, l }) * c, h },
+		{ format: "oklch", precision: 4, alpha },
+	);
 
 export interface Color {
 	purpose: string;
@@ -426,28 +429,28 @@ ${colors.map(({ purpose, chroma, hue, lightness }) => `			"${purpose}-hue": "${h
 			...theme.animation,
 			keyframes: {
 				...theme.animation?.keyframes,
-${colors.map(v => `				"wave-${v.purpose}": "{0% {outline-width: 0; outline-color: ${computeOklch(0.5, v.hue, v.chroma, 0.8)}} 100% {outline-width: 6px; outline-color: ${computeOklch(0.5, v.hue, v.chroma, 1e-5)}} }"`).join(",\n")},
+${colors.map((v) => `				"wave-${v.purpose}": "{0% {outline-width: 0; outline-color: ${computeOklch(0.5, v.hue, v.chroma, 0.8)}} 100% {outline-width: 6px; outline-color: ${computeOklch(0.5, v.hue, v.chroma, 1e-5)}} }"`).join(",\n")},
 			},
 			durations: {
 				...theme.animation?.durations,
-${colors.map(v => `				"wave-${v.purpose}": "${WAVE_ANIMATION_DURATION}s"`).join(",\n")},
+${colors.map((v) => `				"wave-${v.purpose}": "${WAVE_ANIMATION_DURATION}s"`).join(",\n")},
 			},
 			timingFns: {
 				...theme.animation?.timingFns,
-${colors.map(v => `				"wave-${v.purpose}": "${WAVE_ANIMATION_TIMING_FN}"`).join(",\n")},
+${colors.map((v) => `				"wave-${v.purpose}": "${WAVE_ANIMATION_TIMING_FN}"`).join(",\n")},
 			},
 			counts: {
 				...theme.animation?.counts,
-${colors.map(v => `				"wave-${v.purpose}": "1"`).join(",\n")},
+${colors.map((v) => `				"wave-${v.purpose}": "1"`).join(",\n")},
 			},
 			category: {
 				...theme.animation?.category,
-${colors.map(v => `				"wave-${v.purpose}": "Attention Seekers"`).join(",\n")},
+${colors.map((v) => `				"wave-${v.purpose}": "Attention Seekers"`).join(",\n")},
 			},
 		},
 		shadow: {
 			...theme.shadow,
-${colors.map(v => `			"focus-${v.purpose}": ["0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem) calc(var(--spacing-size) * 2rem) currentColor", "0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem / 2) calc(var(--spacing-size) * 4rem) ${computeOklch(0.5, v.hue, v.chroma, 0.9)}"]`).join(",\n")},
+${colors.map((v) => `			"focus-${v.purpose}": ["0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem) calc(var(--spacing-size) * 2rem) currentColor", "0 0 calc(var(--spacing-size) * pow(2, 0.75) * 1rem / 2) calc(var(--spacing-size) * 4rem) ${computeOklch(0.5, v.hue, v.chroma, 0.9)}"]`).join(",\n")},
 		},
 		media: {
 			...theme.media,
@@ -464,6 +467,6 @@ ${colors.map(v => `			"focus-${v.purpose}": ["0 0 calc(var(--spacing-size) * pow
 			},
 		],
 		safelist: [
-${colors.map(v => `			"before:animate-wave-${v.purpose}"`).join(",\n")}
+${colors.map((v) => `			"before:animate-wave-${v.purpose}"`).join(",\n")}
 		]
-});`
+});`;

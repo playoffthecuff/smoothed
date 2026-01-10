@@ -115,11 +115,23 @@ const triggerWrapperVariants = cva("flex items-center justify-center", {
 
 export type SelectProps = VariantProps<typeof selectTriggerVariants> & {
 	items: { label: string; value: string | number | null }[];
-} & {required?: boolean; id?: string};
+} & { required?: boolean; id?: string };
 
-export function Select({ items, size, shape, loading, disabled, status, required }: SelectProps) {
+export function Select({
+	items,
+	size,
+	shape,
+	loading,
+	disabled,
+	status,
+	required,
+}: SelectProps) {
 	return (
-		<BaseSelect.Root items={items} disabled={disabled ?? undefined} required={required}>
+		<BaseSelect.Root
+			items={items}
+			disabled={disabled ?? undefined}
+			required={required}
+		>
 			<span className={triggerWrapperVariants({ disabled, loading })}>
 				{loading && (
 					<SpinnerIcon className="animate-spin absolute pointer-events-none" />

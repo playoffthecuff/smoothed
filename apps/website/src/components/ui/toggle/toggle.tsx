@@ -220,7 +220,7 @@ const toggleVariants = cva(
 				intent: "success",
 				appearance: ["ghost", "outline"],
 				effect: "bgColor",
-				className: "surface-success-toggleable"
+				className: "surface-success-toggleable",
 			},
 			{
 				intent: "success",
@@ -255,7 +255,7 @@ const toggleVariants = cva(
 				intent: "secondary",
 				appearance: ["ghost", "outline"],
 				effect: "bgColor",
-				className: "surface-secondary-toggleable"
+				className: "surface-secondary-toggleable",
 			},
 			{
 				intent: "secondary",
@@ -371,7 +371,7 @@ export function Toggle({
 		disabled: appearance === "text",
 	});
 	return (
-		<span className={wrapperVariants({loading, disabled})}>
+		<span className={wrapperVariants({ loading, disabled })}>
 			<BaseToggle
 				ref={effects.ref}
 				data-slot="button"
@@ -395,7 +395,9 @@ export function Toggle({
 				disabled={disabled}
 				{...props}
 			>
-				{loading && <SpinnerIcon className="animate-spin absolute pointer-events-none" />}
+				{loading && (
+					<SpinnerIcon className="animate-spin absolute pointer-events-none" />
+				)}
 				{loading ? (
 					<span className="text-transparent">{children}</span>
 				) : (
