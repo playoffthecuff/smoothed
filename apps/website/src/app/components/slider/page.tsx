@@ -12,7 +12,9 @@ export default function SliderPage() {
 		>
 			<div>
 				<Title>Slider</Title>
-				<p>An interactive control that accepts range's number(s) from the user.</p>
+				<p>
+					An interactive control that accepts range's number(s) from the user.
+				</p>
 			</div>
 			<div>
 				<Title size={2}>Installation</Title>

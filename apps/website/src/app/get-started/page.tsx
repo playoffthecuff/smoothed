@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
+import { Link } from "@/components/ui/link/link";
 import { Title } from "@/components/ui/typography/title";
 
 export default function Page() {
@@ -27,7 +27,7 @@ export default function Page() {
 						href="https://unocss.dev/integrations/"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="underline text-primary"
+						className="text-primary-ia underline visited:text-visited-ia w-fit"
 					>
 						instructions
 					</a>
@@ -50,10 +50,8 @@ export default function Page() {
 			</div>
 			<div>
 				<p>
-					You can{" "}
-					<Link href="theme-editor" className="underline text-primary">
-						customize the theme
-					</Link>{". "}
+					You can <Link href="theme-editor">customize the theme</Link>
+					{". "}
 					Then replace the contents of the default configuration file{" "}
 					<code className="bg px-8d">uno.config.ts</code>
 				</p>

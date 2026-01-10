@@ -40,7 +40,7 @@ export function SliderField({
 				</Label>
 				{hint && <HintButton description={hint} size={size} shape={shape} />}
 			</div>
-				<Slider {...selectProps} id={id} shape={shape} size={size} />
+			<Slider {...selectProps} id={id} shape={shape} size={size} />
 			{message && (
 				<IntentMessage
 					intent={intent}
