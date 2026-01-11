@@ -1,0 +1,10 @@
+{
+	"name": "card",
+	"files": [
+		{
+			"path": "src/components/ui/card/card.tsx",
+			"content": "import { ReactNode } from \"react\";\n\ninterface Props {\n\tchildren: ReactNode;\n}\n\nexport function Card({ children }: Props) {\n\treturn (\n\t\t<div className=\"px-16d py-14d bg-3 rounded-12d shadow-lifted-2\">\n\t\t\t{children}\n\t\t</div>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

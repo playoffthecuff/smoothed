@@ -14,6 +14,14 @@
 			]
 		},
 		{
+			"name": "card",
+			"files": [
+				{
+					"path": "src/components/ui/card/card.tsx"
+				}
+			]
+		},
+		{
 			"name": "checkbox",
 			"pkgDeps": ["class-variance-authority"],
 			"regDeps": ["spinner-icon", "use-wave-animate", "check-icon"],
