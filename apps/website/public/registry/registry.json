@@ -388,6 +388,8 @@
 			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
 				"spinner-icon",
+				"triangle-up-rounded-icon",
+				"triangle-up-sharp-icon",
 				"triangle-down-rounded-icon",
 				"triangle-down-sharp-icon",
 				"cn"
