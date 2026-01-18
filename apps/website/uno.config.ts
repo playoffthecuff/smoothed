@@ -16,8 +16,8 @@ const BG_CONTRAST_LAYER_CONFIG = {
 const FG_LAYER_CONFIG = {
 	LIGHT: [100, 150, 200, 250],
 	DARK: [950, 900, 850, 800],
-	LIGHT_MUTED: [550, 600, 650, 700],
-	DARK_MUTED: [600, 550, 500, 450],
+	LIGHT_MUTED: [400, 450, 500, 550],
+	DARK_MUTED: [800, 750, 700, 650],
 };
 
 const SURFACE_CONFIG = {
@@ -28,7 +28,7 @@ const SURFACE_CONFIG = {
 	THRESHOLD_TEXT_LIGHTNESS: 600,
 	LIGHT_BG_DELTA_LIGHTNESS: 20,
 	DARK_BG_DELTA_LIGHTNESS: 32,
-	LIGHT_TEXT_DELTA_LIGHTNESS: 24,
+	LIGHT_TEXT_DELTA_LIGHTNESS: 20,
 	DARK_TEXT_DELTA_LIGHTNESS: 16,
 	MIN_LIGHT_TEXT_LIGHTNESS: 400,
 	MAX_DARK_TEXT_LIGHTNESS: 750,
@@ -147,6 +147,31 @@ export default defineConfig({
 			},
 		],
 		[
+			/^ring-(d|l)(?:-([a-z]+))?-(\d+)d$/,
+			([_, mode, color, value], { theme }) => {
+				const hue = `${color ? color : "background"}-hue`;
+				if (!theme.colors?.[hue]) return;
+				const chroma =
+					+theme.colors[`${color ? color : "background"}-chroma`] * 0.25;
+				const isDark = mode === "d";
+				return {
+					"box-shadow": ` 0 0 0 calc(var(--spacing-size) * ${2 ** (0.25 * +value)}rem) oklch(${isDark ? 0 : 0.5} ${chroma} var(--colors-${hue}) / 0.25)`,
+				};
+			},
+		],
+		[
+			/^outline-offset-(\d+)d$/,
+			([_, value]) => ({
+				"outline-offset": `calc(var(--spacing-size) * ${2 ** (0.25 * +value)}rem)`,
+			}),
+		],
+		[
+			/^border(?:-(x|y|t|r|b|l|s|e)?)?-(\d+)d$/,
+			([_, side, value]) => ({
+				[`border${side ? `-${{ x: "inline", y: "block", t: "top", b: "bottom", l: "left", r: "right", s: "inline-start", e: "inline-end" }[side]}` : ""}-width`]: `calc(var(--spacing-size) * ${2 ** (0.25 * +value)}rem)`,
+			}),
+		],
+		[
 			/^drop-shadow-(d|l)(?:-([a-z]+))?-(\d+)d$/,
 			([_, mode, color, value], { theme }) => {
 				const hue = `${color ? color : "background"}-hue`;
@@ -211,10 +236,19 @@ export default defineConfig({
 			},
 		],
 		[
-			/^text-(\d+)d$/,
+			/^leading-(\d+)d$/,
+			([_, value]) => ({ "line-height": `${2 ** (0.25 * +value)})` }),
+		],
+		[
+			/^leading-(\d+)ld$/,
+			([_, value]) => ({
+				"line-height": `${+value < 6 ? (2 ** (+value / 16)) / (0.75 ** 0.75) : +value < 11 ? 2 ** ((5 - +value) * 0.125) * 1.6 : 1}`,
+			}),
+		],
+		[
+			/^fs-(\d+)d$/,
 			([_, value]) => ({
 				"font-size": `calc(var(--spacing-size) * var(--text-size) * 8 * ${2 ** (0.25 * +value)}rem)`,
-				"line-height": `${+value < 6 ? 2 ** (0.0625 * (+value + 5)) : +value < 11 ? 2 ** 0.625 / 2 ** (0.125 * (+value - 5)) : 1}`,
 			}),
 		],
 		[
@@ -229,31 +263,34 @@ export default defineConfig({
 				"stroke-width": `${2 ** (0.25 * +value)}`,
 			}),
 		],
+		[/^sbw-none$/, () => ({ "scrollbar-width": "none" })],
 	],
 	shortcuts: [
 		{
 			"border-muted": "border-foreground-700d dark:border-foreground-450d",
+			"outline-muted": "outline-foreground-700d dark:outline-foreground-450d",
 			"shadow-lifted-ia":
 				"shadow-l-4d hover:shadow-l-6d active:shadow-l-2d dark:shadow-d-4d dark:hover:shadow-d-6d dark:active:shadow-d-2d",
 		},
 		[
-			/^border-([a-z]+)$/,
-			([_, value], { theme }) => {
-				const lightness = theme.colors?.[`${value}-lightness`];
+			/^(border|outline)-([a-z]+)$/,
+			([_, prop, color], { theme }) => {
+				const lightness = theme.colors?.[`${color}-lightness`];
 				if (!lightness) return;
 				const {
 					THRESHOLD_BG_LIGHTNESS,
 					MAX_LIGHTNESS,
 					DARK_BG_DELTA_LIGHTNESS,
 				} = SURFACE_CONFIG;
-				const l = +lightness * 1000;
+				const l = +lightness * 1001;
 				const isSwapped = l <= THRESHOLD_BG_LIGHTNESS;
 				const swappedLightness =
 					(MAX_LIGHTNESS * (100 - DARK_BG_DELTA_LIGHTNESS / 2)) / 100;
-				return `border-${value}-d${isSwapped ? ` dark:border-${value}-${swappedLightness}d` : ""}`;
+				return `${prop}-${color}-d${isSwapped ? ` dark:${prop}-${color}-${swappedLightness}d` : ""}`;
 			},
 		],
 		[/^size-(\d+)d$/, ([_, value]) => `w-${value}d h-${value}d`],
+		[/^text-(\d+)d$/, ([_, value]) => `fs-${value}d leading-${value}ld`],
 		[
 			/^shadow-lifted(?:-([a-z]+))?-(\d+)$/,
 			([_, color, value], { theme }) => {
@@ -267,7 +304,7 @@ export default defineConfig({
 			([_, color, value], { theme }) => {
 				color = color ? color : "background";
 				if (!theme.colors?.[`${color}-hue`]) return;
-				return `shadow-al-${color}-${value}d dark:shadow-ad-${color}-${value}d`;
+				return `ring-l-${color}-${value}d dark:ring-d-${color}-${value}d`;
 			},
 		],
 		[
@@ -299,25 +336,42 @@ export default defineConfig({
 			/^text-([a-z]+)(?:-(\d{1}))?(?:-(ia))?$/,
 			([_, color, variant, ia], { theme }) => {
 				if (!theme.colors?.[`${color}-hue`]) return;
+				const themeLightness =
+					+(theme.colors?.[`${color}-lightness`] ?? 1) * 1000;
 				const {
 					DARK_TEXT_DELTA_LIGHTNESS,
 					LIGHT_TEXT_DELTA_LIGHTNESS,
+					THRESHOLD_BG_LIGHTNESS,
 					THRESHOLD_TEXT_LIGHTNESS,
 				} = SURFACE_CONFIG;
-				const { DARK, LIGHT, CONTRAST_DELTA } = BG_CONTRAST_LAYER_CONFIG;
+				const { LIGHT: FG_LIGHT, DARK: FG_DARK } = FG_LAYER_CONFIG;
+				const {
+					DARK: BG_DARK,
+					LIGHT: BG_LIGHT,
+					CONTRAST_DELTA,
+				} = BG_CONTRAST_LAYER_CONFIG;
 
 				const nVariant = ~~variant;
 
 				const textColor = color;
 				const interactiveTextColor = ia && color;
 
-				const lightLightness = LIGHT[nVariant] - CONTRAST_DELTA;
+				const lightLightness = Math.min(
+					BG_LIGHT[nVariant] - CONTRAST_DELTA,
+					Math.max(themeLightness, FG_LIGHT[nVariant] + THRESHOLD_BG_LIGHTNESS),
+				);
 				const lightHoverSignDeltaLightness =
 					lightLightness > THRESHOLD_TEXT_LIGHTNESS ? "-" : "+";
 				const lightActiveSignDeltaLightness = "-";
 				const lightInteractiveDeltaLightness = LIGHT_TEXT_DELTA_LIGHTNESS;
 
-				const darkLightness = DARK[nVariant] + CONTRAST_DELTA;
+				const darkLightness = Math.max(
+					BG_DARK[nVariant] + CONTRAST_DELTA,
+					Math.min(
+						1000 - themeLightness,
+						FG_DARK[nVariant] - THRESHOLD_BG_LIGHTNESS,
+					),
+				);
 				const darkHoverSignDeltaLightness = "+";
 				const darkActiveSignDeltaLightness = "-";
 				const darkInteractiveDeltaLightness = DARK_TEXT_DELTA_LIGHTNESS;
@@ -332,7 +386,7 @@ export default defineConfig({
 					"active:hover:text": [
 						interactiveTextColor,
 						`-${lightLightness}d`,
-						`|l${lightActiveSignDeltaLightness}${lightInteractiveDeltaLightness}`,
+						`|l${lightActiveSignDeltaLightness}${lightInteractiveDeltaLightness * 3}`,
 					],
 					"active:text": [
 						interactiveTextColor,
@@ -984,19 +1038,5 @@ export default defineConfig({
 		"before:animate-wave-visited",
 		"before:animate-wave-background",
 		"before:animate-wave-foreground",
-		"surface-visited-1",
-		"focus-visible:shadow-focus-secondary",
-		"surface-primary-ia-14",
-		"visited:text-visited-ia-2",
-		"outline-none",
-		"outline-transparent",
-		"rounded-9d",
-		"fill-warning-d",
-		"fill-primary-d",
-		"fill-secondary-d",
-		"fill-foreground-d",
-		"fill-success-d",
-		"fill-error-d",
-		"fill-visited-d",
 	],
 });
