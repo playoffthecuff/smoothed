@@ -1,25 +1,21 @@
 "use client";
 import { Popover as BasePopover } from "@base-ui/react/popover";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode } from "react";
 
 const Arrow = () => (
-	<div className="p-1">
-		<div
-			style={{ width: 8, height: 8, transform: "rotate(45deg)" }}
-			className="bg-[canvas] relative border-l-1 border-t-1  border-muted"
-		/>
-	</div>
+	<div className="bg-[canvas] relative border-l-1 border-t-1  border-muted w-12d h-12d rotate-45" />
 );
-
-export const popoverVariants = cva(
-	"origin-[var(--transform-origin)] bg-[canvas] p-12d shadow-lg border-1 border-muted transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none",
+//TODO try use corner-shape
+export const popupVariants = cva(
+	"origin-[var(--transform-origin)] bg-[canvas] shadow-lg border-1 border-muted transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none leading-none",
 	{
 		variants: {
 			size: {
-				s: "text-3d font-10d",
-				m: "text-4d font-9d",
-				l: "text-5d font-8d",
+				xs: "fs-3d font-9d",
+				s: "fs-3d font-9d",
+				m: "fs-4d font-8d",
+				l: "fs-5d font-7d",
+				xl: "fs-6d font-6d",
 			},
 			shape: {
 				rounded: null,
@@ -29,19 +25,29 @@ export const popoverVariants = cva(
 		},
 		compoundVariants: [
 			{
+				size: "xs",
+				shape: "rounded",
+				className: "rounded-8d p-10d",
+			},
+			{
 				size: "s",
 				shape: "rounded",
-				className: "rounded-9d",
+				className: "rounded-9d p-11d",
 			},
 			{
 				size: "m",
 				shape: "rounded",
-				className: "rounded-10d",
+				className: "rounded-10d p-12d",
 			},
 			{
 				size: "l",
 				shape: "rounded",
-				className: "rounded-11d",
+				className: "rounded-11d p-13d",
+			},
+			{
+				size: "xl",
+				shape: "rounded",
+				className: "rounded-12d p-14d",
 			},
 		],
 		defaultVariants: {
@@ -54,10 +60,10 @@ export const popoverVariants = cva(
 const arrowVariants = cva(null, {
 	variants: {
 		side: {
-			top: "-bottom-12d rotate-180",
-			right: "-left-12d -rotate-90",
-			left: "-right-12d rotate-90",
-			bottom: "-top-12d",
+			top: "-bottom-8d rotate-180",
+			right: "-left-8d -rotate-90",
+			left: "-right-8d rotate-90",
+			bottom: "-top-8d",
 		},
 	},
 	defaultVariants: {
@@ -65,58 +71,32 @@ const arrowVariants = cva(null, {
 	},
 });
 
-export type PopoverProps = {
-	children: React.ReactNode;
-	description?: string;
-	title?: string;
-	rootProps?: BasePopover.Root.Props;
-	content?: ReactNode;
-	openOnHover?: boolean;
-} & VariantProps<typeof popoverVariants> &
-	VariantProps<typeof arrowVariants>;
-
-export function Popover({
-	rootProps,
-	content,
-	children,
-	title,
-	side,
-	description,
-	openOnHover,
-	size,
-	shape,
-}: PopoverProps) {
-	return (
-		<BasePopover.Root {...rootProps}>
-			<BasePopover.Trigger
-				className={"flex items-center justify-center leading-none"}
-				nativeButton={false}
-				render={
-					<span
-						className="data-[popup-open]:pointer-events-none"
-						tabIndex={-1}
-					></span>
-				}
-				openOnHover={openOnHover}
-			>
-				{children}
-			</BasePopover.Trigger>
-			<BasePopover.Portal>
-				<BasePopover.Positioner sideOffset={8} side={side ?? "top"}>
-					<BasePopover.Popup className={popoverVariants({ shape, size })}>
-						<BasePopover.Arrow className={arrowVariants({ side })}>
-							<Arrow />
-						</BasePopover.Arrow>
-						{title && (
-							<BasePopover.Title className="font-11d text-5d">
-								{title}
-							</BasePopover.Title>
-						)}
-						<BasePopover.Description>{description}</BasePopover.Description>
-						{content}
-					</BasePopover.Popup>
-				</BasePopover.Positioner>
-			</BasePopover.Portal>
-		</BasePopover.Root>
-	);
+export function Popover({ children, ...props }: BasePopover.Root.Props) {
+	return <BasePopover.Root {...props}>{children}</BasePopover.Root>;
 }
+
+Popover.Title = BasePopover.Title;
+Popover.Description = BasePopover.Description;
+Popover.Trigger = (props: BasePopover.Trigger.Props) => (
+	<BasePopover.Trigger
+		className={"flex items-center justify-center leading-none"}
+		nativeButton={false}
+		render={<span tabIndex={-1} />}
+		{...props}
+	/>
+);
+export type PopoverPortalProps = VariantProps<typeof popupVariants> &
+	VariantProps<typeof arrowVariants> &
+	BasePopover.Popup.Props;
+Popover.Portal = ({ side, shape, children, size }: PopoverPortalProps) => (
+	<BasePopover.Portal>
+		<BasePopover.Positioner sideOffset={8} side={side ?? "top"}>
+			<BasePopover.Popup className={popupVariants({ shape, size })}>
+				<BasePopover.Arrow className={arrowVariants({ side })}>
+					<Arrow />
+				</BasePopover.Arrow>
+				{children}
+			</BasePopover.Popup>
+		</BasePopover.Positioner>
+	</BasePopover.Portal>
+);
