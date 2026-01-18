@@ -28,9 +28,11 @@ export default function ButtonPage() {
 			<div>
 				<Title size={3}>Size</Title>
 				<div className="flex flex-wrap gap-16d items-center">
+					<Button size="xs">Extra Small - XS</Button>
 					<Button size="s">Small - S</Button>
-					<Button>Default - M</Button>
+					<Button size="m">Default - M</Button>
 					<Button size="l">Large - L</Button>
+					<Button size="xl">Extra Large - XL</Button>
 				</div>
 			</div>
 			<div>

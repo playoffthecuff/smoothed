@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import { useWaveAnimate } from "@/components/ui/use-wave-animate";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
 	"inline-flex items-center justify-center transition-all cursor-pointer select-none outline-none",
 	{
 		variants: {
@@ -18,10 +18,12 @@ const buttonVariants = cva(
 				warning: "focus-visible:shadow-focus-warning",
 			},
 			size: {
+				xs: "text-3d font-10d h-[1.6818em] min-w-[1.6818em]",
 				s: "text-3d font-10d",
 				m: "text-4d font-9d",
 				l: "text-5d font-8d",
-				fit: null,
+				xl: "text-6d font-7d",
+				fill: "w-full",
 			},
 			animated: {
 				false: null,
@@ -31,10 +33,13 @@ const buttonVariants = cva(
 				true: null,
 				false: null,
 			},
+			// TODO try d dimensions for paddings
 			width: {
-				narrow: null,
-				normal: null,
-				wide: null,
+				narrow: "px-[calc(0.375em-2px)]",
+				normal:
+					"px-[0.75em] has-[>svg:last-child]:pe-[0.5625em] has-[>svg:first-child]:ps-[0.5625em] gap-x-[0.5625em]",
+				wide: "px-[1em] has-[>svg:last-child]:pe-[0.8125em] has-[>svg:first-child]:ps-[0.8125em] gap-x-[0.8125em]",
+				fill: "w-full gap-[1ch]",
 			},
 			shape: {
 				rounded: null,
@@ -44,8 +49,7 @@ const buttonVariants = cva(
 			appearance: {
 				solid: null,
 				subtle: null,
-				outline:
-					"before:outline-offset-1.6 border-1.6 focus-visible:border-none",
+				outline: "before:outline-offset-3d border-3d focus-visible:border-none",
 				ghost: null,
 				link: "underline",
 			},
@@ -58,26 +62,17 @@ const buttonVariants = cva(
 		},
 		compoundVariants: [
 			{
-				width: "narrow",
-				size: ["l", "m", "s"],
-				className: "px-[calc(0.375em-2px)]",
+				size: ["fill", "l", "m", "s", "xl"],
+				className: "h-[2em] min-w-[2em]",
 			},
-			{
-				width: "normal",
-				size: ["l", "m", "s"],
-				className:
-					"px-[0.75em] has-[>svg:last-child]:pe-[0.5625em] has-[>svg:first-child]:ps-[0.5625em] gap-x-[0.5625em]",
-			},
-			{
-				width: "wide",
-				size: ["l", "m", "s"],
-				className:
-					"px-[1em] has-[>svg:last-child]:pe-[0.8125em] has-[>svg:first-child]:ps-[0.8125em] gap-x-[0.8125em]",
-			},
-			{ size: ["s", "m", "l"], className: "h-[2em] min-w-[2em]" },
 			{
 				shape: "rounded",
-				size: "s",
+				size: ["xs"],
+				className: "rounded-6d before:rounded-6d",
+			},
+			{
+				shape: "rounded",
+				size: ["s"],
 				className: "rounded-7d before:rounded-7d",
 			},
 			{
@@ -89,6 +84,11 @@ const buttonVariants = cva(
 				shape: "rounded",
 				size: "l",
 				className: "rounded-9d before:rounded-9d",
+			},
+			{
+				shape: "rounded",
+				size: "xl",
+				className: "rounded-10d before:rounded-10d",
 			},
 			{
 				appearance: ["outline", "solid", "subtle", "ghost"],
@@ -292,7 +292,7 @@ const buttonVariants = cva(
 	},
 );
 
-const wrapperVariants = cva(null, {
+const wrapperVariants = cva("leading-none", {
 	variants: {
 		loading: {
 			true: "cursor-wait",
@@ -313,6 +313,9 @@ const intentToColors = {
 	visited: "visited",
 } as const;
 
+export type ButtonProps = React.ComponentProps<"button"> &
+	VariantProps<typeof buttonVariants>;
+
 export function Button({
 	className,
 	intent,
@@ -325,12 +328,13 @@ export function Button({
 	disabled,
 	loading,
 	lifted,
+	type = "button",
 	onMouseDown,
 	onMouseUp,
 	onKeyDown,
 	onKeyUp,
 	...props
-}: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
 	const effects = useWaveAnimate({
 		animateClassName: `before:animate-wave-${intentToColors[intent ?? "neutral"]}`,
 		disabled: appearance === "link" || !animated,
@@ -360,6 +364,7 @@ export function Button({
 				onMouseDown={effects.onMouseDown}
 				onMouseUp={effects.onMouseUp}
 				disabled={disabled}
+				type={type}
 				{...props}
 			>
 				{loading && (
