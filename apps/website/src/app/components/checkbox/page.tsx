@@ -15,7 +15,7 @@ export default function CheckboxPage() {
 				<p>Control to accept boolean data from the user.</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add checkbox"
 					language="yaml"
@@ -23,10 +23,10 @@ export default function CheckboxPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
+			<Title size={5}>Variants:</Title>
 			<div className="flex flex-col gap-16d items-start">
 				<div className="flex flex-col gap-12d">
-					<Title size={3}>Size</Title>
+					<Title size={4}>Size</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] items-center gap-x-12d">
 						<Checkbox size="xs" className="justify-self-center" />
 						Extra Small - XS
@@ -41,7 +41,16 @@ export default function CheckboxPage() {
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
-					<Title size={3}>Shape</Title>
+					<Title size={4}>Intent</Title>
+					<div className="grid grid-cols-[repeat(2,max-content)] items-center gap-x-12d">
+						<Checkbox intent={"neutral"} className="justify-self-center" />
+						Neutral
+						<Checkbox intent={"secondary"} className="justify-self-center" />
+						Secondary
+					</div>
+				</div>
+				<div className="flex flex-col gap-12d">
+					<Title size={4}>Shape</Title>
 					<div className="flex items-center gap-12d ms-8d">
 						<Checkbox shape="square" />
 						Square
@@ -56,7 +65,7 @@ export default function CheckboxPage() {
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
-					<Title size={3}>Appearance</Title>
+					<Title size={4}>Appearance</Title>
 					<div className="grid grid-cols-[repeat(2,max-content)] gap-x-12d">
 						<div className="flex items-center gap-12d ms-8d">
 							<Checkbox defaultChecked />
@@ -69,7 +78,7 @@ export default function CheckboxPage() {
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
-					<Title size={3}>Status</Title>
+					<Title size={4}>Status</Title>
 					<div className="flex flex-col gap-12d">
 						<div className="flex items-center gap-12d ms-8d">
 							<Checkbox status={"valid"} />
@@ -86,7 +95,7 @@ export default function CheckboxPage() {
 					</div>
 				</div>
 				<div className="flex flex-col gap-12d">
-					<Title size={3}>State</Title>
+					<Title size={4}>State</Title>
 					<div className="flex items-center gap-12d ms-8d">
 						<Checkbox disabled defaultChecked />
 						Disabled

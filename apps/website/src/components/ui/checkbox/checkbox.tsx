@@ -14,7 +14,7 @@ const wrapperVariants = cva("flex items-center justify-center", {
 });
 
 const checkboxVariants = cva(
-	"flex rounded-full items-center justify-center before:content-[''] transition-all before:absolute outline-0 invalid:focus-visible:shadow-focus-error aria-[required]:aria-[checked=false]:surface-error-ghost-ia aria-[required]:aria-[checked=false]:before:border-error",
+	"flex rounded-full items-center justify-center before:content-[''] transition-all before:absolute outline-0 invalid:focus-visible:shadow-focus-error aria-[required]:aria-[checked=false]:before:border-error text-2",
 	{
 		variants: {
 			status: {
@@ -26,10 +26,13 @@ const checkboxVariants = cva(
 					"focus-visible:shadow-focus-warning surface-warning-ghost-ia before:border-warning text-warning",
 			},
 			shape: {
-				square: "before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
-				rounded: "before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
-				circular:
-					"before:rounded-full before:w-[1.186em] before:h-[1.186em] before:border-[0.1186em]",
+				square: null,
+				rounded: null,
+				circular: null,
+			},
+			intent: {
+				neutral: null,
+				secondary: null,
 			},
 			size: {
 				xs: "text-3d h-[2.1em] w-[2.1em]",
@@ -46,11 +49,47 @@ const checkboxVariants = cva(
 			},
 			filled: {
 				true: null,
-				false:
-					"before:bg-3 hover:before:bg-1 active:before:bg-1 active:hover:before:bg-1",
+				false: null,
 			},
 		},
 		compoundVariants: [
+			{
+				filled: false,
+				intent: "neutral",
+				className:
+					"before:bg-3 hover:before:bg-1 active:before:bg-1 active:hover:before:bg-1",
+			},
+			{
+				filled: false,
+				intent: "secondary",
+				className:
+					"before:bg-2 hover:before:bg active:before:bg active:hover:before:bg",
+			},
+
+			{
+				size: ["l", "m", "s", "xl"],
+				shape: ["square", "rounded"],
+				className:
+					"before:w-[1.25em] before:h-[1.25em] before:border-[0.125em]",
+			},
+			{
+				size: ["xs"],
+				shape: ["square", "rounded"],
+				className:
+					"before:w-[1.05em] before:h-[1.05em] before:border-[0.125em]",
+			},
+			{
+				size: ["l", "m", "s", "xl"],
+				shape: ["circular"],
+				className:
+					"before:rounded-full before:w-[1.186em] before:h-[1.186em] before:border-[0.1186em]",
+			},
+			{
+				size: ["xs"],
+				shape: ["circular"],
+				className:
+					"before:rounded-full before:w-[1em] before:h-[1em] before:border-[0.1186em]",
+			},
 			{ size: ["l", "m", "s", "xl"], className: "h-[2.5em] w-[2.5em]" },
 			{ disabled: undefined, loading: undefined, className: "cursor-pointer" },
 			{ shape: "rounded", size: "xs", className: "before:rounded-4d" },
@@ -65,8 +104,15 @@ const checkboxVariants = cva(
 			{ shape: "circular", size: "xl", className: "before:text-7d" },
 			{
 				status: undefined,
+				intent: "neutral",
 				className:
-					"focus-visible:shadow-focus-foreground surface-foreground-ghost-ia before:border-foreground text-1",
+					"focus-visible:shadow-focus-foreground surface-foreground-ghost-ia before:border-foreground",
+			},
+			{
+				status: undefined,
+				intent: "secondary",
+				className:
+					"focus-visible:shadow-focus-secondary surface-secondary-ghost-ia before:border-secondary",
 			},
 			{
 				filled: true,
@@ -113,6 +159,7 @@ const checkboxVariants = cva(
 			size: "m",
 			shape: "rounded",
 			filled: false,
+			intent: "neutral",
 		},
 	},
 );
@@ -169,6 +216,7 @@ export default function Checkbox({
 	disabled,
 	size,
 	status,
+	intent,
 	filled,
 	shape,
 	className,
@@ -197,6 +245,7 @@ export default function Checkbox({
 					size,
 					status,
 					filled,
+					intent,
 					loading,
 					shape,
 					className,
