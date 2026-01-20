@@ -23,7 +23,6 @@ export const buttonVariants = cva(
 				m: "text-4d font-9d",
 				l: "text-5d font-8d",
 				xl: "text-6d font-7d",
-				fill: "w-full",
 			},
 			animated: {
 				false: null,

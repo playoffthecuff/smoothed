@@ -16,7 +16,7 @@ export default function ButtonPage() {
 				<p>Interactive component activated by a user.</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add button"
 					language="yaml"
@@ -24,9 +24,9 @@ export default function ButtonPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
+			<Title size={5}>Variants:</Title>
 			<div>
-				<Title size={3}>Size</Title>
+				<Title size={4}>Size</Title>
 				<div className="flex flex-wrap gap-16d items-center">
 					<Button size="xs">Extra Small - XS</Button>
 					<Button size="s">Small - S</Button>
@@ -36,7 +36,7 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Width</Title>
+				<Title size={4}>Width</Title>
 				<div className="flex flex-wrap gap-16d items-center">
 					<div className="flex gap-10d items-center">
 						<Button width={"narrow"}>
@@ -57,9 +57,15 @@ export default function ButtonPage() {
 						</Button>
 					</div>
 				</div>
+				<div className="mt-16d">
+					<Button width={"fill"}>
+						<SparkleIcon />
+						<span>Fill</span>
+					</Button>
+				</div>
 			</div>
 			<div>
-				<Title size={3}>Intent</Title>
+				<Title size={4}>Intent</Title>
 				<div className="flex flex-wrap gap-16d items-start">
 					<Button intent={"neutral"}>Neutral</Button>
 					<Button intent={"primary"}>Primary</Button>
@@ -71,7 +77,7 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Appearance</Title>
+				<Title size={4}>Appearance</Title>
 				<div className="grid grid-cols-[repeat(5,max-content)] w-fit gap-16d">
 					<Button appearance={"solid"}>Solid</Button>
 					<Button appearance={"subtle"}>Subtle</Button>
@@ -171,7 +177,7 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Lifted</Title>
+				<Title size={4}>Lifted</Title>
 				<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
 					<Button appearance={"solid"} lifted>
 						Solid
@@ -260,7 +266,7 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Shape</Title>
+				<Title size={4}>Shape</Title>
 				<div className="flex flex-wrap gap-16d items-start">
 					<Button shape={"square"}>Square</Button>
 					<Button shape={"rounded"} className="before:font-11d">
@@ -270,7 +276,7 @@ export default function ButtonPage() {
 				</div>
 			</div>
 			<div>
-				<Title size={3}>State</Title>
+				<Title size={4}>State</Title>
 				<div className="flex gap-16d mb-10 items-center">
 					<div className="flex gap-8d items-center">
 						<Button appearance={"solid"} className="w-fit" disabled>
