@@ -34,7 +34,7 @@ export function InfoIcon({
 						fill="currentColor"
 						stroke="none"
 					/>
-					<path d="M12 17.25V12.25" strokeWidth="2.75" />
+					<path d="M12 17.25V12.25" strokeWidth="2.5" />
 				</>
 			)}
 		</svg>
