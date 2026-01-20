@@ -3,63 +3,76 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import { SpinnerIcon } from "../icons/spinner";
 
-const sliderVariants = cva(
-	"flex grow items-center gap-14d px-[1ch] bg-3 min-w-28d",
-	{
-		variants: {
-			size: {
-				s: "text-3d font-10d",
-				m: "text-4d font-9d",
-				l: "text-5d font-8d",
-			},
-			status: {
-				valid: "text-success",
-				warning: "text-warning",
-				invalid: "text-error",
-			},
-			shape: {
-				square: null,
-				rounded: "rounded-[0.325em]",
-				circular: "rounded-full",
-			},
-			disabled: {
-				true: "cursor-not-allowed",
-				false: null,
-			},
-			loading: {
-				true: "cursor-wait",
-				false: null,
-			},
+const sliderVariants = cva("flex grow items-center gap-14d px-[1ch] bg-3", {
+	variants: {
+		size: {
+			xs: "text-3d font-10d",
+			s: "text-3d font-10d",
+			m: "text-4d font-9d",
+			l: "text-5d font-8d",
+			xl: "text-6d font-8d",
 		},
-		compoundVariants: [
-			{
-				disabled: false,
-				loading: false,
-				className: "cursor-pointer",
-			},
-		],
-		defaultVariants: {
-			size: "m",
+		width: {
+			narrow: "w-[17ch] grow-0",
+			normal: "w-[24ch] grow-0",
+			wide: "w-[33ch] grow-0",
+			fill: "w-full",
+		},
+		status: {
+			valid: "text-success",
+			warning: "text-warning",
+			invalid: "text-error",
+		},
+		shape: {
+			square: null,
+			rounded: "rounded-[0.325em]",
+			circular: "rounded-full",
+		},
+		disabled: {
+			true: "cursor-not-allowed",
+			false: null,
+		},
+		loading: {
+			true: "cursor-wait",
+			false: null,
+		},
+	},
+	compoundVariants: [
+		{
 			disabled: false,
 			loading: false,
-			shape: "rounded",
+			className: "cursor-pointer",
 		},
+	],
+	defaultVariants: {
+		size: "m",
+		disabled: false,
+		loading: false,
+		shape: "rounded",
+		width: "normal",
 	},
-);
+});
 
-const controlVariants = cva(
-	"flex grow touch-none items-center h-[2em] select-none",
-	{
-		variants: {
-			disabled: {
-				true: "pointer-events-none saturate-50 opacity-50 contrast-60",
-			},
-			loading: {
-				true: "pointer-events-none",
-			},
+const controlVariants = cva("flex grow touch-none items-center select-none", {
+	variants: {
+		size: {
+			xs: "h-[1.6em]",
+			s: "h-[2em]",
+			m: "h-[2em]",
+			l: "h-[2em]",
+			xl: "h-[2em]",
+		},
+		disabled: {
+			true: "pointer-events-none saturate-50 opacity-50 contrast-60",
+		},
+		loading: {
+			true: "pointer-events-none",
 		},
 	},
-);
+	defaultVariants: {
+		size: "m",
+	},
+});
 
 const trackVariants = cva(null, {
 	variants: {
@@ -85,7 +98,7 @@ const trackVariants = cva(null, {
 	},
 });
 const thumbVariants = cva(
-	"flex items-center justify-center w-[2em] h-[2em] select-none  before-content-[''] before:w-[1em] before:h-[1em] before:block rounded-full before:rounded-full",
+	"flex items-center justify-center select-none  before-content-[''] before:block rounded-full before:rounded-full",
 	{
 		variants: {
 			status: {
@@ -96,6 +109,13 @@ const thumbVariants = cva(
 				invalid:
 					"surface-error-ghost-ia before:surface-error-solid has-[:focus-visible]:before:shadow-focus-error",
 			},
+			size: {
+				xs: "w-[1.6em] h-[1.6em] before:w-[0.8em] before:h-[0.8em]",
+				s: "w-[2em] h-[2em] before:w-[1em] before:h-[1em]",
+				m: "w-[2em] h-[2em] before:w-[1em] before:h-[1em]",
+				l: "w-[2em] h-[2em] before:w-[1em] before:h-[1em]",
+				xl: "w-[2em] h-[2em] before:w-[1em] before:h-[1em]",
+			},
 		},
 		compoundVariants: [
 			{
@@ -104,6 +124,9 @@ const thumbVariants = cva(
 					"surface-foreground-ghost-ia before:surface-foreground-solid has-[:focus-visible]:before:shadow-focus-primary",
 			},
 		],
+		defaultVariants: {
+			size: "m",
+		},
 	},
 );
 
@@ -115,6 +138,7 @@ export function Slider({
 	status,
 	shape,
 	disabled,
+	width,
 	loading,
 	className,
 	...props
@@ -126,12 +150,14 @@ export function Slider({
 		<BaseSlider.Root
 			{...props}
 			className={cn(
-				sliderVariants({ size, status, disabled, loading, shape }),
+				sliderVariants({ size, status, disabled, loading, shape, width }),
 				className,
 			)}
 			disabled={disabled}
 		>
-			<BaseSlider.Control className={controlVariants({ disabled, loading })}>
+			<BaseSlider.Control
+				className={controlVariants({ disabled, loading, size })}
+			>
 				<BaseSlider.Track
 					className={cn(
 						"h-[0.375em] w-full surface-foreground-subtle-ia select-none",
@@ -144,7 +170,7 @@ export function Slider({
 					{[...Array(1 + +isRange)].map((_, i) => (
 						<BaseSlider.Thumb
 							tabIndex={loading ? -1 : 0}
-							className={thumbVariants({ status })}
+							className={thumbVariants({ status, size })}
 							index={i}
 							key={i}
 						/>
@@ -155,7 +181,7 @@ export function Slider({
 				{loading && <SpinnerIcon className="absolute animate-spin" />}
 				<BaseSlider.Value
 					className={cn(
-						"justify-self-start",
+						"justify-self-start font-mono",
 						loading && "text-transparent",
 						(disabled || loading) && "select-none",
 					)}
