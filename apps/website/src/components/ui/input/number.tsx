@@ -1,32 +1,24 @@
 import { NumberField } from "@base-ui/react/number-field";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import { SpinnerIcon } from "../icons/spinner";
-import { TriangleDownRoundedIcon } from "../icons/triangle-down-rounded";
-import { TriangleDownSharpIcon } from "../icons/triangle-down-sharp";
-import { TriangleUpRoundedIcon } from "../icons/triangle-up-rounded";
-import { TriangleUpSharpIcon } from "../icons/triangle-up-sharp";
-
-type NUT<T> = T | null | undefined;
-
-type NumberInputVariants = Partial<{
-	size: NUT<"s" | "m" | "l">;
-	color: NUT<"primary" | "secondary" | "neutral">;
-	appearance: NUT<"solid" | "outline">;
-	shape: NUT<"square" | "rounded" | "circular">;
-	width: NUT<"narrow" | "normal" | "wide">;
-	status: NUT<"valid" | "warning" | "invalid">;
-	loading: NUT<boolean>;
-}>;
+import type { IconProps } from "../icons/types";
 
 const buttonVariants = cva(
-	"size-[2em] flex items-center justify-center cursor-pointer",
+	"flex items-center justify-center cursor-pointer aspect-square",
 	{
 		variants: {
 			size: {
+				xl: null,
 				l: null,
 				m: null,
 				s: null,
+				xs: null,
+			},
+			controlsPosition: {
+				start: null,
+				between: null,
+				end: null,
 			},
 			type: {
 				increment: null,
@@ -44,95 +36,152 @@ const buttonVariants = cva(
 				rounded: null,
 				circular: null,
 			},
-			color: {
-				primary: null,
+			intent: {
 				secondary: null,
 				neutral: null,
+			},
+			status: {
+				valid: null,
+				warning: null,
+				invalid: null,
 			},
 		},
 		compoundVariants: [
 			{
 				appearance: "outline",
-				color: "neutral",
-				className: "surface-foreground-outline-ia border-1.6",
+				className: "border-y-3d",
+			},
+			{
+				appearance: "outline",
+				controlsPosition: ["start", "between"],
+				className: "border-s-3d",
+			},
+			{
+				appearance: "outline",
+				controlsPosition: ["end", "between"],
+				className: "border-e-3d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "xs",
+				controlsPosition: ["end", "between"],
+				type: "increment",
+				className: "rounded-e-6d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "s",
+				controlsPosition: ["end", "between"],
+				type: "increment",
+				className: "rounded-e-7d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "m",
+				controlsPosition: ["end", "between"],
+				type: "increment",
+				className: "rounded-e-8d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "l",
+				controlsPosition: ["end", "between"],
+				type: "increment",
+				className: "rounded-e-9d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "xl",
+				controlsPosition: ["end", "between"],
+				type: "increment",
+				className: "rounded-e-10d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "xs",
+				controlsPosition: ["start", "between"],
+				type: "decrement",
+				className: "rounded-s-6d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "s",
+				controlsPosition: ["start", "between"],
+				type: "decrement",
+				className: "rounded-s-7d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "m",
+				controlsPosition: ["start", "between"],
+				type: "decrement",
+				className: "rounded-s-8d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "l",
+				controlsPosition: ["start", "between"],
+				type: "decrement",
+				className: "rounded-s-9d",
+			},
+			{
+				appearance: "outline",
+				shape: "rounded",
+				size: "xl",
+				controlsPosition: ["start", "between"],
+				type: "decrement",
+				className: "rounded-s-10d",
+			},
+			{
+				appearance: "outline",
+				shape: "circular",
+				controlsPosition: ["between", "start"],
+				type: "decrement",
+				className: "rounded-s-full",
+			},
+			{
+				appearance: "outline",
+				shape: "circular",
+				controlsPosition: ["between", "end"],
+				type: "increment",
+				className: "rounded-e-full",
+			},
+			{
+				appearance: "outline",
+				intent: "neutral",
+				className: "border-foreground hover:bg-2",
+			},
+			{
+				appearance: "outline",
+				intent: "secondary",
+				className: "border-secondary hover:bg-1",
 			},
 			{
 				appearance: "solid",
-				color: "neutral",
+				intent: "neutral",
 				className: "surface-foreground-solid-ia",
 			},
 			{
-				appearance: "outline",
-				color: "primary",
-				className: "surface-primary-outline-ia border-1.6",
-			},
-			{
 				appearance: "solid",
-				color: "primary",
-				className: "surface-primary-solid-ia",
-			},
-			{
-				appearance: "outline",
-				color: "secondary",
-				className: "surface-secondary-outline-ia border-1.6",
-			},
-			{
-				appearance: "solid",
-				color: "secondary",
+				intent: "secondary",
 				className: "surface-secondary-solid-ia",
-			},
-			{
-				size: "s",
-				type: "increment",
-				className: "rounded-r-7d",
-				shape: "rounded",
-			},
-			{
-				size: "s",
-				type: "decrement",
-				className: "rounded-l-7d",
-				shape: "rounded",
-			},
-			{
-				size: "m",
-				type: "increment",
-				className: "rounded-r-8d",
-				shape: "rounded",
-			},
-			{
-				size: "m",
-				type: "decrement",
-				className: "rounded-l-8d",
-				shape: "rounded",
-			},
-			{
-				size: "l",
-				type: "increment",
-				className: "rounded-r-9d",
-				shape: "rounded",
-			},
-			{
-				size: "l",
-				type: "decrement",
-				className: "rounded-l-9d",
-				shape: "rounded",
-			},
-			{
-				type: "increment",
-				shape: "circular",
-				className: "rounded-r-full",
-			},
-			{
-				type: "decrement",
-				shape: "circular",
-				className: "rounded-l-full",
 			},
 		],
 		defaultVariants: {
-			color: "neutral",
+			intent: "neutral",
 			size: "m",
 			shape: "rounded",
 			appearance: "solid",
+			controlsPosition: "between",
 		},
 	},
 );
@@ -140,9 +189,11 @@ const buttonVariants = cva(
 const iconVariants = cva(null, {
 	variants: {
 		size: {
-			s: "stroke-5d",
-			m: "stroke-4d",
+			xs: "stroke-4d",
+			s: "stroke-4d",
+			m: "stroke-3d",
 			l: "stroke-3d",
+			xl: "stroke-3d",
 		},
 		appearance: {
 			outline: null,
@@ -155,81 +206,133 @@ const iconVariants = cva(null, {
 	},
 });
 
-const groupVariants = cva("flex transition-all has-[:invalid]:ring-error-4d", {
-	variants: {
-		size: {
-			s: "text-3d font-10d",
-			m: "text-4d font-9d",
-			l: "text-5d font-8d",
-		},
-		disabled: {
-			true: "saturate-50 opacity-50 contrast-60 pointer-events-none",
-		},
-		loading: {
-			true: null,
-		},
-		color: {
-			primary: null,
-			secondary: null,
-			neutral: null,
-		},
-		shape: {
-			square: null,
-			rounded: null,
-			circular: "rounded-full",
-		},
-		status: {
-			valid: "focus-within:ring-success-4d",
-			warning: "focus-within:ring-warning-4d",
-			invalid: "focus-within:ring-error-4d",
-		},
-	},
-	compoundVariants: [
-		{
-			status: undefined,
-			color: "neutral",
-			className: "focus-within:ring-foreground-4d",
-		},
-		{
-			status: undefined,
-			color: "primary",
-			className: "focus-within:ring-primary-4d",
-		},
-		{
-			status: undefined,
-			color: "secondary",
-			className: "focus-within:ring-secondary-4d",
-		},
-		{
-			size: "s",
-			shape: "rounded",
-			className: "rounded-7d",
-		},
-		{
-			size: "m",
-			shape: "rounded",
-			className: "rounded-8d",
-		},
-		{
-			size: "l",
-			shape: "rounded",
-			className: "rounded-9d",
-		},
-	],
-	defaultVariants: {
-		color: "neutral",
-		size: "m",
-		shape: "rounded",
-	},
-});
-
-const inputVariants = cva(
-	"text-center tabular-nums focus:z-1 outline-none bg-3 hover:not-focus:bg-2 border-y-1.6 leading-none invalid:text-error invalid:selection:surface-error-solid",
+const groupVariants = cva(
+	"flex overflow-hidden transition-all has-invalid:ring-error-6d text-2 font-mono",
 	{
 		variants: {
 			appearance: {
 				solid: null,
 				outline: null,
+			},
+			size: {
+				xs: "text-3d font-9d h-[1.8em]",
+				s: "text-3d font-9d h-[2em]",
+				m: "text-4d font-8d h-[2em]",
+				l: "text-5d font-7d h-[2em]",
+				xl: "text-6d font-7d h-[2em]",
+			},
+			width: {
+				narrow: null,
+				normal: null,
+				wide: null,
+				fill: "grow",
+			},
+			disabled: {
+				true: "saturate-50 opacity-50 contrast-60 pointer-events-none",
+			},
+			loading: {
+				true: null,
+			},
+			intent: {
+				secondary: "bg-2",
+				neutral: "bg-3",
+			},
+			shape: {
+				square: null,
+				rounded: null,
+				circular: "rounded-full",
+			},
+			status: {
+				valid:
+					"focus-within:ring-success-6d [&>button]:border-success [&>button]:dark:border-success",
+				warning:
+					"focus-within:ring-warning-6d [&>button]:border-warning [&>button]:dark:border-warning",
+				invalid:
+					"focus-within:ring-error-6d [&>button]:border-error [&>button]:dark:border-error",
+			},
+		},
+		compoundVariants: [
+			{
+				status: undefined,
+				className:
+					"focus-within:ring-primary-6d [&>button]:focus-within:border-primary",
+			},
+			{
+				size: "xs",
+				shape: "rounded",
+				className: "rounded-6d",
+			},
+			{
+				size: "s",
+				shape: "rounded",
+				className: "rounded-7d",
+			},
+			{
+				size: "m",
+				shape: "rounded",
+				className: "rounded-8d",
+			},
+			{
+				size: "l",
+				shape: "rounded",
+				className: "rounded-9d",
+			},
+			{
+				size: "xl",
+				shape: "rounded",
+				className: "rounded-10d",
+			},
+			{
+				appearance: "solid",
+				intent: "neutral",
+				className: "border-foreground",
+			},
+			{
+				appearance: "solid",
+				intent: "secondary",
+				className: "border-secondary",
+			},
+		],
+		defaultVariants: {
+			intent: "neutral",
+			size: "m",
+			shape: "rounded",
+			appearance: "solid",
+			width: "normal",
+		},
+	},
+);
+
+const inputVariants = cva(
+	"text-center tabular-nums outline-none focus:z-1 leading-none invalid:text-error invalid:selection:surface-error-solid border-y-3d",
+	{
+		variants: {
+			size: {
+				xs: null,
+				s: null,
+				m: null,
+				l: null,
+				xl: null,
+			},
+			shape: {
+				square: null,
+				rounded: null,
+				circular: null,
+			},
+			appearance: {
+				solid: null,
+				outline: null,
+			},
+			controlsPosition: {
+				start: "border-x-3d",
+				between: null,
+				end: "border-x-3d",
+			},
+			width: {
+				narrow: "w-[7ch]",
+				normal: "w-[10ch]",
+				wide: "w-[14ch]",
+				fill: "w-[calc(100%-4em)]",
 			},
 			disabled: {
 				true: "select-none",
@@ -238,137 +341,276 @@ const inputVariants = cva(
 				true: "text-transparent pointer-events-none select-none",
 			},
 			status: {
-				valid: "[&&]-selection:surface-success-solid text-success",
-				warning: "[&&]-selection:surface-warning-solid text-warning",
-				invalid: "[&&]-selection:surface-error-solid text-error",
+				valid:
+					"[&&]-selection:surface-success-solid border-success dark:border-success text-success",
+				warning:
+					"[&&]-selection:surface-warning-solid border-warning dark:border-warning text-warning",
+				invalid:
+					"[&&]-selection:surface-error-solid border-error dark:border-error text-error",
 			},
-			color: {
-				primary: null,
-				secondary: null,
-				neutral: null,
-			},
-			width: {
-				narrow: "w-[6ch]",
-				normal: "w-[8ch]",
-				wide: "w-[11ch]",
+			intent: {
+				neutral: "hover:not-focus:bg-2",
+				secondary: "hover:not-focus:bg-1",
 			},
 		},
 		compoundVariants: [
 			{
-				appearance: "outline",
-				color: "neutral",
-				className: "surface-foreground-outline",
+				status: undefined,
+				className: "focus:border-primary",
 			},
 			{
-				appearance: "outline",
-				color: "primary",
-				className: "surface-primary-outline",
-			},
-			{
-				appearance: "outline",
-				color: "secondary",
-				className: "surface-secondary-outline",
-			},
-			{ appearance: "solid", color: "neutral", className: "border-foreground" },
-			{ appearance: "solid", color: "primary", className: "border-primary" },
-			{
+				status: ["invalid", "valid", "warning"],
+				controlsPosition: "between",
 				appearance: "solid",
-				color: "secondary",
-				className: "border-secondary",
+				className: "border-x-3d",
+			},
+			{ status: undefined, intent: "neutral", className: "border-foreground" },
+			{ status: undefined, intent: "secondary", className: "border-secondary" },
+			{
+				size: "xs",
+				shape: "rounded",
+				controlsPosition: "start",
+				className: "rounded-e-6d",
+			},
+			{
+				size: "xs",
+				shape: "rounded",
+				controlsPosition: "end",
+				className: "rounded-s-6d",
+			},
+			{
+				size: "s",
+				shape: "rounded",
+				controlsPosition: "start",
+				className: "rounded-e-7d",
+			},
+			{
+				size: "s",
+				shape: "rounded",
+				controlsPosition: "end",
+				className: "rounded-s-7d",
+			},
+			{
+				size: "m",
+				shape: "rounded",
+				controlsPosition: "start",
+				className: "rounded-e-8d",
+			},
+			{
+				size: "m",
+				shape: "rounded",
+				controlsPosition: "end",
+				className: "rounded-s-8d",
+			},
+			{
+				size: "l",
+				shape: "rounded",
+				controlsPosition: "start",
+				className: "rounded-e-9d",
+			},
+			{
+				size: "l",
+				shape: "rounded",
+				controlsPosition: "end",
+				className: "rounded-s-9d",
+			},
+			{
+				size: "xl",
+				shape: "rounded",
+				controlsPosition: "start",
+				className: "rounded-e-10d",
+			},
+			{
+				size: "xl",
+				shape: "rounded",
+				controlsPosition: "end",
+				className: "rounded-s-10d",
+			},
+			{
+				controlsPosition: "start",
+				shape: "circular",
+				className: "rounded-e-full",
+			},
+			{
+				controlsPosition: "end",
+				shape: "circular",
+				className: "rounded-s-full",
 			},
 		],
 		defaultVariants: {
 			width: "normal",
-			color: "neutral",
+			intent: "neutral",
+			shape: "rounded",
+			size: "m",
+			controlsPosition: "between",
 			appearance: "solid",
 		},
 	},
 );
 
-export type NumberInputProps = NumberField.Root.Props & NumberInputVariants;
+type ButtonContent = React.ComponentType<IconProps> | string | number;
+type ButtonProps = VariantProps<typeof buttonVariants> & {
+	content: ButtonContent;
+};
+type IconVariantsProps = VariantProps<typeof iconVariants>;
+type GroupProps = VariantProps<typeof groupVariants>;
+type InputProps = VariantProps<typeof inputVariants>;
+
+export type NumberInputProps = NumberField.Root.Props &
+	Omit<NumberField.Input.Props, "size"> &
+	InputProps &
+	GroupProps &
+	IconVariantsProps & {
+		decrementContent?: ButtonContent;
+		incrementContent?: ButtonContent;
+	};
+
+const FieldDecrement = ({
+	appearance,
+	intent,
+	loading,
+	status,
+	content: Content,
+	controlsPosition,
+	shape,
+	size,
+}: ButtonProps) => (
+	<NumberField.Decrement
+		className={buttonVariants({
+			appearance,
+			size,
+			intent,
+			controlsPosition,
+			loading,
+			status,
+			shape,
+			type: "decrement",
+		})}
+	>
+		{Content &&
+			(typeof Content === "string" ? (
+				Content
+			) : (
+				<Content className={cn(iconVariants({ size, appearance }))} />
+			))}
+		{/* {shape === "square" ? (
+			<TriangleDownSharpIcon
+				className={cn(iconVariants({ size, appearance }))}
+			/>
+		) : (
+			<TriangleDownRoundedIcon className={iconVariants({ size, appearance })} />
+		)} */}
+	</NumberField.Decrement>
+);
+
+const FieldIncrement = ({
+	appearance,
+	intent,
+	loading,
+	status,
+	content: Content,
+	controlsPosition,
+	shape,
+	size,
+}: ButtonProps) => (
+	<NumberField.Increment
+		className={buttonVariants({
+			appearance,
+			size,
+			intent,
+			loading,
+			status,
+			controlsPosition,
+			shape,
+			type: "increment",
+		})}
+	>
+		{Content &&
+			(typeof Content === "string" ? (
+				Content
+			) : (
+				<Content className={cn(iconVariants({ size, appearance }))} />
+			))}
+		{/* {shape === "square" ? (
+			<TriangleUpSharpIcon className={iconVariants({ size, appearance })} />
+		) : (
+			<TriangleUpRoundedIcon className={iconVariants({ size, appearance })} />
+		)} */}
+	</NumberField.Increment>
+);
 
 export function NumberInput({
 	shape,
 	size,
-	color,
+	intent,
 	width,
 	status,
 	disabled,
+	incrementContent = "+",
+	decrementContent = "-",
+	controlsPosition = "between",
+	placeholder,
 	loading,
 	required,
 	appearance,
 	...props
 }: NumberInputProps) {
+	const controlProps = {
+		intent,
+		appearance,
+		loading,
+		shape,
+		size,
+		controlsPosition,
+		status,
+	};
+	const decrement = (
+		<FieldDecrement {...controlProps} content={decrementContent} />
+	);
+	const increment = (
+		<FieldIncrement {...controlProps} content={incrementContent} />
+	);
 	return (
 		<NumberField.Root
 			className={cn(
-				"flex flex-col items-center justify-center gap-1 group",
+				"group flex items-center justify-center",
 				disabled && "cursor-not-allowed",
 				loading && "cursor-wait",
+				width !== "fill" && "w-fit",
 			)}
 			{...props}
 		>
 			<NumberField.Group
 				className={groupVariants({
-					color,
+					intent,
 					disabled,
 					loading,
 					size,
 					shape,
 					status,
+					appearance,
+					width,
 				})}
 			>
-				<NumberField.Decrement
-					className={buttonVariants({
-						appearance,
-						size,
-						color,
-						loading,
-						shape,
-						type: "decrement",
-					})}
-				>
-					{shape === "square" ? (
-						<TriangleDownSharpIcon
-							className={iconVariants({ size, appearance })}
-						/>
-					) : (
-						<TriangleDownRoundedIcon
-							className={iconVariants({ size, appearance })}
-						/>
-					)}
-				</NumberField.Decrement>
+				{controlsPosition !== "end" && decrement}
+				{controlsPosition === "start" && increment}
 				<NumberField.Input
 					className={inputVariants({
-						color,
-						width,
+						intent,
+						appearance,
 						status,
 						disabled,
+						shape,
+						size,
 						loading,
-						appearance,
+						width,
+						controlsPosition,
 					})}
 					required={required}
+					placeholder={placeholder}
 				/>
-				<NumberField.Increment
-					className={buttonVariants({
-						appearance,
-						size,
-						color,
-						loading,
-						shape,
-						type: "increment",
-					})}
-				>
-					{shape === "square" ? (
-						<TriangleUpSharpIcon
-							className={iconVariants({ size, appearance })}
-						/>
-					) : (
-						<TriangleUpRoundedIcon
-							className={iconVariants({ size, appearance })}
-						/>
-					)}
-				</NumberField.Increment>
+				{controlsPosition === "end" && decrement}
+				{controlsPosition !== "start" && increment}
 			</NumberField.Group>
 			{loading && (
 				<SpinnerIcon className="animate-spin absolute pointer-events-none" />
