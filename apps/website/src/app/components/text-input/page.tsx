@@ -1,4 +1,6 @@
 import { HighlightedCode } from "@/components/ui/highlighted-code";
+import { AirplaneIcon } from "@/components/ui/icons/airplane";
+import { SparkleIcon } from "@/components/ui/icons/sparkle";
 import { TextInput } from "@/components/ui/input/text";
 import { Title } from "@/components/ui/typography/title";
 
@@ -15,7 +17,7 @@ export default function InputPage() {
 				<p>Control that accepts string data from the user.</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add text-input"
 					language="yaml"
@@ -23,47 +25,80 @@ export default function InputPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
+			<Title size={5}>Variants:</Title>
 			<div>
-				<Title size={3}>Size</Title>
-				<div className="flex flex-col gap-16d w-60">
-					<TextInput placeholder="S" size={"s"} name="s" />
-					<TextInput placeholder="M" size={"m"} name="m" />
-					<TextInput placeholder="L" size={"l"} name="l" />
+				<Title size={4}>Size</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput placeholder="Extra Small - XS" size={"xs"} id="xs" />
+					<TextInput placeholder="Small - S" size={"s"} id="s" />
+					<TextInput placeholder="Medium - M" size={"m"} id="m" />
+					<TextInput placeholder="Large - L" size={"l"} id="l" />
+					<TextInput placeholder="Extra Large - XL" size={"xl"} id="xl" />
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Shape</Title>
-				<div className="flex flex-col gap-16d w-60">
-					<TextInput placeholder="Square" shape={"square"} name="square" />
-					<TextInput placeholder="Rounded" shape={"rounded"} name="rounded" />
+				<Title size={4}>Width</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput placeholder="Narrow" width="narrow" id="narrow" />
+					<TextInput placeholder="Normal" width="normal" id="normal" />
+					<TextInput placeholder="Wide" width="wide" id="wide" />
+					<TextInput placeholder="Fill" width="fill" id="fill" />
+				</div>
+			</div>
+			<div>
+				<Title size={4}>Intent</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput placeholder="Neutral" intent={"neutral"} id="neutral" />
 					<TextInput
-						placeholder="Circular"
-						shape={"circular"}
-						name="circular"
+						placeholder="Secondary"
+						intent={"secondary"}
+						id="secondary"
 					/>
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Password Type</Title>
-				<div className="flex flex-col gap-16d w-60">
-					<TextInput defaultValue="secret" type="password" name="password" />
+				<Title size={4}>With Content</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput
+						placeholder="Neutral"
+						startContent={<SparkleIcon className="w-20d ps-11d" />}
+						id="sc"
+					/>
+					<TextInput
+						placeholder="Secondary"
+						endContent={<AirplaneIcon className="w-20d h-20d p-11d" />}
+						id="ec"
+					/>
 				</div>
 			</div>
 			<div>
-				<Title size={3}>Status</Title>
-				<div className="flex flex-col gap-16d w-60">
+				<Title size={4}>Shape</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput placeholder="Square" shape={"square"} id="square" />
+					<TextInput placeholder="Rounded" shape={"rounded"} id="rounded" />
+					<TextInput placeholder="Circular" shape={"circular"} id="circular" />
+				</div>
+			</div>
+			<div>
+				<Title size={4}>Password Type</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput defaultValue="secret" type="password" id="password" />
+				</div>
+			</div>
+			<div>
+				<Title size={4}>Status</Title>
+				<div className="flex flex-col gap-16d">
 					<TextInput
 						defaultValue="Valid"
 						type="text"
 						status={"valid"}
-						name="valid"
+						id="valid"
 					/>
 					<TextInput
 						defaultValue="Warning"
 						type="text"
 						status={"warning"}
-						name="warning"
+						id="warning"
 					/>
 					<TextInput
 						defaultValue="Error"
@@ -72,21 +107,21 @@ export default function InputPage() {
 						minLength={99999999}
 						required
 						data-invalid
-						name="invalid"
+						id="invalid"
 					/>
 				</div>
 			</div>
 			<div>
-				<Title size={3}>State</Title>
-				<div className="flex flex-col gap-16d w-60">
-					<TextInput placeholder="Disabled" disabled />
+				<Title size={4}>State</Title>
+				<div className="flex flex-col gap-16d">
+					<TextInput placeholder="Disabled" disabled id="disabled" />
 					<label htmlFor="">
 						Loading
-						<TextInput placeholder="Loading" loading />
+						<TextInput placeholder="Loading" loading id="loading" />
 					</label>
 					<label htmlFor="">
 						Disabled & Loading
-						<TextInput placeholder="Loading" loading disabled />
+						<TextInput placeholder="Loading" loading disabled id="dnl" />
 					</label>
 				</div>
 			</div>
