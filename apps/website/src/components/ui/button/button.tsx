@@ -61,7 +61,7 @@ export const buttonVariants = cva(
 		},
 		compoundVariants: [
 			{
-				size: ["fill", "l", "m", "s", "xl"],
+				size: ["l", "m", "s", "xl"],
 				className: "h-[2em] min-w-[2em]",
 			},
 			{
