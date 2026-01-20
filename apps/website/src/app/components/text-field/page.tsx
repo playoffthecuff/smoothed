@@ -1,5 +1,7 @@
 import { TextField } from "@/components/ui/fields/text";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
+import { AirplaneIcon } from "@/components/ui/icons/airplane";
+import { SparkleIcon } from "@/components/ui/icons/sparkle";
 import { Title } from "@/components/ui/typography/title";
 
 export default function TextFieldPage() {
@@ -18,7 +20,7 @@ export default function TextFieldPage() {
 				</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add text-field"
 					language="yaml"
@@ -26,17 +28,29 @@ export default function TextFieldPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
-			<div className="flex flex-col gap-16d items-start w-60">
+			<Title size={5}>Variants:</Title>
+			<div className="flex flex-col gap-16d items-start">
 				<div>
-					<Title size={3}>Options</Title>
+					<Title size={4}>Options</Title>
 					<div className="flex flex-col gap-16d">
 						<TextField label="Label" defaultValue="Only Label" id="ol" />
 						<TextField
-							label="Password"
+							label="Type Password"
 							defaultValue="Secret"
 							id="password"
 							type="password"
+						/>
+						<TextField
+							label="Label"
+							defaultValue="Start Content"
+							startContent={<SparkleIcon className="w-20d ps-11d" />}
+							id="sc"
+						/>
+						<TextField
+							label="Label"
+							defaultValue="End Content"
+							endContent={<AirplaneIcon className="w-20d h-20d p-11d" />}
+							id="ec"
 						/>
 						<TextField
 							label="Label"
@@ -52,6 +66,12 @@ export default function TextFieldPage() {
 						/>
 						<TextField
 							label="Label"
+							popoverMessage="Popover Message"
+							defaultValue="Popover Message"
+							id="pm"
+						/>
+						<TextField
+							label="Label"
 							message="message"
 							defaultValue="With Message"
 							id="wm"
@@ -59,7 +79,7 @@ export default function TextFieldPage() {
 					</div>
 				</div>
 				<div>
-					<Title size={3}>Size</Title>
+					<Title size={4}>Size</Title>
 					<div className="flex flex-col gap-16d">
 						<TextField
 							label="Label"
@@ -87,8 +107,45 @@ export default function TextFieldPage() {
 						/>
 					</div>
 				</div>
+				<div className="w-full">
+					<Title size={4}>Width</Title>
+					<div className="flex flex-col gap-16d">
+						<TextField
+							label="Label"
+							message="message"
+							width="narrow"
+							placeholder="Narrow"
+							hint="Narrow"
+							id="narrow"
+						/>
+						<TextField
+							label="Label"
+							message="message"
+							width="normal"
+							placeholder="Normal"
+							hint="Normal"
+							id="normal"
+						/>
+						<TextField
+							label="Label"
+							message="message"
+							width="wide"
+							placeholder="Wide"
+							hint="Wide"
+							id="wide"
+						/>
+						<TextField
+							label="Label"
+							message="message"
+							width="fill"
+							placeholder="Fill"
+							hint="Fill"
+							id="fill"
+						/>
+					</div>
+				</div>
 				<div>
-					<Title size={3}>Status</Title>
+					<Title size={4}>Status</Title>
 					<div className="flex flex-col gap-16d">
 						<TextField
 							label="Label"
@@ -117,7 +174,7 @@ export default function TextFieldPage() {
 					</div>
 				</div>
 				<div>
-					<Title size={3}>Shape</Title>
+					<Title size={4}>Shape</Title>
 					<div className="flex flex-col gap-16d">
 						<TextField
 							label="Label"
@@ -146,7 +203,7 @@ export default function TextFieldPage() {
 					</div>
 				</div>
 				<div>
-					<Title size={3}>State</Title>
+					<Title size={4}>State</Title>
 					<div className="flex flex-col gap-16d">
 						<TextField
 							label="Label"
