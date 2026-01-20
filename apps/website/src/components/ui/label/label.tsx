@@ -9,7 +9,7 @@ export const labelVariants = cva("h-[1.5em] flex items-center gap-[0.5ch]", {
 			error: "text-error [&&]-selection:surface-error-solid",
 			warning: "text-warning [&&]-selection:surface-warning-solid",
 			primary: "text-primary [&&]-selection:surface-primary-solid",
-			secondary: "text-secondary [&&]-selection:surface-secondary-solid",
+			secondary: "text-secondary",
 		},
 		size: {
 			xs: "text-2d font-10d",

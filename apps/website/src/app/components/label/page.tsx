@@ -15,7 +15,7 @@ export default function LabelPage() {
 				<p>Control Label</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add label"
 					language="yaml"
@@ -23,10 +23,10 @@ export default function LabelPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
+			<Title size={5}>Variants:</Title>
 			<div className="flex flex-col gap-16d">
 				<div className="flex flex-col gap-4d">
-					<Title size={3}>Size</Title>
+					<Title size={4}>Size</Title>
 					<Label size={"xs"}>Size Extra Small - XS</Label>
 					<Label size={"s"}>Size Small - S</Label>
 					<Label size={"m"}>Size Medium - M</Label>
@@ -34,7 +34,7 @@ export default function LabelPage() {
 					<Label size={"xl"}>Size Extra Large - XL</Label>
 				</div>
 				<div className="flex flex-col gap-4d">
-					<Title size={3}>Intent</Title>
+					<Title size={4}>Intent</Title>
 					<Label>Neutral</Label>
 
 					<Label intent="primary">Primary</Label>
@@ -46,7 +46,7 @@ export default function LabelPage() {
 					<Label intent={"error"}>Error</Label>
 				</div>
 				<div className="flex flex-col gap-4d">
-					<Title size={3}>Required</Title>
+					<Title size={4}>Required</Title>
 					<Label required>Required Label</Label>
 					<Label required intent={"secondary"}>
 						Required Label
