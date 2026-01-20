@@ -18,7 +18,7 @@ export default function SliderFieldPage() {
 				</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add select-field"
 					language="yaml"
@@ -26,10 +26,10 @@ export default function SliderFieldPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={2}>Variants:</Title>
-			<div className="flex flex-col gap-16d items-start w-60">
+			<Title size={5}>Variants:</Title>
+			<div className="flex flex-col gap-16d items-start">
 				<div className="w-full">
-					<Title size={3}>Options</Title>
+					<Title size={4}>Options</Title>
 					<div className="flex flex-col gap-16d">
 						<SliderField label="Only Label" id="ol" defaultValue={50} />
 						<SliderField label="Hint" hint="Hint" id="hint" defaultValue={50} />
@@ -39,11 +39,25 @@ export default function SliderFieldPage() {
 							id="wm"
 							defaultValue={50}
 						/>
+						<SliderField
+							label="Popover message"
+							popoverMessage="Popover message"
+							id="pm"
+							defaultValue={50}
+						/>
 					</div>
 				</div>
 				<div className="w-full">
-					<Title size={3}>Size</Title>
+					<Title size={4}>Size</Title>
 					<div className="flex flex-col gap-16d">
+						<SliderField
+							label="Extra Small"
+							message="XS - Extra Small"
+							size="xs"
+							hint="Extra Small"
+							id="x_small"
+							defaultValue={50}
+						/>
 						<SliderField
 							label="Small"
 							message="S - Small"
@@ -62,16 +76,61 @@ export default function SliderFieldPage() {
 						/>
 						<SliderField
 							label="Large"
-							message="L - large"
+							message="L - Large"
 							size="l"
 							hint="Large"
 							id="large"
 							defaultValue={50}
 						/>
+						<SliderField
+							label="Extra Large"
+							message="XL - Extra Large"
+							size="xl"
+							hint="Extra Large"
+							id="x_large"
+							defaultValue={50}
+						/>
 					</div>
 				</div>
 				<div className="w-full">
-					<Title size={3}>Status</Title>
+					<Title size={4}>Width</Title>
+					<div className="flex flex-col gap-16d">
+						<SliderField
+							label="Narrow"
+							message="Narrow"
+							width={"narrow"}
+							hint="Narrow"
+							id="narrow"
+							defaultValue={50}
+						/>
+						<SliderField
+							label="Normal"
+							message="Normal"
+							width={"normal"}
+							hint="Normal"
+							id="normal"
+							defaultValue={50}
+						/>
+						<SliderField
+							label="Wide"
+							message="Wide"
+							width={"wide"}
+							hint="Wide"
+							id="wide"
+							defaultValue={50}
+						/>
+						<SliderField
+							label="Fill"
+							message="Fill"
+							width={"fill"}
+							hint="Fill"
+							id="fill"
+							defaultValue={50}
+						/>
+					</div>
+				</div>
+				<div className="w-full">
+					<Title size={4}>Status</Title>
 					<div className="flex flex-col gap-16d">
 						<SliderField
 							label="Valid"
@@ -100,7 +159,7 @@ export default function SliderFieldPage() {
 					</div>
 				</div>
 				<div className="w-full">
-					<Title size={3}>Shape</Title>
+					<Title size={4}>Shape</Title>
 					<div className="flex flex-col gap-16d">
 						<SliderField
 							label="Square"
@@ -129,7 +188,7 @@ export default function SliderFieldPage() {
 					</div>
 				</div>
 				<div className="w-full">
-					<Title size={3}>State</Title>
+					<Title size={4}>State</Title>
 					<div className="flex flex-col gap-16d">
 						<SliderField
 							label="Label"
