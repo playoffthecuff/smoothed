@@ -11,11 +11,11 @@ export const popupVariants = cva(
 	{
 		variants: {
 			size: {
-				xs: "fs-3d font-9d",
-				s: "fs-3d font-9d",
-				m: "fs-4d font-8d",
-				l: "fs-5d font-7d",
-				xl: "fs-6d font-6d",
+				xs: "fs-3d font-9d p-10d",
+				s: "fs-3d font-9d p-11d",
+				m: "fs-4d font-8d p-12d",
+				l: "fs-5d font-7d p-13d",
+				xl: "fs-6d font-6d p-14d",
 			},
 			shape: {
 				rounded: null,
@@ -27,27 +27,27 @@ export const popupVariants = cva(
 			{
 				size: "xs",
 				shape: "rounded",
-				className: "rounded-8d p-10d",
+				className: "rounded-8d",
 			},
 			{
 				size: "s",
 				shape: "rounded",
-				className: "rounded-9d p-11d",
+				className: "rounded-9d",
 			},
 			{
 				size: "m",
 				shape: "rounded",
-				className: "rounded-10d p-12d",
+				className: "rounded-10d",
 			},
 			{
 				size: "l",
 				shape: "rounded",
-				className: "rounded-11d p-13d",
+				className: "rounded-11d",
 			},
 			{
 				size: "xl",
 				shape: "rounded",
-				className: "rounded-12d p-14d",
+				className: "rounded-12d",
 			},
 		],
 		defaultVariants: {
@@ -71,13 +71,13 @@ const arrowVariants = cva(null, {
 	},
 });
 
-export function Popover({ children, ...props }: BasePopover.Root.Props) {
-	return <BasePopover.Root {...props}>{children}</BasePopover.Root>;
+export function Popover(props: BasePopover.Root.Props) {
+	return <BasePopover.Root {...props} />;
 }
 
 Popover.Title = BasePopover.Title;
 Popover.Description = BasePopover.Description;
-Popover.Trigger = (props: BasePopover.Trigger.Props) => (
+export const PopoverTrigger = (props: BasePopover.Trigger.Props) => (
 	<BasePopover.Trigger
 		className={"flex items-center justify-center leading-none"}
 		nativeButton={false}
@@ -88,7 +88,12 @@ Popover.Trigger = (props: BasePopover.Trigger.Props) => (
 export type PopoverPortalProps = VariantProps<typeof popupVariants> &
 	VariantProps<typeof arrowVariants> &
 	BasePopover.Popup.Props;
-Popover.Portal = ({ side, shape, children, size }: PopoverPortalProps) => (
+export const PopoverPortal = ({
+	side,
+	shape,
+	children,
+	size,
+}: PopoverPortalProps) => (
 	<BasePopover.Portal>
 		<BasePopover.Positioner sideOffset={8} side={side ?? "top"}>
 			<BasePopover.Popup className={popupVariants({ shape, size })}>

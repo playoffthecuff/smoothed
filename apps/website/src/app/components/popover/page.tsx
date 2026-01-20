@@ -14,7 +14,7 @@ export default function PopoverPage() {
 				<p>Popover Description</p>
 			</div>
 			<div>
-				<Title size={2}>Installation</Title>
+				<Title size={5}>Installation</Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add popover"
 					language="yaml"
