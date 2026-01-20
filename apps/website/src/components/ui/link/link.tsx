@@ -7,7 +7,7 @@ export function Link({
 	return (
 		<NextLink
 			{...linkProps}
-			className="text-primary-ia underline visited:text-visited-ia w-fit"
+			className="text-primary-ia underline visited:text-visited-ia self-start"
 		>
 			{children}
 		</NextLink>
