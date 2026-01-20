@@ -1,0 +1,12 @@
+{
+	"name": "toggle-group",
+	"regDeps": ["cn"],
+	"pkgDeps": ["class-variance-authority"],
+	"files": [
+		{
+			"path": "src/components/ui/toggle-group/toggle-group.tsx",
+			"content": "import { ToggleGroup as BaseToggleGroup } from \"@base-ui/react/toggle-group\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils/cn\";\n\nconst toggleGroupVariants = cva(\"flex leading-none\", {\n\tvariants: {\n\t\tsize: {\n\t\t\ts: null,\n\t\t\tm: null,\n\t\t\tl: null,\n\t\t},\n\t\tshape: {\n\t\t\tsquare: \"\",\n\t\t\trounded: \"\",\n\t\t\tcircular: \"rounded-full\",\n\t\t},\n\t\tappearance: {\n\t\t\toutline: null,\n\t\t\tghost: null,\n\t\t},\n\t},\n\tcompoundVariants: [\n\t\t{ size: \"s\", shape: \"rounded\", className: \"rounded-9d\" },\n\t\t{ size: \"m\", shape: \"rounded\", className: \"rounded-10d\" },\n\t\t{ size: \"l\", shape: \"rounded\", className: \"rounded-11d\" },\n\t\t{\n\t\t\tsize: \"s\",\n\t\t\tappearance: \"outline\",\n\t\t\tclassName: \"p-3d gap-3d\",\n\t\t},\n\t\t{\n\t\t\tsize: \"m\",\n\t\t\tappearance: \"outline\",\n\t\t\tclassName: \"p-4d gap-4d\",\n\t\t},\n\t\t{\n\t\t\tsize: \"l\",\n\t\t\tappearance: \"outline\",\n\t\t\tclassName: \"p-5d gap-5d\",\n\t\t},\n\t],\n\tdefaultVariants: {\n\t\tsize: \"m\",\n\t},\n});\n\nexport type ToggleGroupProps = VariantProps<typeof toggleGroupVariants> &\n\tBaseToggleGroup.Props;\n\nexport function ToggleGroup({\n\tchildren,\n\tsize,\n\tclassName,\n\tappearance,\n\t...props\n}: ToggleGroupProps) {\n\treturn (\n\t\t<BaseToggleGroup\n\t\t\tclassName={cn(toggleGroupVariants({ size, appearance }), className)}\n\t\t\t{...props}\n\t\t>\n\t\t\t{children}\n\t\t</BaseToggleGroup>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

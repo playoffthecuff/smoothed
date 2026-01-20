@@ -1,0 +1,11 @@
+{
+	"name": "text-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/text.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function TextIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\tfill = \"none\",\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill=\"none\"\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\tstrokeLinecap=\"round\"\n\t\t\tstrokeLinejoin=\"round\"\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M4 6L12 6\" />\n\t\t\t<path d=\"M8 6L8 18\" />\n\t\t\t<path d=\"M15 11L20 11\" />\n\t\t\t<path d=\"M17 8L17 15.9775C17 17.0945 17.9055 18 19.0225 18C19.3365 18 19.6462 17.9269 19.9271 17.7865L20.5 17.5\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

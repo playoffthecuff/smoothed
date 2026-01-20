@@ -1,0 +1,11 @@
+{
+	"name": "dialog",
+	"regDeps": ["cn"],
+	"files": [
+		{
+			"path": "src/components/ui/dialog/dialog.tsx",
+			"content": "import { Dialog as BaseDialog } from \"@base-ui/react/dialog\";\nimport type { ReactNode } from \"react\";\nimport { cn } from \"@/lib/utils/cn\";\n\ntype Props = {\n\tchildren: ReactNode;\n} & BaseDialog.Root.Props;\n//TODO Add variants, refactor styles\nexport function Dialog({ children, ...props }: Props) {\n\treturn <BaseDialog.Root {...props}>{children}</BaseDialog.Root>;\n}\n\nexport const DialogTrigger = ({\n\tchildren,\n\t...props\n}: BaseDialog.Trigger.Props) => (\n\t<BaseDialog.Trigger\n\t\t{...props}\n\t\tclassName=\"flex items-center justify-center surface-secondary-outline\"\n\t\tnativeButton={false}\n\t\trender={\n\t\t\t<span className=\"data-[popup-open]:pointer-events-none\" tabIndex={-1}>\n\t\t\t\t{children}\n\t\t\t</span>\n\t\t}\n\t/>\n);\nDialog.Close = BaseDialog.Close;\nDialog.Description = BaseDialog.Description;\nDialog.Title = BaseDialog.Title;\nexport const DialogHeader = ({ children }: { children: ReactNode }) => (\n\t<div className=\"flex gap-16d justify-between\">{children}</div>\n);\nexport const DialogPortal = ({\n\tclassName,\n\t...props\n}: BaseDialog.Popup.Props) => (\n\t<BaseDialog.Portal>\n\t\t<BaseDialog.Backdrop className=\"fixed inset-0 min-h-dvh bg-foreground-200d opacity-30 transition-all data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 dark:opacity-70 supports-[-webkit-touch-callout:none]:absolute\" />\n\t\t<BaseDialog.Popup\n\t\t\tclassName={cn(\n\t\t\t\t\"fixed top-1/2 left-1/2 -mt-12d max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-12d bg-1 shadow-lifted-4 transition-all data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:outline-foreground-700d overflow-hidden\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t</BaseDialog.Portal>\n);\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

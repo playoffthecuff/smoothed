@@ -1,0 +1,11 @@
+{
+	"name": "pencil-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/pencil.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function PencilIcon({\n\tsize = \"1.25em\",\n\tstrokeWidth = 2,\n\tfill = \"none\",\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={size}\n\t\t\theight={size}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\tfill={fill}\n\t\t\tstroke=\"currentColor\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\tstrokeLinecap=\"round\"\n\t\t\tstrokeLinejoin=\"round\"\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<path d=\"M2.32811 21.9823C4.06224 21.5015 5.27022 21.1188 6.98746 20.6412C7.32279 20.5479 7.6236 20.3764 7.86971 20.1303L21.1733 6.8267C22.2778 5.72213 22.2746 3.93453 21.17 2.82996C20.0654 1.72539 18.2746 1.72539 17.17 2.82996L3.86646 16.1336C3.62612 16.3739 3.451 16.6715 3.35763 16.9983L2.02189 21.6734C1.96838 21.8607 2.14041 22.0343 2.32811 21.9823Z\" />\n\t\t\t<path d=\"M16 4L20 8\" />\n\t\t\t<path d=\"M2.75 19.25L4.75 21.25\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

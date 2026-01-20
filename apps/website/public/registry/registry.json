@@ -33,6 +33,15 @@
 			]
 		},
 		{
+			"name": "dialog",
+			"regDeps": ["cn"],
+			"files": [
+				{
+					"path": "src/components/ui/dialog/dialog.tsx"
+				}
+			]
+		},
+		{
 			"name": "checkbox-field",
 			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
@@ -130,6 +139,15 @@
 			]
 		},
 		{
+			"name": "airplane-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/airplane.tsx"
+				}
+			]
+		},
+		{
 			"name": "calendar-icon",
 			"regDeps": ["icon-types"],
 			"files": [
@@ -203,6 +221,15 @@
 			]
 		},
 		{
+			"name": "diskette-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/diskette.tsx"
+				}
+			]
+		},
+		{
 			"name": "dislike-icon",
 			"regDeps": ["icon-types"],
 			"files": [
@@ -239,11 +266,29 @@
 			]
 		},
 		{
+			"name": "gearwheel-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/gearwheel.tsx"
+				}
+			]
+		},
+		{
 			"name": "grip-vertical-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/grip-vertical.tsx"
+				}
+			]
+		},
+		{
+			"name": "hash-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/hash.tsx"
 				}
 			]
 		},
@@ -298,6 +343,24 @@
 			"files": [
 				{
 					"path": "src/components/ui/icons/moon.tsx"
+				}
+			]
+		},
+		{
+			"name": "pencil-off-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/pencil-off.tsx"
+				}
+			]
+		},
+		{
+			"name": "pencil-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/pencil.tsx"
 				}
 			]
 		},
@@ -360,6 +423,15 @@
 			]
 		},
 		{
+			"name": "text-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/text.tsx"
+				}
+			]
+		},
+		{
 			"name": "triangle-down-rounded-icon",
 			"regDeps": ["icon-types"],
 			"files": [
@@ -396,6 +468,14 @@
 			]
 		},
 		{
+			"name": "icon-types",
+			"files": [
+				{
+					"path": "src/components/ui/icons/types.ts"
+				}
+			]
+		},
+		{
 			"name": "warning-icon",
 			"regDeps": ["icon-types"],
 			"files": [
@@ -405,10 +485,11 @@
 			]
 		},
 		{
-			"name": "icon-types",
+			"name": "x-icon",
+			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/types.ts"
+					"path": "src/components/ui/icons/x.tsx"
 				}
 			]
 		},
@@ -503,6 +584,16 @@
 			"files": [
 				{
 					"path": "src/components/ui/toggle/toggle.tsx"
+				}
+			]
+		},
+		{
+			"name": "toggle-group",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["cn"],
+			"files": [
+				{
+					"path": "src/components/ui/toggle-group/toggle-group.tsx"
 				}
 			]
 		},
