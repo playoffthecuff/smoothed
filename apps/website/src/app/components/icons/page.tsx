@@ -36,12 +36,16 @@ import { WarningIcon } from "@/components/ui/icons/warning";
 import { XIcon } from "@/components/ui/icons/x";
 import { Title } from "@/components/ui/typography/title";
 import { IconWrapper } from "./item";
+import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left";
+import { ChevronRightIcon } from "@/components/ui/icons/chevron-right";
+import { CalendarIcon } from "@/components/ui/icons/calendar";
 
 const INSTALL_STR = "bunx @playoffthecuff/smoothed@latest add";
 const DESCRIPTION = "Copy installation command:";
 
 const items = [
 	{ registryName: "airplane-icon", Component: AirplaneIcon, title: "Airplane" },
+	{ registry: "calendar", Component: CalendarIcon, title: "Calendar" },
 	{ registryName: "check-icon", Component: CheckIcon, title: "Check" },
 	{
 		registryName: "chevron-down-icon",
@@ -57,6 +61,16 @@ const items = [
 		registryName: "chevron-up-icon",
 		Component: ChevronUpIcon,
 		title: "Chevron Up",
+	},
+	{
+		registryName: "chevron-left-icon",
+		Component: ChevronLeftIcon,
+		title: "Chevron Left",
+	},
+	{
+		registryName: "chevron-right-icon",
+		Component: ChevronRightIcon,
+		title: "Chevron Right",
 	},
 	{ registryName: "copy-icon", Component: CopyIcon, title: "Copy" },
 	{ registryName: "diskette-icon", Component: DisketteIcon, title: "Diskette" },
