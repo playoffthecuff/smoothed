@@ -1,49 +1,35 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
+import { Typography, type TypographyProps } from "./typography";
 
-const headingVariants = cva("font-11d", {
+const titleVariants = cva("fw-11d", {
 	variants: {
 		size: {
-			1: "text-3d",
-			2: "text-4d",
-			3: "text-5d",
-			4: "text-6d",
-			5: "text-7d",
-			6: "text-8d",
+			xxs: "text-15",
+			xs: "text-16",
+			s: "text-17",
+			m: "text-18",
+			l: "text-19",
+			xl: "text-20",
+			xxl: "text-21",
 		},
-	},
-	defaultVariants: {
-		size: 1,
 	},
 });
 
-const sizeToHeading = {
-	1: "h6",
-	2: "h5",
-	3: "h4",
-	4: "h3",
-	5: "h2",
-	6: "h1",
-} as const;
+export type TitleVariants = VariantProps<typeof titleVariants>;
+export type TitleProps = FlattenIntersection<TypographyProps & TitleVariants>;
 
-type Sizes = typeof sizeToHeading;
-
-type Tag = Sizes[keyof Sizes];
-
-export type TitleProps = React.ComponentProps<"h1"> &
-	VariantProps<typeof headingVariants> & { as?: Tag };
-
-export function Title({
-	as,
-	size = 6,
-	children,
+export const Title = ({
 	className,
+	size = "xxl",
+	emphasis = "high",
+	as = "h1",
 	...props
-}: TitleProps) {
-	const Heading = as ? as : sizeToHeading[size ?? 1];
-	return (
-		<Heading className={cn(headingVariants({ size }), className)} {...props}>
-			{children}
-		</Heading>
-	);
-}
+}: TitleProps) => (
+	<Typography
+		className={cn(titleVariants({ size }), className)}
+		emphasis={emphasis}
+		{...props}
+	></Typography>
+);
