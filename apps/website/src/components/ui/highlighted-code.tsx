@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { Highlight, type HighlightProps, themes } from "prism-react-renderer";
-import { CopyButton } from "./buttons/copy";
+import { CopyButton } from "../buttons/copy";
 
 export function HighlightedCode({
 	code,
@@ -11,7 +11,7 @@ export function HighlightedCode({
 }: Omit<HighlightProps, "children"> & { lineNumbers?: boolean }) {
 	const { theme } = useTheme();
 	return (
-		<div className="max-w-full max-h-80 overflow-y-auto rounded-md relative">
+		<div className="max-w-full max-h-80 overflow-y-auto rounded-lg relative border-foreground-750 border-2">
 			<CopyButton
 				className="top-2 right-2 [&&]-absolute"
 				animationTimeout={1000}
@@ -23,7 +23,13 @@ export function HighlightedCode({
 				language={language}
 			>
 				{({ style, tokens, getLineProps, getTokenProps }) => (
-					<pre style={style} className="px-3 py-4 overflow-x-auto">
+					<pre
+						style={{
+							...style,
+							backgroundColor: theme === "dark" ? "#000" : "#fff",
+						}}
+						className="px-3 py-4 overflow-x-auto"
+					>
 						{tokens.map((line, i) => (
 							<div key={i} {...getLineProps({ line })}>
 								{lineNumbers && (
