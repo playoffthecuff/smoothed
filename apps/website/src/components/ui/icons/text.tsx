@@ -1,23 +1,25 @@
 import type { IconProps } from "./types";
 
 export function TextIcon({
-	size = "1.25em",
-	strokeWidth = 2,
-	fill = "none",
+	size = 1.25,
+	width,
+	height,
+	fill,
+	strokeWidth = 1.75,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
 			strokeWidth={strokeWidth}
-			strokeLinecap="round"
-			strokeLinejoin="round"
 			xmlns="http://www.w3.org/2000/svg"
 			{...props}
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			fill="none"
+			stroke="currentColor"
 		>
 			<path d="M4 6L12 6" />
 			<path d="M8 6L8 18" />

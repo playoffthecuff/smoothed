@@ -1,21 +1,24 @@
 import type { IconProps } from "./types";
 
 export function ChevronRightIcon({
-	size = "1.25em",
-	strokeWidth = 2,
-	className,
+	size = 1.25,
+	width,
+	height,
+	strokeWidth = 1.75,
+	fill,
+	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
 			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
 			strokeWidth={strokeWidth}
+			xmlns="http://www.w3.org/2000/svg"
 			strokeLinecap="round"
 			stroke="currentColor"
-			className={className}
+			{...props}
 		>
 			<path d="M15.5 12L8.5 5" />
 			<path d="M15.5 12L8.5 19" />

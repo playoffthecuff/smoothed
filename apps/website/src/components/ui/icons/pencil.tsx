@@ -1,17 +1,19 @@
 import type { IconProps } from "./types";
 
 export function PencilIcon({
-	size = "1.25em",
-	strokeWidth = 2,
-	fill = "none",
+	size = 1.25,
+	width,
+	height,
+	strokeWidth = 1.75,
+	fill,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
-			fill={fill}
+			fill="none"
 			stroke="currentColor"
 			strokeWidth={strokeWidth}
 			strokeLinecap="round"

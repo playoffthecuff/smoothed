@@ -1,24 +1,27 @@
 import type { IconProps } from "./types";
 
 export function CheckIcon({
-	size = "1.25em",
+	size = 1.25,
+	width,
+	height,
 	strokeWidth = 2,
-	className,
+	fill,
+	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
 			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
 			strokeWidth={strokeWidth}
+			xmlns="http://www.w3.org/2000/svg"
 			strokeLinecap="round"
 			stroke="currentColor"
-			className={className}
+			{...props}
 		>
-			<path d="M4.5 12L9.5 17" />
-			<path d="M9.5 17L19.5 7" />
+			<path d="M4.5 12.5L9.5 17.5" />
+			<path d="M9.5 17.5L19.5 7.5" />
 		</svg>
 	);
 }

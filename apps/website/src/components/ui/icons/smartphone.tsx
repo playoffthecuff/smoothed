@@ -1,13 +1,16 @@
 import type { IconProps } from "./types";
 export function SmartphoneIcon({
-	size = "1.25em",
-	strokeWidth = 2,
+	size = 1.25,
+	width,
+	height,
+	fill,
+	strokeWidth = 1.75,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
 			stroke="none"
 			fill="none"

@@ -1,19 +1,21 @@
 import type { IconProps } from "./types";
 
 export function SunIcon({
-	size = "1.25em",
-	strokeWidth = 2,
-	fill = "none",
+	size = 1.25,
+	width,
+	height,
+	fill,
+	strokeWidth = 1.75,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
-			fill={fill}
 			stroke="currentColor"
 			strokeWidth={strokeWidth}
+			fill="none"
 			strokeLinecap="round"
 			strokeLinejoin="round"
 			xmlns="http://www.w3.org/2000/svg"

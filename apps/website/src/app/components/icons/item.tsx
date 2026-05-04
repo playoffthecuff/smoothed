@@ -1,12 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CopyButton } from "@/components/ui/buttons/copy";
-import {
-	Popover,
-	PopoverPortal,
-	PopoverTrigger,
-} from "@/components/ui/popover/popover";
+import { CopyButton } from "@/components/buttons/copy";
+import { Popover } from "@/components/ui/overlays/popover";
+import { T } from "@/components/ui/typography";
 
 export const IconWrapper = ({
 	children,
@@ -19,19 +16,19 @@ export const IconWrapper = ({
 	title: string;
 	description: string;
 }) => (
-	<Popover>
-		<PopoverTrigger>{children}</PopoverTrigger>
-		<PopoverPortal>
-			<Popover.Title>{title}</Popover.Title>
+	<Popover.Root>
+		<Popover.Trigger>{children}</Popover.Trigger>
+		<Popover.Portal>
+			<T.Title>{title}</T.Title>
 			<div>
 				<div className="flex items-center justify-between">
 					<p>{description}</p>
 					<CopyButton onClick={() => navigator.clipboard.writeText(code)} />
 				</div>
-				<code className="font-mono block bg-2 px-12d py-4d rounded-6d">
+				<code className="font-mono block surface-2 px-12d py-4d rounded-6d">
 					{code}
 				</code>
 			</div>
-		</PopoverPortal>
-	</Popover>
+		</Popover.Portal>
+	</Popover.Root>
 );

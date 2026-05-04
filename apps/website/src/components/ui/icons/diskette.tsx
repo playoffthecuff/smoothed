@@ -1,23 +1,25 @@
 import type { IconProps } from "./types";
 
 export function DisketteIcon({
-	size = "1.25em",
-	strokeWidth = 2,
-	fill = "none",
+	size = 1.25,
+	width,
+	height,
+	strokeWidth = 1.75,
+	fill,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
-			fill={fill}
-			stroke="currentColor"
 			strokeWidth={strokeWidth}
-			strokeLinecap="round"
-			strokeLinejoin="round"
 			xmlns="http://www.w3.org/2000/svg"
 			{...props}
+			fill="none"
+			stroke="currentColor"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		>
 			<path d="M17 21V14C17 13.7348 16.8946 13.4804 16.7071 13.2929C16.5196 13.1054 16.2652 13 16 13H8C7.73478 13 7.48043 13.1054 7.29289 13.2929C7.10536 13.4804 7 13.7348 7 14V21" />
 			<path d="M7 3V7C7 7.55228 7.44772 8 8 8H14C14.5523 8 15 7.55228 15 7V3" />

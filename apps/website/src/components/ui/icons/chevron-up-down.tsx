@@ -1,21 +1,24 @@
 import type { IconProps } from "./types";
 
 export function ChevronUpDownIcon({
-	size = "1.25em",
-	strokeWidth = 2,
+	size = 1.25,
+	width,
+	height,
+	strokeWidth = 1.75,
+	fill,
 	...props
 }: IconProps) {
 	return (
 		<svg
-			width={size}
-			height={size}
+			width={`${size}em` || width}
+			height={`${size}em` || height}
 			viewBox="0 0 24 24"
-			fill="none"
+			{...props}
 			strokeWidth={strokeWidth}
+			xmlns="http://www.w3.org/2000/svg"
+			fill="none"
 			strokeLinecap="round"
 			stroke="currentColor"
-			{...props}
-			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path d="M6 15L12 21" />
 			<path d="M12 21L18 15" />
