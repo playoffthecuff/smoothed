@@ -1,16 +1,12 @@
+import { Sandbox } from "@/components/sandbox/sandbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { Link } from "@/components/ui/link/link";
-import { Title } from "@/components/ui/typography/title";
+import { Link } from "@/components/ui/navigation/link/link";
+import { T } from "@/components/ui/typography";
 
 export default function Page() {
 	return (
-		<div
-			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex flex-col gap-16d grow pb-20"
-			style={{
-				width: "clamp(320px, 100%, 800px)",
-			}}
-		>
-			<Title>Get Started</Title>
+		<Sandbox>
+			<T.Title>Get Started</T.Title>
 			<div>
 				<p>Install the necessary dependencies by running:</p>
 				<HighlightedCode
@@ -27,7 +23,7 @@ export default function Page() {
 						href="https://unocss.dev/integrations/"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-primary-ia underline visited:text-visited-ia w-fit"
+						className="text-accent-ia underline visited:text-visited-ia w-fit"
 					>
 						instructions
 					</a>
@@ -56,6 +52,6 @@ export default function Page() {
 					<code className="bg px-8d">uno.config.ts</code>
 				</p>
 			</div>
-		</div>
+		</Sandbox>
 	);
 }
