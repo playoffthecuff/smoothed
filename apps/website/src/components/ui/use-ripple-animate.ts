@@ -14,7 +14,7 @@ interface Props<T extends HTMLElement> {
 	animateClassName: string;
 }
 
-export const useWaveAnimate = <T extends HTMLElement>({
+export const useRippleAnimate = <T extends HTMLElement>({
 	onKeyDown,
 	onKeyUp,
 	onMouseDown,
