@@ -1,10 +1,10 @@
 "use client";
 import { Slider } from "@base-ui/react/slider";
 import { useState } from "react";
+import { cn } from "@/lib/utils/cn";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";
 import { NumberField } from "../fields/s/number";
 import css from "./slider.module.css";
-import { cn } from "@/lib/utils/cn";
 
 interface Props {
 	initialValue: number;
