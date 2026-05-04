@@ -1,20 +1,18 @@
+import { Sandbox } from "@/components/sandbox/sandbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { Title } from "@/components/ui/typography/title";
+import { T } from "@/components/ui/typography";
 
 export default function PopoverPage() {
 	return (
-		<div
-			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex flex-col gap-16d grow [&&]-pb-20"
-			style={{
-				width: "clamp(320px, 100%, 800px)",
-			}}
-		>
+		<Sandbox>
 			<div>
-				<Title>Popover</Title>
-				<p>Popover Description</p>
+				<T.Title>Popover</T.Title>
+				<p>A popup window anchored to its trigger</p>
 			</div>
 			<div>
-				<Title size={5}>Installation</Title>
+				<T.Title size={"xl"} as="h2">
+					Installation
+				</T.Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add popover"
 					language="yaml"
@@ -22,6 +20,6 @@ export default function PopoverPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-		</div>
+		</Sandbox>
 	);
 }
