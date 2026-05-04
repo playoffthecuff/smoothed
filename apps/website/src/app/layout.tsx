@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+
 import { ThemeToggle } from "@/components/features/theme/toggle";
-import { Link } from "@/components/ui/link/link";
+
+import { Link } from "@/components/ui/navigation/link/link";
 
 const sansFont = localFont({
 	src: "./nunito.ttf",
@@ -24,10 +26,10 @@ export default function RootLayout({
 		<html
 			lang="en"
 			suppressHydrationWarning
-			className={`${sansFont.variable} ${sansFont.className}`}
+			style={{ scrollbarGutter: "stable" }}
 		>
 			<body
-				className="bg text-1 overflow-y-auto selection:surface-primary-solid pt-12"
+				className={`${sansFont.variable} ${sansFont.className} text-16 overflow-y-auto pt-12 selection sfc-default`}
 				style={{ minHeight: "100svh" }}
 			>
 				<ThemeProvider
@@ -36,8 +38,13 @@ export default function RootLayout({
 					disableTransitionOnChange
 					attribute={"class"}
 				>
-					<header className="px-16d h-12 flex items-center bg-2 fixed top-0 z-10 shadow-lifted-4 w-screen">
-						<div className="max-w-414 flex-grow flex items-center justify-between mx-auto">
+					<div className="h-12 flex items-center justify-between fixed top-0 z-10 zero-elevation-5 w-screen [--sun-x:0]">
+						<div className="h-full sfc-shadow flex-1 rel-elevation-10 sfc-default"></div>
+						<div className="h-full grow max-w-200 basis-200 sfc-shadow flex-1 shrink-0 rel-elevation-5 sfc-default"></div>
+						<div className="h-full sfc-shadow flex-1 rel-elevation-10 sfc-default"></div>
+					</div>
+					<header className="px-4 h-12 flex items-center fixed top-0 z-10 sfc-default rel-elevation-5 zero-elevation-5 w-screen">
+						<div className="max-w-414 grow flex items-center justify-between mx-auto">
 							<Link href={"/"}>
 								{/** biome-ignore lint/performance/noImgElement: 'svg' */}
 								<img
@@ -56,10 +63,15 @@ export default function RootLayout({
 					</header>
 					<main
 						style={{ minHeight: "calc(100dvh - 3rem)" }}
-						className="flex flex-col w-screen px-4"
+						className="flex flex-col w-screen px-8"
 					>
 						{children}
 					</main>
+					<div className="px-8">
+						<footer className="relative m-auto max-w-200 sfc-shadow px-4 h-12 flex items-center surface-1 sfc-default rel-elevation-10 zero-elevation-10">
+							footer
+						</footer>
+					</div>
 				</ThemeProvider>
 			</body>
 		</html>
