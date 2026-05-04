@@ -1,21 +1,21 @@
-import { Card } from "@/components/ui/card/card";
+import { Card } from "@/components/ui/data-display/card";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { Title } from "@/components/ui/typography/title";
+import { T } from "@/components/ui/typography";
 
 export default function CardPage() {
 	return (
 		<div
-			className="max-w-200 min-h-full bg-1 mx-auto p-18d flex flex-col gap-16d grow [&&]-pb-20"
+			className="max-w-200 min-h-full surface-1 mx-auto p-18d flex flex-col gap-16d grow [&&]-pb-20"
 			style={{
 				width: "clamp(320px, 100%, 800px)",
 			}}
 		>
 			<div>
-				<Title>Card</Title>
+				<T.Title>Card</T.Title>
 				<p>A visually distinct area with content</p>
 			</div>
 			<div>
-				<Title size={5}>Installation</Title>
+				<T.Title>Installation</T.Title>
 				<HighlightedCode
 					code="bunx @playoffthecuff/smoothed@latest add card"
 					language="yaml"
@@ -23,11 +23,11 @@ export default function CardPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<Title size={5}>Variants:</Title>
+			<T size={5}>Variants:</T>
 			<div className="max-w-60">
-				<Card>
+				<Card.Root>
 					<Card.Header className="p-16d">
-						<Card.Title size={4}>Title</Card.Title>
+						<Card.Title>Title</Card.Title>
 						<Card.Description>Description</Card.Description>
 					</Card.Header>
 					<hr className="text-muted opacity-64 mb-12d" />
@@ -40,7 +40,7 @@ export default function CardPage() {
 						</p>
 					</Card.Content>
 					<Card.Footer className="py-16d">Footer</Card.Footer>
-				</Card>
+				</Card.Root>
 			</div>
 		</div>
 	);
