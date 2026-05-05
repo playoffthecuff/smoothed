@@ -379,9 +379,9 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 			trigger:
 				"inline-flex items-center justify-center min-w-[2em] select-none outline-none after:content-[''] after:absolute after:inset-0 after:pointer-events-none",
 			input:
-				"relative after:absolute after:inset-0 after:content-[''] after:pointer-events-none flex items-center has-invalid:ring-danger-6d",
+				"relative after:absolute after:inset-0 after:content-[''] after:pointer-events-none flex items-center has-invalid:ring-6d",
 			"text-input":
-				"grow outline-none leading-none first:ps-[.525em] last:pe-[.525em] min-w-0 h-full focus-within:ring-accent-6d",
+				"grow outline-none leading-none first:ps-[.525em] last:pe-[.525em] min-w-0 h-full",
 			checkbox:
 				"inline-flex items-center justify-center h-[2.5em] min-w-[2.5em] select-none outline-none",
 			text: "inline-flex items-center leading-[1.5em] h-fit",
@@ -483,7 +483,6 @@ export const getInteractiveSurfaceShortcut: GetStaticShortcut = () => {
 		position: "relative before:content-[''] before:absolute before:z-1",
 		size: "before:-inset-12d",
 		border: "outline-none",
-		cursor: "cursor-pointer",
 		animation: `transition-all before:scale-0 [--ripple-time:calc(var(--spacing-size)*1rem*var(--text-size)*${Math.round(2 * 2 ** (0.25 * 32)) / 1000}*1s/1px)]`,
 		focus: "focus-visible:shadow-focus-accent focus-visible:border-transparent",
 	};
