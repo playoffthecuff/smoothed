@@ -3,8 +3,8 @@ import { Slider } from "@base-ui/react/slider";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";
-import { NumberField } from "../fields/s/number";
 import css from "./slider.module.css";
+import { NumberField } from "../ui/data-entry/fields/number";
 
 interface Props {
 	initialValue: number;
@@ -42,12 +42,14 @@ export function OklchSlider({
 					</Slider.Track>
 				</Slider.Control>
 			</Slider.Root>
-			<NumberField
-				onValueChange={(v) => handleChange(v ?? 0)}
-				min={0}
-				max={359}
-				value={value}
-			/>
+			<NumberField.Root>
+				<NumberField.Input
+					onValueChange={(v) => handleChange(v ?? 0)}
+					min={0}
+					max={100}
+					value={value}
+				/>
+			</NumberField.Root>
 		</div>
 	);
 }

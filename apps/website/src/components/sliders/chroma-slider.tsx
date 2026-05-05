@@ -2,7 +2,7 @@
 import { Slider } from "@base-ui/react/slider";
 import { useState } from "react";
 import { type ColorSpace, findMaxChromaForHue } from "@/lib/utils/colors";
-import { NumberField } from "../fields/s/number";
+import { NumberField } from "../ui/data-entry/fields/number";
 
 interface Props {
 	hue: number;
@@ -62,13 +62,15 @@ export function ChromaSlider({
 					</Slider.Track>
 				</Slider.Control>
 			</Slider.Root>
-			<NumberField
-				onValueChange={(v) => handleChange(v ?? 0)}
-				min={0}
-				max={100}
-				value={innerValue}
-				step={step}
-			/>
+			<NumberField.Root>
+				<NumberField.Input
+					onValueChange={(v) => handleChange(v ?? 0)}
+					min={0}
+					max={100}
+					value={innerValue}
+					step={step}
+				/>
+			</NumberField.Root>
 		</div>
 	);
 }

@@ -2,7 +2,7 @@
 import { Slider } from "@base-ui/react/slider";
 import { getOkLCHMaxChroma } from "colorizr";
 import { useState } from "react";
-import { NumberField } from "../fields/s/number";
+import { NumberField } from "../ui/data-entry/fields/number";
 
 interface Props {
 	hue: number;
@@ -64,13 +64,15 @@ export function LightnessSlider({
 					</Slider.Track>
 				</Slider.Control>
 			</Slider.Root>
-			<NumberField
-				onValueChange={(v) => handleChange(v ?? 0)}
-				min={0}
-				max={100}
-				value={Math.round((value || innerValue) / step) * step}
-				step={step}
-			/>
+			<NumberField.Root>
+				<NumberField.Input
+					onValueChange={(v) => handleChange(v ?? 0)}
+					min={0}
+					max={100}
+					value={Math.round((value || innerValue) / step) * step}
+					step={step}
+				/>
+			</NumberField.Root>
 		</div>
 	);
 }
