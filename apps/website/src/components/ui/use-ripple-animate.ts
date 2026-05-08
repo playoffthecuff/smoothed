@@ -10,7 +10,7 @@ interface Props<T extends HTMLElement> {
 	onKeyUp?: KeyboardEventHandler<T>;
 	onMouseDown?: MouseEventHandler<T>;
 	onMouseUp?: MouseEventHandler<T>;
-	disabled?: boolean;
+	animated?: boolean | null;
 	animateClassName: string;
 }
 
@@ -19,21 +19,17 @@ export const useRippleAnimate = <T extends HTMLElement>({
 	onKeyUp,
 	onMouseDown,
 	onMouseUp,
-	disabled,
+	animated,
 	animateClassName,
 }: Props<T>) => {
 	const ref = useRef<T>(null);
 	const animate = () => {
 		const el = ref.current;
-		if (el) {
-			requestAnimationFrame(() => el.classList.add(animateClassName));
-		}
+		if (el) requestAnimationFrame(() => el.classList.add(animateClassName));
 	};
 	const clear = () => {
 		const el = ref.current;
-		if (el) {
-			el.classList.remove(animateClassName);
-		}
+		if (el) el.classList.remove(animateClassName);
 	};
 	const r: {
 		ref?: RefObject<T | null>;
@@ -42,7 +38,7 @@ export const useRippleAnimate = <T extends HTMLElement>({
 		onMouseDown?: MouseEventHandler<T>;
 		onMouseUp?: MouseEventHandler<T>;
 	} = {};
-	if (!disabled) {
+	if (!animated) {
 		r.ref = ref;
 		r.onKeyDown = (e) => {
 			onKeyDown?.(e);
@@ -68,3 +64,7 @@ export const useRippleAnimate = <T extends HTMLElement>({
 	}
 	return r;
 };
+
+export type RippleAnimate<T extends HTMLElement> = ReturnType<
+	typeof useRippleAnimate<T>
+>;
