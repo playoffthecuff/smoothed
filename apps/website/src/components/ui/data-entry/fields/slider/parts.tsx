@@ -40,32 +40,28 @@ const rootVariants = cva(
 		defaultVariants: {
 			shape: "rounded",
 			width: "normal",
+			solid: false,
+			outlined: false,
 		},
 	},
 );
 
-const controlVariants = cva(
-	"flex touch-none items-center select-none h-[2em]",
-	{
-		variants: {
-			width: {
-				narrow: "w-[8em]",
-				normal: "w-[11.31em]",
-				wide: "w-[16em]",
-				fill: "w-full",
-			},
-			disabled: {
-				true: "pointer-events-none",
-			},
-		},
-		defaultVariants: {
-			width: "normal",
+const controlVariants = cva("flex touch-none items-center h-[2em]", {
+	variants: {
+		width: {
+			narrow: "w-[8em]",
+			normal: "w-[11.31em]",
+			wide: "w-[16em]",
+			fill: "w-full",
 		},
 	},
-);
+	defaultVariants: {
+		width: "normal",
+	},
+});
 
 const trackVariants = cva(
-	"select-none sfc-color-background-on-background sfc-solid —rel-elevation-5 base-elevation-0 w-full group-hover:h-1/2 data-[dragging]:h-1/2 group transition-all group-hover:[&:not(:has(*:hover))]:—rel-elevation-10 group-hover:[&:not(:has(*:hover))]:base-elevation-15",
+	"select-none sfc-color-background-on-background sfc-solid —rel-elevation-5 base-elevation-0 w-full data-[dragging]:h-1/2 group transition-all",
 	{
 		variants: {
 			shape: {
@@ -78,30 +74,25 @@ const trackVariants = cva(
 			},
 			outlined: {
 				true: "sfc-border h-[.425em]",
-				false: "h-[0.375em]",
-			},
-			loading: {
-				true: null,
+				false: "h-[.375em]",
 			},
 			disabled: {
-				true: "cursor-not-allowed",
+				false:
+					"group-hover:[&:not(:has(*:hover))]:—rel-elevation-10 group-hover:[&:not(:has(*:hover))]:base-elevation-15 group-hover:h-1/2",
 			},
 		},
-		compoundVariants: [
-			{ disabled: false, loading: true, className: "cursor-wait" },
-		],
+		compoundVariants: [],
 		defaultVariants: {
 			shape: "rounded",
 			flat: false,
-			loading: false,
-			disabled: false,
 			outlined: false,
+			disabled: false,
 		},
 	},
 );
 
 const indicatorVariants = cva(
-	"select-none sfc-solid sfc-ia transition-all —rel-elevation-5 —base-elevation-5 hover:—rel-elevation-2 hover:—base-elevation-14",
+	"sfc-solid transition-all —rel-elevation-5 —base-elevation-5 hover:—rel-elevation-2 hover:—base-elevation-14",
 	{
 		variants: {
 			shape: {
@@ -112,25 +103,10 @@ const indicatorVariants = cva(
 			flat: {
 				false: "sfc-shadow",
 			},
-			loading: {
-				true: "null",
-			},
-			disabled: {
-				true: "cursor-not-allowed",
-			},
 		},
-		compoundVariants: [
-			{
-				loading: true,
-				disabled: false,
-				className: "cursor-wait",
-			},
-		],
 		defaultVariants: {
 			shape: "rounded",
 			flat: false,
-			loading: false,
-			disabled: false,
 		},
 	},
 );
@@ -140,7 +116,7 @@ const thumbVariants = cva(
 );
 
 const thumbCoreVariants = cva(
-	"flex items-center justify-center bg-[var(--bg-color)] rel-elevation-6 base-elevation-6 group-hover:rel-elevation-15",
+	"flex items-center justify-center bg-[var(--bg-color)] rel-elevation-6 base-elevation-6",
 	{
 		variants: {
 			loading: {
@@ -160,6 +136,9 @@ const thumbCoreVariants = cva(
 			flat: {
 				false: "sfc-shadow",
 			},
+			disabled: {
+				false: "group-hover:rel-elevation-15",
+			},
 		},
 		compoundVariants: [
 			{
@@ -173,6 +152,7 @@ const thumbCoreVariants = cva(
 			outlined: false,
 			solid: true,
 			flat: false,
+			disabled: false,
 		},
 	},
 );
@@ -188,6 +168,7 @@ export type SliderProps = FlattenIntersection<
 		Variants.IntentSurface &
 		Variants.EmphasisSurface &
 		Variants.Size &
+		Variants.SurfaceCursor &
 		ThumbCoreVariants & {
 			required?: boolean;
 		}
@@ -216,6 +197,7 @@ export const Root = ({
 	shape,
 	size,
 	width,
+	required,
 	...props
 }: SliderProps & CompoundProps & BaseSlider.Root.Props) => {
 	const variantProps = {
@@ -225,6 +207,7 @@ export const Root = ({
 		intent,
 		loading,
 		outlined,
+		required,
 		shape,
 		solid,
 		size,
@@ -239,6 +222,7 @@ export const Root = ({
 		<BaseSlider.Root
 			className={cn(
 				rootVariants(variantProps),
+				Variants.emphasisSurfaceVariants(variantProps),
 				Variants.fontSizeVariants(variantProps),
 				Variants.semiBoldFontVariants(variantProps),
 				variantProps.isRange ? "ps-[.5em]" : "ps-[1.5em]",
@@ -251,10 +235,7 @@ export const Root = ({
 				<SpinnerIcon className="absolute animate-spin self-end me-[.5em]" />
 			)}
 			<div
-				className={cn(
-					"flex flex-col py-[.5em]",
-					disabled && "sfc-disabled cursor-not-allowed",
-				)}
+				className={cn("flex flex-col py-[.5em]", disabled && "sfc-disabled")}
 			>
 				<SliderFieldContext.Provider value={variantProps}>
 					{children}
@@ -267,13 +248,7 @@ export const Root = ({
 export const Slider = () => {
 	const props = useSliderFieldProps();
 	return (
-		<div
-			className={cn(
-				"flex items-center gap-[1em]",
-				props.loading && !props.disabled && "cursor-wait",
-				props.disabled && "cursor-not-allowed	",
-			)}
-		>
+		<div className={cn("flex items-center gap-[1em]")}>
 			{props.isRange && (
 				<span
 					className="relative flex items-center justify-end h-[1.6em]"
@@ -296,12 +271,18 @@ export const Slider = () => {
 					/>
 				</span>
 			)}
-			<BaseSlider.Control className={controlVariants(props)}>
-				<div className="h-[2em] w-full flex items-center group sfc-ia">
+			<BaseSlider.Control
+				className={cn(
+					controlVariants(props),
+					Variants.surfaceCursorVariants(props),
+				)}
+			>
+				<div className={cn("h-full w-full flex items-center group")}>
 					<BaseSlider.Track
 						className={cn(
 							trackVariants(props),
-							Variants.intentSurfaceVariants(props),
+							Variants.emphasisSurfaceVariants(props),
+							props.disabled && "pointer-events-none",
 						)}
 					>
 						<BaseSlider.Indicator
@@ -402,10 +383,12 @@ export const PopoverMessage = ({ children }: CompoundProps) => {
 	return <Popover.Portal {...props}>{children}</Popover.Portal>;
 };
 
-export const Label = ({ className, children }: CompoundProps) => {
+export const Label = ({ children, className }: CompoundProps) => {
 	const props = useSliderFieldProps();
 	return (
-		<BaseSlider.Label
+		<FieldLabel
+			emphasis={props.emphasis}
+			required={props.required}
 			className={cn(
 				"leading-[1.25] sfc-text sfc-color-default-on-default",
 				props.shape === "circular" && "first-letter:ms-[.525em]",
@@ -414,15 +397,6 @@ export const Label = ({ className, children }: CompoundProps) => {
 				className,
 			)}
 		>
-			{children}
-		</BaseSlider.Label>
-	);
-};
-
-export const Label2 = ({ children, className }: CompoundProps) => {
-	const { emphasis, required } = useSliderFieldProps();
-	return (
-		<FieldLabel emphasis={emphasis} required={required} className={className}>
 			{children}
 		</FieldLabel>
 	);

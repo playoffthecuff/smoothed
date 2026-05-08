@@ -57,6 +57,10 @@ export default function SliderFieldPage() {
 							<SliderField.Label>With Label</SliderField.Label>
 							<SliderField.Slider />
 						</SliderField.Root>
+						<SliderField.Root id="ol" defaultValue={50} solid required>
+							<SliderField.Label>Required</SliderField.Label>
+							<SliderField.Slider />
+						</SliderField.Root>
 						<SliderField.Root id="wm" defaultValue={50} solid>
 							<SliderField.Label>With Message</SliderField.Label>
 							<SliderField.Slider />
