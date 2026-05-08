@@ -7,23 +7,21 @@ import { DislikeIcon } from "@/components/ui/icons/dislike";
 import { HeartIcon } from "@/components/ui/icons/heart";
 import { LikeIcon } from "@/components/ui/icons/like";
 import { SmartphoneIcon } from "@/components/ui/icons/smartphone";
-import { Toggle } from "@/components/ui/triggers/toggle";
-import type { TriggerVariants } from "@/components/ui/triggers/trigger-variants";
-import {
-	emphases,
-	intentColors,
-} from "@/design-systems/material/material-theme";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
+import { Toggle, type ToggleProps } from "@/components/ui/triggers/toggle";
 import { T } from "@/components/ui/typography";
+import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 
+// TODO вынести повторяющиеся блоки страниц в отдельные переиспользуемые врапперы
 export default function TogglePage() {
 	const [pressed, setPressed] = useState(true);
 	const handlePress = () => {
 		setPressed(!pressed);
 	};
-	const triggerVariantsConfig: UnionsRecordIntoTuplesRecord<TriggerVariants> = {
+	const variantsCfg: UnionsRecordIntoTuplesRecord<ToggleProps> = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
+		intent: ["accent", "neutral", "info", "success", "warning", "danger"],
+		emphasis: ["low", "medium", "high"],
 	};
 	return (
 		<Sandbox>
@@ -51,7 +49,7 @@ export default function TogglePage() {
 				</T.Title>
 				<div className="flex flex-col gap-16d">
 					<div className="flex flex-wrap gap-16d items-center">
-						{triggerVariantsConfig.size?.map((v) => (
+						{variantsCfg.size?.map((v) => (
 							<div
 								className="flex gap-10d items-center uppercase leading-none"
 								key={v}
@@ -76,28 +74,44 @@ export default function TogglePage() {
 					Shape
 				</T.Title>
 				<div className="flex flex-col gap-16d">
-					<div className="flex flex-wrap gap-16d items-center">
-						{triggerVariantsConfig.shape?.map((v) => (
-							<div className="flex gap-10d items-center capitalize" key={v}>
-								<Toggle
-									shape={v}
-									onPressedChange={(v) => console.log("toggled to", v)}
-									toggleEffect={"fill"}
-									solid
-								>
-									<HeartIcon />
-								</Toggle>
-								{v}
-							</div>
-						))}
-					</div>
+					{variantsCfg.shape?.map((v) => (
+						<div
+							className="flex gap-10d items-center capitalize leading-none"
+							key={v}
+						>
+							<Toggle
+								shape={v}
+								toggleEffect={"fill"}
+								onPressedChange={(v) => console.log("toggled to", v)}
+								className={"[&>button]:p-[0]"}
+								solid
+							>
+								<HeartIcon />
+							</Toggle>
+							{v}
+						</div>
+					))}
 				</div>
 			</div>
 			<div>
 				<T.Title size="l" as="h3">
 					Appearance
 				</T.Title>
+				<li className="ms-4 -mb-1">
+					<T.Title size="m" as="h4">
+						Lowered
+					</T.Title>
+				</li>
 				<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
+					<div className="flex gap-10d items-center capitalize">
+						<Toggle
+							onPressedChange={(v) => console.log("toggled to", v)}
+							toggleEffect={"fill"}
+						>
+							<HeartIcon />
+						</Toggle>
+						None
+					</div>
 					<div className="flex gap-10d items-center capitalize">
 						<Toggle
 							solid
@@ -110,7 +124,6 @@ export default function TogglePage() {
 					</div>
 					<div className="flex gap-10d items-center capitalize">
 						<Toggle
-							solid={false}
 							outlined
 							onPressedChange={(v) => console.log("toggled to", v)}
 							toggleEffect={"fill"}
@@ -119,27 +132,69 @@ export default function TogglePage() {
 						</Toggle>
 						Outlined
 					</div>
-					<div className="flex gap-10d items-center capitalize">
-						<Toggle
-							solid={true}
-							outlined={true}
-							onPressedChange={(v) => console.log("toggled to", v)}
-							toggleEffect={"fill"}
-						>
-							<HeartIcon />
-						</Toggle>
-						Solid Outlined
-					</div>
 
 					<div className="flex gap-10d items-center capitalize">
 						<Toggle
-							solid={false}
 							onPressedChange={(v) => console.log("toggled to", v)}
 							toggleEffect={"fill"}
+							solid
+							outlined
+						>
+							<HeartIcon />
+						</Toggle>
+						Solid & Outlined
+					</div>
+				</div>
+				<li className="ms-4 -mb-1 mt-2">
+					<T.Title size="m" as="h4">
+						Flat
+					</T.Title>
+				</li>
+				<div className="grid grid-cols-[repeat(4,max-content)] w-fit gap-16d">
+					<div className="flex gap-10d items-center capitalize">
+						<Toggle
+							onPressedChange={(v) => console.log("toggled to", v)}
+							toggleEffect={"fill"}
+							flat
+						>
+							<HeartIcon />
+						</Toggle>
+						None
+					</div>
+					<div className="flex gap-10d items-center capitalize">
+						<Toggle
+							solid
+							onPressedChange={(v) => console.log("toggled to", v)}
+							toggleEffect={"fill"}
+							flat
+						>
+							<HeartIcon />
+						</Toggle>
+						Solid
+					</div>
+					<div className="flex gap-10d items-center capitalize">
+						<Toggle
+							outlined
+							onPressedChange={(v) => console.log("toggled to", v)}
+							toggleEffect={"fill"}
+							flat
 						>
 							<HeartIcon />
 						</Toggle>
 						Outlined
+					</div>
+
+					<div className="flex gap-10d items-center capitalize">
+						<Toggle
+							solid
+							outlined
+							onPressedChange={(v) => console.log("toggled to", v)}
+							toggleEffect={"fill"}
+							flat
+						>
+							<HeartIcon />
+						</Toggle>
+						Solid & Outlined
 					</div>
 				</div>
 			</div>
@@ -179,7 +234,7 @@ export default function TogglePage() {
 						/>
 					</div>
 					<div className="flex justify-between gap-16d items-center">
-						<div className="grow">No Intent</div>
+						<div className="grow">No Intent:</div>
 						<Toggle
 							emphasis={"low"}
 							className="capitalize"
@@ -293,8 +348,8 @@ export default function TogglePage() {
 							<HeartIcon />
 						</Toggle>
 					</div>
-					{intentColors.map((intent) =>
-						emphases.map((emphasis, i) => (
+					{variantsCfg.intent?.map((intent) =>
+						variantsCfg.emphasis?.map((emphasis, i) => (
 							<div
 								key={`${intent}${emphasis}`}
 								className="flex justify-between gap-16d items-center"
@@ -324,7 +379,7 @@ export default function TogglePage() {
 								<Toggle
 									intent={intent}
 									emphasis={emphasis}
-									solid={false}
+									solid
 									outlined
 									className="capitalize"
 									toggleEffect={"fill"}
@@ -354,7 +409,7 @@ export default function TogglePage() {
 				</li>
 				<div className="grid grid-cols-[repeat(3,max-content)] w-fit gap-16d">
 					<div className="flex justify-between gap-16d items-center">
-						<div className="grow">No Intent</div>
+						<div className="grow">No Intent:</div>
 						<Toggle
 							emphasis={"low"}
 							className="capitalize"
@@ -456,8 +511,8 @@ export default function TogglePage() {
 							<HeartIcon />
 						</Toggle>
 					</div>
-					{intentColors.map((intent) =>
-						emphases.map((emphasis, i) => (
+					{variantsCfg.intent?.map((intent) =>
+						variantsCfg.emphasis?.map((emphasis, i) => (
 							<div
 								key={`${intent}${emphasis}`}
 								className="flex justify-between gap-16d items-center"
@@ -568,6 +623,41 @@ export default function TogglePage() {
 						</Toggle>
 						Fill
 					</div>
+				</div>
+			</div>
+			<div>
+				<T.Title size="l" as="h3">
+					Pressed Intent
+				</T.Title>
+				<div className="flex flex-col gap-14d">
+					{variantsCfg.intent?.map((v) => (
+						<div className="flex gap-12d capitalize" key={v}>
+							<div className="w-16">{v}:</div>
+							<Toggle
+								pressedIntent={v}
+								className="capitalize"
+								solid
+								toggleEffect={"background"}
+							>
+								<HeartIcon />
+							</Toggle>
+							<Toggle
+								pressedIntent={v}
+								className="capitalize"
+								outlined
+								toggleEffect={"fill"}
+							>
+								<HeartIcon />
+							</Toggle>
+							<Toggle
+								pressedIntent={v}
+								className="capitalize"
+								toggleEffect={"fill"}
+							>
+								<HeartIcon />
+							</Toggle>
+						</div>
+					))}
 				</div>
 			</div>
 			<div>

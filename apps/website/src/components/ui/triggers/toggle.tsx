@@ -3,28 +3,17 @@
 import { Toggle as BaseToggle } from "@base-ui/react/toggle";
 import { cva, type VariantProps } from "class-variance-authority";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
-import { useRippleAnimate } from "@/components/ui/use-ripple-animate";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
+import { useRippleAnimate } from "../use-ripple-animate";
 import { Variants } from "../variants";
 
-export const toggleVariants = cva("sfc-ia trigger-box-narrow", {
+export const toggleVariants = cva("sfc-ripple trigger-box", {
 	variants: {
 		shape: {
 			square: null,
 			rounded: "sfc-rounded",
 			circular: "sfc-circular",
-		},
-		solid: {
-			true: "sfc-solid lifted-trigger",
-		},
-		outlined: {
-			true: "after:sfc-border",
-		},
-		disabled: { true: "sfc-disabled pointer-events-none" },
-		loading: { true: "cursor-wait" },
-		flat: {
-			true: null,
 		},
 		pressedIntent: {
 			accent: "data-[pressed]:sfc-color-accent-on-accent-ia",
@@ -33,6 +22,17 @@ export const toggleVariants = cva("sfc-ia trigger-box-narrow", {
 			success: "data-[pressed]:sfc-color-success-on-success-ia",
 			warning: "data-[pressed]:sfc-color-warning-on-warning-ia",
 			danger: "data-[pressed]:sfc-color-danger-on-danger-ia",
+		},
+		solid: {
+			true: "sfc-solid lifted-trigger",
+		},
+		outlined: {
+			true: "after:sfc-border",
+		},
+		disabled: { true: "sfc-disabled pointer-events-none" },
+		loading: { true: null },
+		flat: {
+			true: null,
 		},
 		toggleEffect: {
 			fill: "[&[data-pressed]>svg]:fill-current",
@@ -87,28 +87,10 @@ export const toggleVariants = cva("sfc-ia trigger-box-narrow", {
 	},
 });
 
-type ToggleVariants = VariantProps<typeof toggleVariants>;
-
-type BaseTogglePropNames =
-	| "value"
-	| "defaultPressed"
-	| "pressed"
-	| "onPressedChange"
-	| "nativeButton"
-	| "disabled"
-	| "className"
-	| "style"
-	| "render"
-	| "children"
-	| "onMouseDown"
-	| "onMouseUp"
-	| "onKeyDown"
-	| "onKeyUp";
-
-type BaseToggleProps = Pick<BaseToggle.Props, BaseTogglePropNames>;
+export type ToggleVariants = VariantProps<typeof toggleVariants>;
 
 export type ToggleProps = FlattenIntersection<
-	BaseToggleProps &
+	BaseToggle.Props &
 		ToggleVariants &
 		Variants.IntentSurface &
 		Variants.EmphasisSurface &
@@ -127,25 +109,21 @@ export function Toggle({
 	pressed,
 	nativeButton,
 	value,
-	onMouseDown,
-	onMouseUp,
-	onKeyDown,
-	onKeyUp,
 	...props
 }: ToggleProps) {
 	const effects = useRippleAnimate({
-		animateClassName: "before:animate-ripple",
-		onKeyDown,
-		onKeyUp,
-		onMouseDown,
-		onMouseUp,
-		disabled: (!props.outlined && !props.solid) || !animated,
+		animateClassName: `before:animate-ripple`,
+		onKeyDown: props.onKeyDown,
+		onKeyUp: props.onKeyUp,
+		onMouseDown: props.onMouseDown,
+		onMouseUp: props.onMouseUp,
+		animated: (!props.outlined && !props.solid) || !animated,
 	});
 	return (
 		<div
 			className={cn(
-				props.disabled && "cursor-not-allowed",
 				"inline-flex items-center justify-center",
+				props.disabled && "cursor-not-allowed",
 				className,
 			)}
 		>
@@ -157,14 +135,15 @@ export function Toggle({
 					Variants.fontSizeVariants(props),
 					Variants.semiBoldFontVariants(props),
 					toggleVariants(props),
+					Variants.surfaceCursorVariants(props),
 				)}
-				{...effects}
 				disabled={props.disabled}
 				onPressedChange={onPressedChange}
 				value={value}
 				defaultPressed={defaultPressed}
 				pressed={pressed}
 				nativeButton={nativeButton}
+				{...effects}
 			>
 				{children}
 			</BaseToggle>
