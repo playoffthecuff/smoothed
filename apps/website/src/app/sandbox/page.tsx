@@ -11,7 +11,7 @@ export default function InputPage() {
 				<div className="flex gap-16d">
 					<button
 						type="button"
-						className="trigger lifted-trigger sfc-ia sfc-color-accent-on-accent sfc-emphasis-high-on-high sfc-border w-16 rounded-12d before:rounded-16d"
+						className="trigger lifted-trigger sfc-ripple sfc-color-accent-on-accent sfc-emphasis-high-on-high sfc-border w-16 rounded-12d before:rounded-16d"
 					>
 						o
 					</button>
