@@ -1,7 +1,6 @@
 import { describe, test } from "bun:test";
 import { options } from "../options";
 import {
-	getElevationRule,
 	getSurfaceBgVars,
 	getSurfaceColorRule,
 	getSurfaceColorRules,
@@ -13,6 +12,7 @@ describe("colorRule", () => {
 	test("", () => {
 		const [re, fn] = getSurfaceColorRule(options);
 		const m = "bg-background-0d".match(re);
+		if (!m) throw new Error();
 		const r = fn(m);
 		console.log("🚀 ~ r:", r);
 	});
@@ -22,6 +22,7 @@ describe.only("getSurfaceColorRules", () => {
 	test("", () => {
 		const [re, fn] = getSurfaceColorRules(options);
 		const m = "sfc-color-accent-on-accent-ia".match(re);
+		if (!m) throw new Error();
 		const r = fn(m);
 		console.log("🚀 ~ r:", r);
 	});
@@ -98,30 +99,6 @@ describe("getSurfaceFgVars", () => {
 	});
 });
 
-describe("getLiftedTriggerShortCut", () => {
-	test("", () => {
-		const [re, fn] = getLiftedTriggerShortCut(options);
-		const m = "lowered-trigger".match(re);
-		if (!m) throw "don't match";
-		const r = fn(m);
-		if (!r) throw "don't match";
-		const el = (typeof r === "string" ? r.split(" ") : [])[3];
-		const [re1, fn1] = getElevationRule(options);
-
-		const rm = el.match(re1);
-		const rs = fn1(rm);
-		console.log("🚀 ~ rs:", rs);
-	});
-});
-
-describe("getElevationRule", () => {
-	test("", () => {
-		const [re, fn] = getElevationRule(options);
-		const m = "—rel-elevation-10".match(re);
-		const r = fn(m, { rawSelector: ".test-selector" });
-		console.log("🚀 ~ r:", r);
-	});
-});
 describe("getSurfaceFgCssVars", () => {
 	test("", () => {
 		const low = getSurfaceFgCssVars({

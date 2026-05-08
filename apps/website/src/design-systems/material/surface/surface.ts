@@ -1,4 +1,4 @@
-import type { CSSObject, Rule, Shortcut } from "unocss";
+import type { CSSObject, DynamicRule, Rule, Shortcut } from "unocss";
 import {
 	assertCssProp,
 	getCssPropByUtilProp,
@@ -240,7 +240,7 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 	},
 ];
 
-export const getElevationRule: GetDynamicRule = () => [
+export const getElevationRule: (opts: Options) => DynamicRule = () => [
 	/^(?<minus>—)?(?<kind>zero|rel|base)-elevation-(?<height>\d+)$/,
 	({ groups }) => {
 		if (!groups) return;

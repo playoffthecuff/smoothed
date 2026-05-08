@@ -1,6 +1,6 @@
 import type {
 	CSSObject,
-	DynamicRule,
+	CSSValueInput,
 	DynamicShortcut,
 	StaticRule,
 	StaticShortcut,
@@ -26,8 +26,10 @@ export interface SurfaceParams {
 }
 export type SurfaceParamsHandler = (ctx: SurfaceParams) => number;
 
+type RuleHandler = (match: RegExpMatchArray) => CSSValueInput | undefined;
+
 export type GetCssFromParams = (ctx: SurfaceParams) => CSSObject;
-export type GetDynamicRule = (opts: Options) => DynamicRule;
+export type GetDynamicRule = (opts: Options) => [RegExp, RuleHandler];
 export type GetDynamicShortcut = (opts: Options) => DynamicShortcut;
 export type GetStaticShortcut = () => StaticShortcut;
 export type GetStaticRule = () => StaticRule;

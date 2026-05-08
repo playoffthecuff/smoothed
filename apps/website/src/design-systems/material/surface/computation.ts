@@ -13,7 +13,7 @@ import type { SurfaceParams, SurfaceParamsHandler } from "../types";
 const lightThemeFallbackColor: Color = "foreground";
 const darkThemeFallbackColor: Color = "background";
 
-export const getThemeColor = (p: SurfaceParams): Color => {
+export const getThemeColor = (p: SurfaceParams): Exclude<Color, "default"> => {
 	if (p.color === undefined || p.color === "default") {
 		return p.mode === "dark" ? darkThemeFallbackColor : lightThemeFallbackColor;
 	}
