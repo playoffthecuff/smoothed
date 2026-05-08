@@ -1,1 +1,1 @@
-export * as ToggleGroup from "./toggle-group-parts";
+export * as ToggleGroup from "./parts";
