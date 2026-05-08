@@ -125,7 +125,7 @@ export const PopoverMessage = ({ children }: CompoundProps) => {
 };
 
 const buttonVariants = cva(
-	"relative z-1 first:z-2 last:z-0 flex items-center justify-center cursor-pointer sfc-border h-full aspect-square zero-elevation-5 transition-all rel-elevation-0 base-elevation-0 hover:rel-elevation-10 active:—rel-elevation-4",
+	"relative z-1 first:z-2 last:z-0 flex items-center justify-center cursor-pointer sfc-border h-full aspect-square transition-all rel-elevation-0 —base-elevation-9 hover:rel-elevation-10 active:—rel-elevation-4",
 	{
 		variants: {
 			controlsPosition: {
@@ -357,28 +357,7 @@ export type NumberInputProps = FlattenIntersection<
 		decrementContent?: ButtonContent;
 		incrementContent?: ButtonContent;
 		controlsPosition?: ButtonProps["controlsPosition"];
-	} & Pick<
-		BaseNumberField.Root.Props,
-		| "defaultValue"
-		| "onValueChange"
-		| "onValueCommitted"
-		| "allowWheelScrub"
-		| "locale"
-		| "snapOnStep"
-		| "step"
-		| "smallStep"
-		| "largeStep"
-		| "min"
-		| "max"
-		| "format"
-		| "readOnly"
-		| "required"
-		| "inputRef"
-		| "className"
-		| "style"
-		| "render"
-		| "children"
-	>
+	} & BaseNumberField.Root.Props
 >;
 
 export const Input = ({
