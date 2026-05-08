@@ -7,8 +7,7 @@ import {
 	lerp,
 	round3,
 } from "../../ds-utils";
-import type { Color, Emphasis } from "../material-theme";
-import type { ThemeHue } from "../options";
+import type { Color, Emphasis, ThemeHue } from "../options";
 import type { SurfaceParams, SurfaceParamsHandler } from "../types";
 
 const lightThemeFallbackColor: Color = "foreground";

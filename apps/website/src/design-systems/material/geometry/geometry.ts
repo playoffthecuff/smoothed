@@ -1,7 +1,7 @@
 import { getBorderSide, getCssSide } from "../../ds-utils";
-import { calcSize } from "../material-theme";
 import type { Options } from "../options";
 import type { GetDynamicRule, GetStaticRule } from "../types";
+import { calcSize } from "../utils";
 
 export const getSizeRule: GetDynamicRule = () => [
 	/^(?<prop>w|h|min-w|min-h|max-w|max-h)-(?<value>\d+)d$/,
