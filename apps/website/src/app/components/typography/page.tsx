@@ -14,7 +14,7 @@ export default function TitlePage() {
 					Installation
 				</T.Title>
 				<HighlightedCode
-					code="bunx @playoffthecuff/smoothed@latest add dialog"
+					code="bunx @playoffthecuff/smoothed@latest add typography"
 					language="yaml"
 					lineNumbers={false}
 				/>
