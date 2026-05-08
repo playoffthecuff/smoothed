@@ -20,12 +20,7 @@ export const hintButtonVariants = cva("cursor-help h-full aspect-square", {
 		shape: {
 			square: null,
 			rounded: "sfc-rounded",
-			circular: "rounded-full before:rounded-full",
-		},
-		emphasis: {
-			low: "sfc-emphasis-low-on-low",
-			medium: "sfc-emphasis-medium-on-medium",
-			high: "sfc-emphasis-high-on-high",
+			circular: "sfc-circular",
 		},
 	},
 	defaultVariants: {},
@@ -35,7 +30,8 @@ type HintButtonVariants = VariantProps<typeof hintButtonVariants>;
 
 export type HintButtonProps = FlattenIntersection<
 	PopoverPortalProps &
-		HintButtonVariants & {
+		HintButtonVariants &
+		Variants.EmphasisSurface & {
 			className?: string | undefined;
 			children?: ReactNode;
 			disabled?: boolean | null | undefined;
@@ -63,6 +59,7 @@ export function HintButton({
 				<div
 					className={cn(
 						hintButtonVariants(props),
+						Variants.emphasisSurfaceVariants(props),
 						Variants.fontSizeVariants(props),
 						Variants.semiBoldFontVariants(props),
 						className,

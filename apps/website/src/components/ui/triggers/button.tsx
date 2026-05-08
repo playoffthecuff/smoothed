@@ -2,17 +2,18 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
-import { useRippleAnimate } from "@/components/ui/use-ripple-animate";
+// import { useRippleAnimate } from "@/components/ui/use-ripple-animate";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
+import { useRippleAnimate } from "../use-ripple-animate";
 import { Variants } from "../variants";
 
-const buttonVariants = cva("sfc-ia", {
+const buttonVariants = cva("sfc-ripple", {
 	variants: {
 		width: {
 			fit: "trigger-box-fit",
 			narrow: "trigger-box-narrow",
-			normal: "trigger-box",
+			normal: "trigger-box-normal",
 			wide: "trigger-box-wide",
 			fill: "trigger-box-fill",
 		},
@@ -28,7 +29,7 @@ const buttonVariants = cva("sfc-ia", {
 			true: "after:sfc-border",
 		},
 		disabled: {
-			true: "sfc-disabled",
+			true: "sfc-disabled pointer-events-none",
 		},
 		loading: {
 			true: null,
@@ -105,26 +106,22 @@ export function Button({
 	emphasis,
 	shape,
 	intent,
-	onMouseDown,
-	onMouseUp,
-	onKeyDown,
-	onKeyUp,
 	...props
 }: ButtonProps) {
 	const effects = useRippleAnimate({
-		animateClassName: "before:animate-ripple",
-		disabled: (!outlined && !solid) || !animated,
-		onKeyDown,
-		onKeyUp,
-		onMouseDown,
-		onMouseUp,
+		animateClassName: `before:animate-ripple`,
+		onKeyDown: props.onKeyDown,
+		onKeyUp: props.onKeyUp,
+		onMouseDown: props.onMouseDown,
+		onMouseUp: props.onMouseUp,
+		animated: (!outlined && !solid) || !animated,
 	});
 	return (
 		<div
 			className={cn(
 				"items-center justify-center",
-				props.disabled && "cursor-not-allowed",
 				width === "fill" ? "flex w-full" : "inline-flex",
+				props.disabled && "cursor-not-allowed",
 				className,
 			)}
 		>
@@ -134,6 +131,10 @@ export function Button({
 					Variants.emphasisSurfaceVariants({ emphasis }),
 					Variants.fontSizeVariants({ size }),
 					Variants.semiBoldFontVariants({ size }),
+					Variants.surfaceCursorVariants({
+						disabled: props.disabled,
+						loading,
+					}),
 					buttonVariants({
 						className,
 						disabled: props.disabled,
@@ -144,11 +145,9 @@ export function Button({
 						outlined,
 						solid,
 					}),
-					loading && "cursor-wait",
-					props.disabled && "pointer-events-none",
 				)}
-				{...effects}
 				{...props}
+				{...effects}
 			>
 				{children}
 			</button>

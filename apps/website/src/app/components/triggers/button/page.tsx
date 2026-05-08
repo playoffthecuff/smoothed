@@ -110,6 +110,11 @@ export default function ButtonPage() {
 				<T.Title size="l" as="h3">
 					Appearance
 				</T.Title>
+				<li className="ms-4 -mb-1">
+					<T.Title size="m" as="h4">
+						Lowered
+					</T.Title>
+				</li>
 				<div className="flex gap-16d flex-wrap items-center">
 					<Button intent={"neutral"}>None</Button>
 					<Button outlined intent={"neutral"}>
@@ -119,6 +124,25 @@ export default function ButtonPage() {
 						Solid
 					</Button>
 					<Button outlined intent={"neutral"} solid>
+						Solid Outlined
+					</Button>
+				</div>
+				<li className="ms-4 -mb-1 mt-2">
+					<T.Title size="m" as="h4">
+						Flat
+					</T.Title>
+				</li>
+				<div className="flex gap-16d flex-wrap items-center">
+					<Button intent={"neutral"} flat>
+						None
+					</Button>
+					<Button outlined intent={"neutral"} flat>
+						Outlined
+					</Button>
+					<Button intent={"neutral"} solid flat>
+						Solid
+					</Button>
+					<Button outlined intent={"neutral"} solid flat>
 						Solid Outlined
 					</Button>
 				</div>
