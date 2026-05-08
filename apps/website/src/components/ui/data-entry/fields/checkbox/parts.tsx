@@ -15,28 +15,12 @@ import { useRippleAnimate } from "../../../use-ripple-animate";
 import { FieldLabel, type LabelProps } from "../label";
 import type { FieldMessageProps } from "../message";
 
-const sizeVariants = cva(null, {
-	variants: {
-		size: {
-			xs: "fs-14d fw-9.5d",
-			s: "fs-15d fw-9d",
-			m: "fs-16d fw-8.5d",
-			l: "fs-17d fw-8d",
-			xl: "fs-18d fw-8d",
-		},
-	},
-	defaultVariants: {
-		size: "m",
-	},
-});
-
 const checkboxVariants = cva(
-	"rounded-full invalid:focus-visible:shadow-focus-error sfc-ia checkbox-box [--bg-opacity:0.33] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none",
+	"rounded-full invalid:focus-visible:shadow-focus-error sfc-ripple checkbox-box [--bg-opacity:0.33] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none",
 	{
 		variants: {
 			disabled: {
 				true: "sfc-disabled pointer-events-none",
-				false: "cursor-pointer",
 			},
 			solid: {
 				true: null,
@@ -45,7 +29,6 @@ const checkboxVariants = cva(
 				true: "sfc-outlined-checkbox",
 			},
 			loading: {
-				true: "cursor-wait",
 				false: "not-hover:[--bg-opacity:0]",
 			},
 		},
@@ -167,7 +150,8 @@ export const Root = ({
 		<div
 			className={cn(
 				"inline-flex flex-col justify-center w-fit",
-				sizeVariants(props),
+				Variants.fontSizeVariants(props),
+				Variants.semiBoldFontVariants(props),
 				className,
 			)}
 		>
@@ -180,27 +164,22 @@ export const Root = ({
 
 export const Checkbox = ({
 	animated = true,
-	onKeyDown,
-	onKeyUp,
-	onMouseDown,
-	onMouseUp,
 	...props
 }: BaseCheckbox.Root.Props & { animated?: boolean }) => {
 	const ctxProps = useCheckboxFieldProps();
 	const effects = useRippleAnimate({
 		animateClassName: "before:animate-ripple",
-		disabled: !animated,
-		onKeyDown,
-		onKeyUp,
-		onMouseDown,
-		onMouseUp,
+		animated: !animated,
+		onKeyDown: props.onKeyDown,
+		onKeyUp: props.onKeyUp,
+		onMouseDown: props.onMouseDown,
+		onMouseUp: props.onMouseUp,
 	});
 	return (
 		<div
 			className={cn(
 				"relative flex items-center justify-center",
 				ctxProps.disabled && "cursor-not-allowed",
-				!ctxProps.disabled && ctxProps.loading && "cursor-wait",
 			)}
 		>
 			<BaseCheckbox.Root
@@ -209,12 +188,10 @@ export const Checkbox = ({
 					checkboxVariants(ctxProps),
 					Variants.emphasisSurfaceVariants(ctxProps),
 					Variants.intentSurfaceVariants(ctxProps),
+					Variants.surfaceCursorVariants(ctxProps),
 				)}
-				onKeyDown={effects.onKeyDown}
-				onKeyUp={effects.onKeyUp}
-				onMouseDown={effects.onMouseDown}
-				onMouseUp={effects.onMouseUp}
 				{...props}
+				{...effects}
 				id={ctxProps.id}
 				name={ctxProps.name}
 			>
