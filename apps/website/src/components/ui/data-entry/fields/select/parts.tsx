@@ -42,15 +42,10 @@ const triggerVariants = cva(
 				true: "after:ring-6d",
 			},
 			// TODO implement inline input
-			loading: { true: "cursor-wait" },
+			loading: { true: null },
 			disabled: { true: "pointer-events-none sfc-disabled" },
 		},
 		compoundVariants: [
-			{
-				loading: false,
-				disabled: false,
-				className: "cursor-pointer",
-			},
 			{
 				loading: true,
 				disabled: false,
@@ -329,6 +324,7 @@ export function Trigger({
 					Variants.interactiveIntentSurfaceVariants(props),
 					Variants.emphasisSurfaceVariants(props),
 					Variants.inputWidthVariants(props),
+					Variants.surfaceCursorVariants(props),
 					triggerVariants(props),
 				)}
 			>
