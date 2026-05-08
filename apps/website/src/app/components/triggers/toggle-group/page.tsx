@@ -7,21 +7,19 @@ import { DislikeIcon } from "@/components/ui/icons/dislike";
 import { LikeIcon } from "@/components/ui/icons/like";
 import { Link } from "@/components/ui/navigation/link/link";
 import { ToggleGroup } from "@/components/ui/triggers/toggle-group";
-import type { ToggleGroupProps } from "@/components/ui/triggers/toggle-group/parts";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 
 export default function ToggleGroupPage() {
 	const [value, setValue] = useState(["left"]);
 	const toggleValue = (v: string[]) => {
 		setValue(v);
 	};
-	const variantsCfg: UnionsRecordIntoTuplesRecord<ToggleGroupProps> = {
+	const variantsCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		intent: ["accent", "neutral", "info", "success", "warning", "danger"],
 		emphasis: ["low", "medium", "high"],
-	};
+	} as const;
 	return (
 		<Sandbox>
 			<div>

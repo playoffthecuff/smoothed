@@ -1,23 +1,20 @@
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { NumberField } from "@/components/ui/data-entry/fields/number/index";
-import type { NumberFieldProps } from "@/components/ui/data-entry/fields/number/parts";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
-import { intentColors } from "@/design-systems/material/material-theme";
 import { emphases } from "@/design-systems/material/options";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 import { capitalize } from "@/lib/utils/str";
 
 export default function NumberFieldPage() {
-	const cfg: UnionsRecordIntoTuplesRecord<NumberFieldProps> = {
+	const variantsCfg = {
 		shape: ["square", "rounded", "circular"],
 		emphasis: ["low", "medium", "high"],
 		intent: ["neutral", "accent", "success", "warning", "danger", "info"],
 		size: ["xs", "s", "m", "l", "xl"],
 		id: [""],
 		width: ["narrow", "normal", "wide", "fill"],
-	};
+	} as const;
 	return (
 		<Sandbox>
 			<div>
@@ -88,7 +85,7 @@ export default function NumberFieldPage() {
 						Size
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						{cfg.size?.map((size) => (
+						{variantsCfg.size?.map((size) => (
 							<NumberField.Root id={size} key={size} size={size}>
 								<NumberField.Label>{capitalize(size)}</NumberField.Label>
 								<NumberField.Input defaultValue={100} />
@@ -106,7 +103,7 @@ export default function NumberFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-12d">
-						{cfg.width?.map((v) => (
+						{variantsCfg.width?.map((v) => (
 							<NumberField.Root id={`${v}-flex`} key={v} width={v}>
 								<NumberField.Label>{capitalize(v)}</NumberField.Label>
 								<NumberField.Input defaultValue={100} />
@@ -120,7 +117,7 @@ export default function NumberFieldPage() {
 						</T.Title>
 					</li>
 					<div>
-						{cfg.width?.map((v) => (
+						{variantsCfg.width?.map((v) => (
 							<NumberField.Root
 								id={`${v}-block`}
 								key={v}
@@ -140,7 +137,7 @@ export default function NumberFieldPage() {
 						Shape
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						{cfg.shape?.map((v) => (
+						{variantsCfg.shape?.map((v) => (
 							<NumberField.Root id={v} key={v} shape={v}>
 								<NumberField.Label>{capitalize(v)}</NumberField.Label>
 								<NumberField.Input defaultValue={100} />
@@ -229,7 +226,7 @@ export default function NumberFieldPage() {
 								</NumberField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => {
+						{variantsCfg.intent.map((intent) => {
 							const Icon = intentToIcon("filled", intent);
 							return (
 								<div key={`${intent}-1`} className="flex gap-16d">
@@ -271,7 +268,7 @@ export default function NumberFieldPage() {
 								</NumberField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => {
+						{variantsCfg.intent.map((intent) => {
 							const Icon = intentToIcon("filled", intent);
 							return (
 								<div key={`${intent}-2`} className="flex gap-16d">
@@ -313,7 +310,7 @@ export default function NumberFieldPage() {
 								</NumberField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => {
+						{variantsCfg.intent.map((intent) => {
 							const Icon = intentToIcon("filled", intent);
 							return (
 								<div key={`${intent}-3`} className="flex gap-16d">
@@ -352,7 +349,7 @@ export default function NumberFieldPage() {
 								</NumberField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => {
+						{variantsCfg.intent.map((intent) => {
 							const Icon = intentToIcon("filled", intent);
 							return (
 								<div key={`${intent}-4`} className="flex gap-16d">

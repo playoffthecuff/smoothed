@@ -2,17 +2,15 @@
 
 import { useTheme } from "next-themes";
 import { useState } from "react";
-import { ChromaSlider } from "@/components/sliders/chroma-slider";
-import { LightnessSlider } from "@/components/sliders/lightness-slider";
+// import { ChromaSlider } from "@/components/sliders/chroma-slider";
+// import { LightnessSlider } from "@/components/sliders/lightness-slider";
 import NumberSlider from "@/components/sliders/number-slider";
-import { OklchSlider } from "@/components/sliders/oklch-slider";
-import { HighlightedCode } from "@/components/ui/highlighted-code";
-import {
-	type Color,
-	createUnoConfig,
-} from "@/design-systems/material/material-uno-config";
+// import { OklchSlider } from "@/components/sliders/oklch-slider";
+// import { HighlightedCode } from "@/components/ui/highlighted-code";
+// import type { Color } from "@/design-systems/material/options";
 import type { ColorSpace } from "@/lib/utils/colors";
-import { Card } from "./card";
+
+// import { Card } from "./card";
 
 //TODO refactor the page
 
@@ -38,16 +36,16 @@ const initialValues = {
 	textSize: 1,
 };
 
-const initialColors: Color[] = [
-	{ purpose: "primary", hue: 264, chroma: 1, lightness: 0.5 },
-	{ purpose: "secondary", hue: 264, chroma: 0.05, lightness: 0.5 },
-	{ purpose: "success", hue: 142, chroma: 1, lightness: 0.7 },
-	{ purpose: "error", hue: 29, chroma: 1, lightness: 0.55 },
-	{ purpose: "warning", hue: 110, chroma: 1, lightness: 0.8 },
-	{ purpose: "visited", hue: 328, chroma: 1, lightness: 0.525 },
-	{ purpose: "background", hue: 90, chroma: 0.05, lightness: 1 },
-	{ purpose: "foreground", hue: 270, chroma: 0.05, lightness: 0 },
-];
+// const initialColors: Color[] = [
+// 	{ purpose: "primary", hue: 264, chroma: 1, lightness: 0.5 },
+// 	{ purpose: "secondary", hue: 264, chroma: 0.05, lightness: 0.5 },
+// 	{ purpose: "success", hue: 142, chroma: 1, lightness: 0.7 },
+// 	{ purpose: "error", hue: 29, chroma: 1, lightness: 0.55 },
+// 	{ purpose: "warning", hue: 110, chroma: 1, lightness: 0.8 },
+// 	{ purpose: "visited", hue: 328, chroma: 1, lightness: 0.525 },
+// 	{ purpose: "background", hue: 90, chroma: 0.05, lightness: 1 },
+// 	{ purpose: "foreground", hue: 270, chroma: 0.05, lightness: 0 },
+// ];
 
 export default function ThemeEditorPage() {
 	const { theme } = useTheme();
@@ -62,7 +60,7 @@ export default function ThemeEditorPage() {
 	const [textSize, setTextSize] = useState(initialValues.textSize);
 	const [key, setKey] = useState(0);
 
-	const [colors, setColors] = useState(initialColors);
+	// const [colors, setColors] = useState(initialColors);
 
 	return (
 		<div
@@ -80,7 +78,7 @@ export default function ThemeEditorPage() {
 					height: "calc(100dvh - 3rem)",
 				}}
 			>
-				{colors.map(({ chroma, hue, purpose, lightness }, i) => (
+				{/* {colors.map(({ chroma, hue, purpose, lightness }, i) => (
 					<div className="py-12d px-16d flex flex-col gap-10d" key={i}>
 						<input
 							value={purpose}
@@ -134,7 +132,7 @@ export default function ThemeEditorPage() {
 							step={lightness < 0.01 ? 0.1 : lightness < 0.1 ? 0.25 : 0.5}
 						/>
 					</div>
-				))}
+				))} */}
 				<hr />
 				<div className="py-12d px-16d flex flex-col gap-10d w-fit">
 					{/** biome-ignore lint/a11y/noLabelWithoutControl: '' */}
@@ -197,7 +195,7 @@ export default function ThemeEditorPage() {
 					/>
 				</div>
 				<div className="py-12d px-16d flex flex-col gap-10d">
-					<button
+					{/* <button
 						type="button"
 						className="inline-flex cursor-pointer items-center justify-center gap-12d rounded-6d transition-all leading-[1] px-13d py-12d"
 						style={{
@@ -214,7 +212,7 @@ export default function ThemeEditorPage() {
 						}}
 					>
 						Reset
-					</button>
+					</button> */}
 				</div>
 			</div>
 			<div
@@ -271,7 +269,7 @@ export default function ThemeEditorPage() {
 							</h4>
 						</div>
 					</div>
-					{colors.map((v, i) => (
+					{/* {colors.map((v, i) => (
 						<Card
 							key={i}
 							chroma={v.chroma}
@@ -279,16 +277,16 @@ export default function ThemeEditorPage() {
 							borderRadius={radius * spacingSize * 2 ** 2.75}
 							lightness={v.lightness}
 						></Card>
-					))}
+					))} */}
 					<div className="flex gap-16d flex-wrap flex-col max-w-200 px-18d pt-12d">
 						<p>
 							Replace the contents of the default configuration file{" "}
 							<code className="bg px-8d">uno.config.ts</code>
 						</p>
-						<HighlightedCode
+						{/* <HighlightedCode
 							code={createUnoConfig(spacingSize, radius, textSize, colors)}
 							language="js"
-						/>
+						/> */}
 					</div>
 				</div>
 			</div>

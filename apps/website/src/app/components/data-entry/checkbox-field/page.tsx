@@ -1,15 +1,13 @@
 import React from "react";
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { CheckboxField } from "@/components/ui/data-entry/fields/checkbox";
-import type { NumberFieldProps } from "@/components/ui/data-entry/fields/number/parts";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 import { capitalize } from "@/lib/utils/str";
 
 export default function CheckboxFieldPage() {
-	const variantCfg: UnionsRecordIntoTuplesRecord<NumberFieldProps> = {
+	const variantCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		width: ["narrow", "normal", "wide", "fill"],

@@ -5,10 +5,6 @@ import { AirplaneIcon } from "@/components/ui/icons/airplane";
 import { MagnifierIcon } from "@/components/ui/icons/magnifier";
 import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
-import {
-	emphases,
-	intentColors,
-} from "@/design-systems/material/material-theme";
 import { capitalize } from "@/lib/utils/str";
 
 export default function TextFieldPage() {
@@ -16,6 +12,8 @@ export default function TextFieldPage() {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		width: ["narrow", "normal", "wide", "fill"],
+		intent: ["neutral", "accent", "success", "warning", "danger", "info"],
+		emphasis: ["low", "medium", "high"],
 	} as const;
 	return (
 		<Sandbox>
@@ -301,7 +299,7 @@ export default function TextFieldPage() {
 					/>
 					<div className="flex flex-col gap-16d">
 						<div className="flex gap-16d">
-							{emphases.map((emphasis) => (
+							{variantsCfg.emphasis.map((emphasis) => (
 								<TextField.Root
 									key={`${emphasis}-1`}
 									width="narrow"
@@ -319,11 +317,11 @@ export default function TextFieldPage() {
 								</TextField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => {
+						{variantsCfg.intent.map((intent) => {
 							const Icon = intentToIcon("filled", intent);
 							return (
 								<div key={`${intent}-1`} className="flex gap-16d">
-									{emphases.map((emphasis) => (
+									{variantsCfg.emphasis.map((emphasis) => (
 										<TextField.Root
 											key={`${intent}-${emphasis}-1`}
 											width="narrow"
@@ -349,7 +347,7 @@ export default function TextFieldPage() {
 						})}
 
 						<div className="flex gap-16d">
-							{emphases.map((emphasis) => (
+							{variantsCfg.emphasis.map((emphasis) => (
 								<TextField.Root
 									key={`${emphasis}-1`}
 									width="narrow"
@@ -368,9 +366,9 @@ export default function TextFieldPage() {
 								</TextField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => (
+						{variantsCfg.intent.map((intent) => (
 							<div key={`${intent}-2`} className="flex gap-16d">
-								{emphases.map((emphasis) => {
+								{variantsCfg.emphasis.map((emphasis) => {
 									const Icon = intentToIcon("filled", intent);
 									return (
 										<TextField.Root
@@ -398,7 +396,7 @@ export default function TextFieldPage() {
 							</div>
 						))}
 						<div className="flex gap-16d">
-							{emphases.map((emphasis) => (
+							{variantsCfg.emphasis.map((emphasis) => (
 								<TextField.Root
 									key={`${emphasis}-1`}
 									width="narrow"
@@ -416,9 +414,9 @@ export default function TextFieldPage() {
 								</TextField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => (
+						{variantsCfg.intent.map((intent) => (
 							<div key={`${intent}-3`} className="flex gap-16d">
-								{emphases.map((emphasis) => {
+								{variantsCfg.emphasis.map((emphasis) => {
 									const Icon = intentToIcon("filled", intent);
 									return (
 										<TextField.Root
@@ -445,7 +443,7 @@ export default function TextFieldPage() {
 							</div>
 						))}
 						<div className="flex gap-16d">
-							{emphases.map((emphasis) => (
+							{variantsCfg.emphasis.map((emphasis) => (
 								<TextField.Root
 									key={`${emphasis}-1`}
 									width="narrow"
@@ -462,9 +460,9 @@ export default function TextFieldPage() {
 								</TextField.Root>
 							))}
 						</div>
-						{intentColors.map((intent) => (
+						{variantsCfg.intent.map((intent) => (
 							<div key={`${intent}-4`} className="flex gap-16d">
-								{emphases.map((emphasis) => {
+								{variantsCfg.emphasis.map((emphasis) => {
 									const Icon = intentToIcon("filled", intent);
 									return (
 										<TextField.Root

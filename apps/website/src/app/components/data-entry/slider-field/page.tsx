@@ -1,13 +1,11 @@
 import { Sandbox } from "@/components/sandbox/sandbox";
-import type { SelectFieldProps } from "@/components/ui/data-entry/fields/select/parts";
 import { SliderField } from "@/components/ui/data-entry/fields/slider";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 import { capitalize } from "@/lib/utils/str";
 
 export default function SliderFieldPage() {
-	const variantCfg: UnionsRecordIntoTuplesRecord<SelectFieldProps> = {
+	const variantCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		width: ["narrow", "normal", "wide", "fill"],

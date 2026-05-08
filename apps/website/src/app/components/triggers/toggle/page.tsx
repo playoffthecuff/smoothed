@@ -7,9 +7,8 @@ import { DislikeIcon } from "@/components/ui/icons/dislike";
 import { HeartIcon } from "@/components/ui/icons/heart";
 import { LikeIcon } from "@/components/ui/icons/like";
 import { SmartphoneIcon } from "@/components/ui/icons/smartphone";
-import { Toggle, type ToggleProps } from "@/components/ui/triggers/toggle";
+import { Toggle } from "@/components/ui/triggers/toggle";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 
 // TODO вынести повторяющиеся блоки страниц в отдельные переиспользуемые врапперы
 export default function TogglePage() {
@@ -17,12 +16,12 @@ export default function TogglePage() {
 	const handlePress = () => {
 		setPressed(!pressed);
 	};
-	const variantsCfg: UnionsRecordIntoTuplesRecord<ToggleProps> = {
+	const variantsCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		intent: ["accent", "neutral", "info", "success", "warning", "danger"],
 		emphasis: ["low", "medium", "high"],
-	};
+	} as const;
 	return (
 		<Sandbox>
 			<div>

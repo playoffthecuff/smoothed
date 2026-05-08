@@ -1,10 +1,8 @@
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { SelectField } from "@/components/ui/data-entry/fields/select";
-import type { SelectFieldProps } from "@/components/ui/data-entry/fields/select/parts";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 import { capitalize } from "@/lib/utils/str";
 
 const items = [
@@ -17,7 +15,7 @@ const items = [
 ];
 
 export default function SelectFieldPage() {
-	const variantCfg: UnionsRecordIntoTuplesRecord<SelectFieldProps> = {
+	const variantCfg = {
 		shape: ["square", "rounded", "circular"],
 		intent: ["neutral", "accent", "success", "warning", "danger", "info"],
 		emphasis: ["low", "medium", "high"],

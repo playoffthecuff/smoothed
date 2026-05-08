@@ -1,21 +1,18 @@
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { SparkleIcon } from "@/components/ui/icons/sparkle";
-import { Button, type ButtonProps } from "@/components/ui/triggers/button";
+import { Button } from "@/components/ui/triggers/button";
 import { T } from "@/components/ui/typography";
-import {
-	emphases,
-	intentColors,
-} from "@/design-systems/material/material-theme";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 import { capitalize } from "@/lib/utils/str";
 
 export default function ButtonPage() {
-	const variantsCfg: UnionsRecordIntoTuplesRecord<ButtonProps> = {
+	const variantsCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		width: ["fit", "narrow", "normal", "wide", "fill"],
-	};
+		intent: ["neutral", "accent", "success", "warning", "danger", "info"],
+		emphasis: ["low", "medium", "high"],
+	} as const;
 	return (
 		<Sandbox>
 			<div>
@@ -225,8 +222,8 @@ export default function ButtonPage() {
 							High
 						</Button>
 					</div>
-					{intentColors.map((intent) =>
-						emphases.map((emphasis, i) => (
+					{variantsCfg.intent.map((intent) =>
+						variantsCfg.emphasis.map((emphasis, i) => (
 							<div
 								key={`${intent}${emphasis}`}
 								className="flex justify-between gap-12d items-center fs-15d"
@@ -328,8 +325,8 @@ export default function ButtonPage() {
 							High
 						</Button>
 					</div>
-					{intentColors.map((intent) =>
-						emphases.map((emphasis, i) => (
+					{variantsCfg.intent.map((intent) =>
+						variantsCfg.emphasis.map((emphasis, i) => (
 							<div
 								key={`${intent}${emphasis}`}
 								className="flex justify-between gap-12d items-center fs-15d"

@@ -1,11 +1,10 @@
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { Link, type LinkVariants } from "@/components/ui/navigation/link/link";
+import { Link } from "@/components/ui/navigation/link/link";
 import { T } from "@/components/ui/typography";
-import type { UnionsRecordIntoTuplesRecord } from "@/lib/types/helpers";
 
 export default function TitlePage() {
-	const variantCfg: UnionsRecordIntoTuplesRecord<LinkVariants> = {
+	const variantCfg = {
 		size: ["xs", "s", "m", "l", "xl"],
 		emphasis: ["low", "medium", "high"],
 		intent: ["neutral", "accent", "success", "warning", "danger", "info"],
