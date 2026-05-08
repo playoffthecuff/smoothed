@@ -1,15 +1,11 @@
+import { Sandbox } from "@/components/sandbox/sandbox";
 import { Card } from "@/components/ui/data-display/card";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { T } from "@/components/ui/typography";
 
 export default function CardPage() {
 	return (
-		<div
-			className="max-w-200 min-h-full surface-1 mx-auto p-18d flex flex-col gap-16d grow [&&]-pb-20"
-			style={{
-				width: "clamp(320px, 100%, 800px)",
-			}}
-		>
+		<Sandbox>
 			<div>
 				<T.Title>Card</T.Title>
 				<p>A visually distinct area with content</p>
@@ -23,7 +19,9 @@ export default function CardPage() {
 				/>
 			</div>
 			<hr className="mt-16d mb-12d" />
-			<T size={5}>Variants:</T>
+			<T.Title size={"xl"} as="h2">
+				Variants:
+			</T.Title>
 			<div className="max-w-60">
 				<Card.Root>
 					<Card.Header className="p-16d">
@@ -42,6 +40,6 @@ export default function CardPage() {
 					<Card.Footer className="py-16d">Footer</Card.Footer>
 				</Card.Root>
 			</div>
-		</div>
+		</Sandbox>
 	);
 }

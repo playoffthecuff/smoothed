@@ -1,18 +1,35 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils/cn";
 import type { CompoundProps } from "../../types";
 import { T } from "../../typography";
 
 //TODO Add variants
 //TODO Add data slots attributes to all compound components
-export const Root = ({ children, className }: CompoundProps) => {
+
+export const cardVariants = cva(
+	"flex flex-col gap-12d bg-2 rounded-12d overflow-hidden rel-elevation-6 —base-elevation-4 sfc-solid",
+	{
+		variants: {
+			flat: {
+				true: null,
+				false: "sfc-shadow",
+			},
+		},
+		defaultVariants: {
+			flat: false,
+		},
+	},
+);
+
+export type CardVariants = VariantProps<typeof cardVariants>;
+
+export const Root = ({
+	children,
+	className,
+	...props
+}: CardVariants & CompoundProps) => {
 	return (
-		<article
-			data-slot="card"
-			className={cn(
-				"flex flex-col gap-12d bg-2 rounded-12d shadow-lifted-2 overflow-hidden",
-				className,
-			)}
-		>
+		<article data-slot="card" className={cn(cardVariants(props), className)}>
 			{children}
 		</article>
 	);
