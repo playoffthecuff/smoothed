@@ -6,6 +6,7 @@ import { createContext, useContext } from "react";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import { Popover } from "@/components/ui/overlays/popover";
 import { HintButton } from "@/components/ui/triggers/hint-button";
+import type { CompoundProps } from "@/components/ui/types";
 import { Variants } from "@/components/ui/variants";
 import type { AssignableProps, FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
@@ -13,30 +14,22 @@ import { FieldLabel, type LabelProps } from "../label";
 import { FieldMessage } from "../message";
 
 const inputVariants = cva(
-	"justify-end focus-within:after:ring-6d transition-all has-[>input:invalid]:after:ring-6d lowered-text-input",
+	"justify-end focus-within:after:ring-6d transition-all lowered-text-input",
 	{
 		variants: {
-			shape: {
-				square: null,
-				rounded: "sfc-rounded",
-				circular: "rounded-full after:rounded-full",
-			},
 			flat: {
 				false: "sfc-shadow",
 			},
 			outlined: {
-				true: "after:sfc-border lowered-text-input",
+				true: "after:sfc-border",
 			},
 			solid: {
-				true: "sfc-solid lowered-text-input",
+				true: "sfc-solid",
 				false: "sfc-outlined",
 			},
 			// TODO implement inline input - add width=fit prop to every possible component
 			disabled: {
 				true: "sfc-disabled pointer-events-none",
-			},
-			loading: {
-				true: null,
 			},
 			ringed: {
 				true: "after:ring-6d",
@@ -51,7 +44,6 @@ const inputVariants = cva(
 			},
 		],
 		defaultVariants: {
-			shape: "rounded",
 			solid: false,
 			outlined: false,
 			flat: false,
@@ -64,17 +56,7 @@ type InputVariants = VariantProps<typeof inputVariants>;
 export type InputProps = FlattenIntersection<{
 	type?: "text" | "password" | "search" | "email" | "tel" | "url";
 }> &
-	Pick<
-		React.ComponentProps<"input">,
-		| "className"
-		| "placeholder"
-		| "defaultValue"
-		| "value"
-		| "onChange"
-		| "id"
-		| "name"
-		| "required"
-	>;
+	Omit<React.ComponentProps<"input">, "type">;
 
 export type TextInputProps = FlattenIntersection<InputVariants & InputProps>;
 
@@ -86,6 +68,8 @@ export type TextFieldProps = FlattenIntersection<
 		Variants.IntentSurface &
 		Variants.Size &
 		Variants.InputWidth &
+		Variants.SurfaceCursor &
+		Variants.SurfaceShape &
 		CommonProps
 >;
 
@@ -108,9 +92,10 @@ export function Root({
 				className={cn(
 					Variants.fontSizeVariants(props),
 					Variants.semiBoldFontVariants(props),
-					Variants.inputWidthVariants(props),
+
 					"flex-col",
 					props.width === "fill" ? "flex" : "inline-flex w-min",
+					"justify-center items-center",
 					className,
 				)}
 			>
@@ -119,74 +104,14 @@ export function Root({
 		</TextFieldContext.Provider>
 	);
 }
-
-interface CompoundProps {
-	children?: ReactNode;
-	className?: string;
-}
-export const Label = ({ className, children }: CompoundProps) => {
-	const props = useTextFieldProps();
-	return (
-		<FieldLabel
-			className={cn(
-				props.shape === "circular" && "first-letter:ms-[.525em]",
-				props.required && "before:content-['✺_'] before:sfc-text-danger-450d",
-				className,
-			)}
-			required={props.required}
-			emphasis={props.emphasis}
-		>
-			{children}
-		</FieldLabel>
-	);
-};
-
-export const Message = ({ children, className }: CompoundProps) => {
-	const props = useTextFieldProps();
-	return (
-		<FieldMessage
-			className={cn(
-				"w-fit h-[3.5em] -mt-[2em] pt-[2em] w-full transition-all duration-500",
-				!children && "bg-transparent",
-				(props.shape === "circular" || props.solid || props.outlined) &&
-					"ps-[.525em]",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</FieldMessage>
-	);
-};
-
-interface PopoverProps extends CompoundProps {
-	open?: boolean;
-}
-
-const PopoverRoot = ({ children, open, className }: PopoverProps) => {
-	return (
-		<Popover.Root open={open}>
-			<Popover.Trigger className={className}>{children}</Popover.Trigger>
-		</Popover.Root>
-	);
-};
-
-export { PopoverRoot as Popover };
-
-export const PopoverMessage = ({ children }: CompoundProps) => {
-	const props = useTextFieldProps();
-	return <Popover.Portal {...props}>{children}</Popover.Portal>;
-};
-
 export const Control = ({ className, children }: CompoundProps) => {
 	const props = useTextFieldProps();
 	return (
 		<div
 			className={cn(
-				"relative justify-center items-center",
-				props.disabled && "cursor-not-allowed",
-				props.width === "fill" ? "flex" : "inline-flex w-fit",
-				className,
+				"flex relative justify-end items-center",
+				Variants.surfaceCursorVariants(props),
+				props.loading && !props.disabled && "shimmer-bg",
 			)}
 		>
 			<div
@@ -194,7 +119,9 @@ export const Control = ({ className, children }: CompoundProps) => {
 					inputVariants(props),
 					Variants.emphasisSurfaceVariants(props),
 					Variants.interactiveIntentSurfaceVariants(props),
-					props.loading && !props.disabled && "shimmer-bg",
+					Variants.inputWidthVariants(props),
+					Variants.surfaceShapeVariants(props),
+					className,
 				)}
 			>
 				{children}
@@ -218,7 +145,7 @@ export const Input = ({
 	return (
 		<input
 			className={cn(
-				"text-input-box sfc-intent-selection text-medium",
+				"text-input-box sfc-intent-selection",
 				props.loading && "not-focus:cursor-wait",
 				className,
 			)}
@@ -259,4 +186,59 @@ export const Hint = ({ children, className }: CompoundProps) => {
 			</HintButton>
 		</InputContent>
 	);
+};
+
+export const Label = ({ className, children }: CompoundProps) => {
+	const props = useTextFieldProps();
+	return (
+		<FieldLabel
+			className={cn(
+				"w-full",
+				props.shape === "circular" && "first-letter:ms-[.525em]",
+				props.required && "before:content-['✺_'] before:sfc-text-danger-450d",
+				className,
+			)}
+			required={props.required}
+			emphasis={props.emphasis}
+		>
+			{children}
+		</FieldLabel>
+	);
+};
+
+export const Message = ({ children, className }: CompoundProps) => {
+	const props = useTextFieldProps();
+	return (
+		<FieldMessage
+			className={cn(
+				"h-[3.5em] -mt-[2em] pt-[2em] w-full transition-all duration-500",
+				!children && "bg-transparent",
+				(props.shape === "circular" || props.solid || props.outlined) &&
+					"ps-[.525em]",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</FieldMessage>
+	);
+};
+
+interface PopoverProps extends CompoundProps {
+	open?: boolean;
+}
+
+const PopoverRoot = ({ children, open, className }: PopoverProps) => {
+	return (
+		<Popover.Root open={open}>
+			<Popover.Trigger className={className}>{children}</Popover.Trigger>
+		</Popover.Root>
+	);
+};
+
+export { PopoverRoot as Popover };
+
+export const PopoverMessage = ({ children }: CompoundProps) => {
+	const props = useTextFieldProps();
+	return <Popover.Portal {...props}>{children}</Popover.Portal>;
 };

@@ -9,7 +9,7 @@ export const inputWidthVariants = cva<Config>(null, {
 	variants: {
 		width: {
 			narrow: "input-box-narrow",
-			normal: "input-box",
+			normal: "input-box-normal",
 			wide: "input-box-wide",
 			fill: "input-box-fill",
 		},

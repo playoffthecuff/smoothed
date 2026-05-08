@@ -12,7 +12,7 @@ import {
 import { capitalize } from "@/lib/utils/str";
 
 export default function TextFieldPage() {
-	const variantCfg = {
+	const variantsCfg = {
 		shape: ["square", "rounded", "circular"],
 		size: ["xs", "s", "m", "l", "xl"],
 		width: ["narrow", "normal", "wide", "fill"],
@@ -125,7 +125,7 @@ export default function TextFieldPage() {
 						Size
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						{variantCfg.size?.map((v) => (
+						{variantsCfg.size?.map((v) => (
 							<TextField.Root size={v} key={v}>
 								<TextField.Control>
 									<TextField.Input placeholder={v.toUpperCase()} />
@@ -144,7 +144,7 @@ export default function TextFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-8d">
-						{variantCfg.width?.map((v) => (
+						{variantsCfg.width?.map((v) => (
 							<TextField.Root width={v} key={v}>
 								<TextField.Label>
 									Label
@@ -162,7 +162,7 @@ export default function TextFieldPage() {
 						</T.Title>
 					</li>
 					<div>
-						{variantCfg.width?.map((v) => (
+						{variantsCfg.width?.map((v) => (
 							<TextField.Root width={v} key={v} className="not-last:me-4">
 								<TextField.Label>
 									Label
@@ -180,7 +180,7 @@ export default function TextFieldPage() {
 						Shape
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						{variantCfg.shape?.map((v) => (
+						{variantsCfg.shape?.map((v) => (
 							<TextField.Root key={v} shape={v}>
 								<TextField.Label>
 									{capitalize(v)}
