@@ -41,7 +41,7 @@ export const interactiveIntentSurfaceVariants = cva<Config>(null, {
 	compoundVariants: [
 		{
 			intent: undefined,
-			className: "sfc-color-default-on-default",
+			className: "sfc-color-default-on-default-ia",
 		},
 	],
 });
