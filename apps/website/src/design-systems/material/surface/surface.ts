@@ -156,15 +156,16 @@ export const getShadowVars: GetCssFromParams = (
 });
 
 export const getToggleStateRule: GetDynamicRule = () => [
-	/^toggle-state-(?<state>hover|active|unpressed|pressed)$/,
+	/^toggle-state-(?<state>active|unpressed|pressed)$/,
 	({ groups }) => {
 		if (!groups) return;
 		const states = {
-			hover: { "--bg-opacity": 0 },
 			active: {
 				"--bg-opacity": `calc(var(--intent-bound-lightness) * pow(var(--bg-lightness), var(--mode-sign)) / 2)`,
 			},
-			unpressed: { "--bg-opacity": 0 },
+			unpressed: {
+				"--bg-opacity": `calc(var(--intent-bound-lightness) * pow(var(--bg-lightness), var(--mode-sign)) / 2)`,
+			},
 			pressed: {
 				"--bg-opacity": `calc(var(--intent-bound-lightness) * pow(var(--bg-lightness), var(--mode-sign)))`,
 			},
@@ -179,8 +180,9 @@ export const getToggleStateShortcut: GetStaticShortcut = () => [
 ];
 
 export const getSurfaceKindRules: GetDynamicRule = () => [
-	/^sfc-(?<kind>solid|outlined|text|toggle|outlined-checkbox|solid-checkbox|slider-thumb)$/,
+	/^sfc-(?<kind>solid|outlined|text|outlined-checkbox|solid-checkbox|slider-thumb)$/,
 	({ groups }) => {
+		// TODO отвязать тип поверхности от типа элемента (слайдер, чекбокс), добавив тип описывающий саму поверхность
 		if (!groups) return;
 		const bgIdleColor = `oklch(var(--bg-lightness) var(--bg-chroma) var(--bg-mid-hue))`;
 		const bgAdmixColor = `oklch(var(--bg-admix-lightness, 1) 0 var(--admix-hue, 0))`;
@@ -198,10 +200,8 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 		const bgColors = {
 			solid: "var(--bg-color)",
 			outlined: "var(--bg-color)",
-			toggle: "oklch(from var(--bg-color) l c h / var(--bg-opacity))",
-			"solid-checkbox": "var(--bg-color)",
 			"outlined-checkbox": "var(--bg-color)",
-			"slider-thumb": "var(--bg-color)",
+			"solid-checkbox": "var(--bg-color)",
 		};
 		const colorVars = {
 			solid: ` color-mix(in oklch, var(--bg-color), ${fgAdmixColor} calc(var(--fg-opacity) * 100%))`,
@@ -209,7 +209,6 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 			"outlined-checkbox": `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
 			outlined: `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
 			text: `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
-			toggle: `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation) + -1 * var(--mode-sign) * var(--lightness-mod, 0)) var(--fg-default-chroma) var(--fg-default-hue))`,
 		};
 		// TODO настроить colorVars.text чтобы ховер зависел от яркости
 		const colors = {
@@ -340,6 +339,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 		if (!groups) return;
 		const width = {
 			trigger: {
+				none: "h-[2em]",
 				fit: "gap-[0.375em] h-[1.41em]",
 				narrow: "px-[0.375em] gap-[0.375em] h-[2em]",
 				normal: "px-[0.63em] gap-[0.63em] h-[2em]",
@@ -347,6 +347,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 				fill: "w-full gap-[1.06em] h-[2em]",
 			},
 			checkbox: {
+				none: null,
 				fit: null,
 				narrow: null,
 				normal: null,
@@ -354,6 +355,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 				fill: null,
 			},
 			input: {
+				none: "h-[2em]",
 				fit: "h-[1.41em]",
 				narrow: "w-[10em] h-[2em]",
 				normal: "w-[14.14em] h-[2em]",
@@ -361,6 +363,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 				fill: "w-full h-[2em]",
 			},
 			"text-input": {
+				none: null,
 				fit: null,
 				narrow: null,
 				normal: null,
@@ -368,6 +371,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 				fill: null,
 			},
 			text: {
+				none: null,
 				fit: null,
 				narrow: null,
 				normal: null,
@@ -387,7 +391,7 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 			text: "inline-flex items-center leading-[1.5em] h-fit",
 		};
 		const kindMatch = groups.kind as keyof typeof kind;
-		const widthMatch = (groups.width as keyof typeof width.trigger) ?? "normal";
+		const widthMatch = (groups.width as keyof typeof width.trigger) ?? "none";
 		return `${kind[kindMatch]} ${width[kindMatch]?.[widthMatch] ?? ""}`;
 	},
 ];
@@ -420,7 +424,7 @@ export const getComponentElevationShortcut: GetDynamicShortcut = () => [
 				lifted:
 					"rel-elevation-10 base-elevation-10 hover:rel-elevation-19 active:rel-elevation-1",
 				lowered:
-					"data-[pressed]:—rel-elevation-6 not-[[data-pressed]]:rel-elevation-0 data-[pressed]:—base-elevation-6 data-[pressed]:hover:—rel-elevation-2 not-[[data-pressed]]:hover:rel-elevation-6 data-[pressed]:active:—rel-elevation-10 not-[[data-pressed]]:active:—rel-elevation-10",
+					"data-[pressed]:—rel-elevation-6 not-[[data-pressed]]:rel-elevation-0 not-[[data-pressed]]:—base-elevation-5 data-[pressed]:base-elevation-3 data-[pressed]:active:—rel-elevation-2 not-[[data-pressed]]:active:—rel-elevation-12 not-[[data-pressed]]:active:—base-elevation-3 data-[pressed]:hover:—rel-elevation-10 data-[pressed]:hover:base-elevation-9 not-[[data-pressed]]:hover:rel-elevation-6 not-[[data-pressed]]:hover:—base-elevation-4",
 			},
 			"text-input": {
 				lowered:
@@ -486,7 +490,7 @@ export const getInteractiveSurfaceShortcut: GetStaticShortcut = () => {
 		animation: `transition-all before:scale-0 [--ripple-time:calc(var(--spacing-size)*1rem*var(--text-size)*${Math.round(2 * 2 ** (0.25 * 32)) / 1000}*1s/1px)]`,
 		focus: "focus-visible:shadow-focus-accent focus-visible:border-transparent",
 	};
-	return ["sfc-ia", Object.values(props)];
+	return ["sfc-ripple", Object.values(props)];
 };
 
 export const getBackgroundSurfaceShortcut: GetStaticShortcut = () => [
