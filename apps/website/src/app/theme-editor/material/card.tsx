@@ -2,7 +2,7 @@
 
 import { getOkLCHMaxChroma } from "colorizr";
 import { useTheme } from "next-themes";
-import { HelpIcon } from "@/components/ui/icons/help";
+import { HelpOutlinedIcon } from "@/components/ui/icons/help-outlined";
 
 interface Props {
 	lightness: number;
@@ -39,7 +39,7 @@ export function Card({ hue, chroma, borderRadius, lightness }: Props) {
 							color: `oklch(${lightness ** 0.5 / 1.4} ${0.25 * chroma} ${hue})`,
 						}}
 					>
-						<HelpIcon />
+						<HelpOutlinedIcon />
 						<span>Message</span>
 					</p>
 					<a
