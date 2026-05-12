@@ -2,16 +2,19 @@
 
 import { Select as BaseSelect } from "@base-ui/react/select";
 import { cva, type VariantProps } from "class-variance-authority";
-import { createContext, type ReactNode, useContext } from "react";
+import { createContext, useContext } from "react";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { ChevronUpDownIcon } from "@/components/ui/icons/chevron-up-down";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import { Popover } from "@/components/ui/overlays/popover";
-import { Variants } from "@/components/ui/variants";
+import type { CompoundProps } from "@/components/ui/types";
+import { Variants as SharedVariants } from "@/components/ui/variants";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
-import type { LabelProps } from "../label";
+import type { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
+
+export { Popover } from "../popover";
 
 // TODO изменить дефолтный внешний вид всех компонентов на emphasis:medium outlined:true solid:false
 
@@ -170,140 +173,125 @@ const arrowVariants = cva(
 );
 
 type TriggerVariants = VariantProps<typeof triggerVariants>;
-
+export type Variants = FlattenIntersection<
+	TriggerVariants &
+		SharedVariants.IntentSurface &
+		SharedVariants.EmphasisSurface &
+		SharedVariants.Size &
+		SharedVariants.InputWidth
+>;
 type CommonProps = {
 	id?: string;
 	name?: string;
 	placeholder?: string;
 	required?: boolean;
 };
-
-type SelectProps = FlattenIntersection<
-	TriggerVariants &
-		Variants.IntentSurface &
-		Variants.EmphasisSurface &
-		Variants.Size &
-		Variants.InputWidth &
-		LabelProps &
-		CommonProps
+export type ContextProps = FlattenIntersection<Variants & CommonProps>;
+export type Props<T> = FlattenIntersection<
+	ContextProps & BaseSelect.Root.Props<T> & CompoundProps
 >;
 
-export type SelectFieldProps = FlattenIntersection<
-	SelectProps & { children?: ReactNode }
->;
+const SelectFieldContext = createContext<ContextProps | null>(null);
 
-const SelectFieldContext = createContext<SelectProps | null>(null);
-
-function useSelectFieldProps() {
+const useSelectFieldProps = () => {
 	const ctx = useContext(SelectFieldContext);
 	if (!ctx) throw new Error("Must be inside SelectFieldContext.Provider");
 	return ctx;
-}
+};
 
-export function Root({ children, ...props }: SelectFieldProps) {
-	return (
-		<div
-			className={cn(
-				Variants.fontSizeVariants(props),
-				Variants.semiBoldFontVariants(props),
-				"flex-col",
-				props.width === "fill" ? "flex" : "inline-flex w-min",
-			)}
-		>
-			<SelectFieldContext.Provider value={props}>
-				{children}
-			</SelectFieldContext.Provider>
-		</div>
-	);
-}
-interface CompoundProps {
-	children?: ReactNode;
-	className?: string;
-}
-export function Label({ children, className }: CompoundProps) {
-	const props = useSelectFieldProps();
+export const Label = ({ children, className, ...props }: FieldLabel.Props) => {
+	const mergedProps = { ...useSelectFieldProps(), ...props };
 	return (
 		<BaseSelect.Label
 			className={cn(
-				props.required && "before:content-['✺_'] before:sfc-text-danger-450d",
+				"leading-[1.25] sfc-text sfc-color-default-on-default",
+				SharedVariants.emphasisSurfaceVariants(mergedProps),
+				mergedProps.required &&
+					"before:content-['✺_'] before:sfc-text-danger-450d",
+				mergedProps.shape === "circular" && "ms-[0.525em]",
 				className,
-				props.shape === "circular" && "ms-[0.525em]",
 			)}
 		>
 			{children}
 		</BaseSelect.Label>
 	);
-}
+};
 
-export const Select = <T,>({
+export const Root = <T,>({
 	children,
-	defaultValue,
-	value,
+	className,
 	items,
-}: CompoundProps & BaseSelect.Root.Props<T>) => {
-	const props = useSelectFieldProps();
+	...props
+}: Props<T>) => {
 	return (
-		<BaseSelect.Root
-			items={items}
-			disabled={props.disabled ?? undefined}
-			id={props.id}
-			name={props.name}
-			defaultValue={defaultValue}
-			value={value}
+		<div
+			className={cn(
+				SharedVariants.fontSizeVariants(props),
+				SharedVariants.semiBoldFontVariants(props),
+				"flex-col",
+				props.width === "fill" ? "flex" : "inline-flex w-min",
+			)}
 		>
-			{children}
-			<BaseSelect.Portal>
-				<BaseSelect.Positioner
-					className="outline-none select-none z-10"
-					sideOffset={8}
-				>
-					<BaseSelect.Popup
-						className={cn(
-							popupVariants(props),
-							Variants.intentSurfaceVariants(props),
-							Variants.emphasisSurfaceVariants(props),
-						)}
+			<BaseSelect.Root items={items} {...props}>
+				<SelectFieldContext.Provider value={props}>
+					{children}
+				</SelectFieldContext.Provider>
+				<BaseSelect.Portal>
+					<BaseSelect.Positioner
+						className="outline-none select-none z-10"
+						sideOffset={8}
 					>
-						<BaseSelect.ScrollUpArrow
-							className={cn(arrowVariants(props), "top-0 [&&]-rounded-b-0d")}
-						/>
-						<BaseSelect.List className="relative scroll-py-6 overflow-y-auto max-h-[var(--available-height)]">
-							{Array.isArray(items) &&
-								items.map(({ value }) => (
-									<BaseSelect.Item
-										key={value}
-										value={value}
-										className={cn(
-											"grid grid-cols-[2em_1fr] items-center select-none data-[highlighted]:before:z-[-1] outline-none",
-											itemVariants(props),
-										)}
-									>
-										<BaseSelect.ItemIndicator className="col-start-1 justify-self-center">
-											<CheckIcon size={1.125} strokeWidth={2.2} />
-										</BaseSelect.ItemIndicator>
-										<BaseSelect.ItemText className="col-start-2">
-											{value}
-										</BaseSelect.ItemText>
-									</BaseSelect.Item>
-								))}
-						</BaseSelect.List>
-						<BaseSelect.ScrollDownArrow
-							className={cn(arrowVariants(props), "bottom-0 [&&]-rounded-t-0d")}
-						/>
-					</BaseSelect.Popup>
-				</BaseSelect.Positioner>
-			</BaseSelect.Portal>
-		</BaseSelect.Root>
+						<BaseSelect.Popup
+							className={cn(
+								popupVariants(props),
+								SharedVariants.intentSurfaceVariants(props),
+								SharedVariants.emphasisSurfaceVariants(props),
+							)}
+						>
+							<BaseSelect.ScrollUpArrow
+								className={cn(arrowVariants(props), "top-0 [&&]-rounded-b-0d")}
+							/>
+							<BaseSelect.List className="relative scroll-py-6 overflow-y-auto max-h-[var(--available-height)]">
+								{Array.isArray(items) &&
+									items.map(({ value }) => (
+										<BaseSelect.Item
+											key={value}
+											value={value}
+											className={cn(
+												"grid grid-cols-[2em_1fr] items-center select-none data-[highlighted]:before:z-[-1] outline-none",
+												itemVariants(props),
+											)}
+										>
+											<BaseSelect.ItemIndicator className="col-start-1 justify-self-center">
+												<CheckIcon size={1.125} strokeWidth={2.2} />
+											</BaseSelect.ItemIndicator>
+											<BaseSelect.ItemText className="col-start-2">
+												{value}
+											</BaseSelect.ItemText>
+										</BaseSelect.Item>
+									))}
+							</BaseSelect.List>
+							<BaseSelect.ScrollDownArrow
+								className={cn(
+									arrowVariants(props),
+									"bottom-0 [&&]-rounded-t-0d",
+								)}
+							/>
+						</BaseSelect.Popup>
+					</BaseSelect.Positioner>
+				</BaseSelect.Portal>
+			</BaseSelect.Root>
+		</div>
 	);
 };
 
-export function Trigger({
+export const Trigger = ({
 	className,
 	children,
 }: {
 	className?: string;
 	children?: BaseSelect.Value.Props["children"];
-}) {
+}) => {
 	const props = useSelectFieldProps();
 	return (
 		<div
@@ -321,10 +309,10 @@ export function Trigger({
 			<BaseSelect.Trigger
 				className={cn(
 					props.type === "number" && "font-mono",
-					Variants.interactiveIntentSurfaceVariants(props),
-					Variants.emphasisSurfaceVariants(props),
-					Variants.inputWidthVariants(props),
-					Variants.surfaceCursorVariants(props),
+					SharedVariants.interactiveIntentSurfaceVariants(props),
+					SharedVariants.emphasisSurfaceVariants(props),
+					SharedVariants.inputWidthVariants(props),
+					SharedVariants.surfaceCursorVariants(props),
 					triggerVariants(props),
 				)}
 			>
@@ -340,40 +328,35 @@ export function Trigger({
 			</BaseSelect.Trigger>
 		</div>
 	);
-}
+};
 
-interface PopoverProps extends CompoundProps {
-	open?: boolean;
-	message?: string;
-}
+export const PopoverMessage = ({
+	children,
+	className,
+	...props
+}: Popover.Portal.Props) => {
+	const mergedProps = { ...useSelectFieldProps(), ...props };
+	return <Popover.Portal {...mergedProps}>{children}</Popover.Portal>;
+};
 
-function PopoverRoot({ children, open, className }: PopoverProps) {
-	return (
-		<Popover.Root open={open}>
-			<Popover.Trigger className={className}>{children}</Popover.Trigger>
-		</Popover.Root>
-	);
-}
-
-export { PopoverRoot as Popover };
-
-export function PopoverMessage({ children }: CompoundProps) {
-	const props = useSelectFieldProps();
-	return <Popover.Portal {...props}>{children}</Popover.Portal>;
-}
-
-export const Message = ({ children, className }: CompoundProps) => {
-	const props = useSelectFieldProps();
+export const Message = ({
+	children,
+	className,
+	...props
+}: FieldMessage.Props) => {
+	const mergedProps = { ...useSelectFieldProps(), ...props };
 	return (
 		<FieldMessage
 			className={cn(
 				"w-fit h-[3.5em] -mt-[2em] pt-[2em] w-full transition-all duration-500",
 				!children && "bg-transparent",
-				(props.shape === "circular" || props.solid || props.outlined) &&
+				(mergedProps.shape === "circular" ||
+					mergedProps.solid ||
+					mergedProps.outlined) &&
 					"ps-[.525em]",
 				className,
 			)}
-			{...props}
+			{...mergedProps}
 		>
 			{children}
 		</FieldMessage>

@@ -54,46 +54,32 @@ export default function SelectFieldPage() {
 						Options
 					</T.Title>
 					<div className="flex flex-col gap-14d mt-8d">
-						<SelectField.Root>
-							<SelectField.Select items={items} defaultValue={"Only Select"}>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root items={items} defaultValue={"Only Select"}>
+							<SelectField.Trigger />
 						</SelectField.Root>
-						<SelectField.Root>
-							<SelectField.Select items={items} defaultValue={"With Label"}>
-								<SelectField.Label>Label</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root items={items} defaultValue={"With Label"}>
+							<SelectField.Label>Label</SelectField.Label>
+							<SelectField.Trigger />
 						</SelectField.Root>
-						<SelectField.Root>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Hint</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root items={items}>
+							<SelectField.Label>Hint</SelectField.Label>
+							<SelectField.Trigger />
 						</SelectField.Root>
-						<SelectField.Root required>
-							<SelectField.Select items={items} defaultValue={"Required"}>
-								<SelectField.Label>Required</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root items={items} defaultValue={"Required"} required>
+							<SelectField.Label>Required</SelectField.Label>
+							<SelectField.Trigger />
 						</SelectField.Root>
-						<SelectField.Root>
-							<SelectField.Select items={items}>
-								<SelectField.Label>With Message</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root items={items}>
+							<SelectField.Label>With Message</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Message</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root>
-							<SelectField.Select items={items}>
-								<SelectField.Label>With Message</SelectField.Label>
-								<SelectField.Popover open>
-									<SelectField.Trigger />
-									<SelectField.PopoverMessage>
-										Message
-									</SelectField.PopoverMessage>
-								</SelectField.Popover>
-							</SelectField.Select>
+						<SelectField.Root items={items}>
+							<SelectField.Label>With Message</SelectField.Label>
+							<SelectField.Popover open>
+								<SelectField.Trigger />
+								<SelectField.PopoverMessage>Message</SelectField.PopoverMessage>
+							</SelectField.Popover>
 						</SelectField.Root>
 					</div>
 				</div>
@@ -103,11 +89,9 @@ export default function SelectFieldPage() {
 					</T.Title>
 					<div className="flex flex-col gap-16d">
 						{variantCfg.size?.map((v) => (
-							<SelectField.Root size={v} id={v} key={v}>
-								<SelectField.Select items={items}>
-									<SelectField.Label>Label</SelectField.Label>
-									<SelectField.Trigger />
-								</SelectField.Select>
+							<SelectField.Root size={v} id={v} key={v} items={items}>
+								<SelectField.Label>Label</SelectField.Label>
+								<SelectField.Trigger />
 							</SelectField.Root>
 						))}
 					</div>
@@ -123,11 +107,9 @@ export default function SelectFieldPage() {
 					</li>
 					<div className="flex flex-col gap-12d">
 						{variantCfg.width?.map((v) => (
-							<SelectField.Root width={v} id={v} key={v}>
-								<SelectField.Select items={items}>
-									<SelectField.Label>{capitalize(v)}</SelectField.Label>
-									<SelectField.Trigger />
-								</SelectField.Select>
+							<SelectField.Root width={v} id={v} key={v} items={items}>
+								<SelectField.Label>{capitalize(v)}</SelectField.Label>
+								<SelectField.Trigger />
 								<SelectField.Message>{capitalize(v)}</SelectField.Message>
 							</SelectField.Root>
 						))}
@@ -139,11 +121,9 @@ export default function SelectFieldPage() {
 					</li>
 					<div className="w-full">
 						{variantCfg.width?.map((v) => (
-							<SelectField.Root width={v} id={v} key={v}>
-								<SelectField.Select items={items}>
-									<SelectField.Label>{capitalize(v)}</SelectField.Label>
-									<SelectField.Trigger className="not-last:me-4" />
-								</SelectField.Select>
+							<SelectField.Root width={v} id={v} key={v} items={items}>
+								<SelectField.Label>{capitalize(v)}</SelectField.Label>
+								<SelectField.Trigger className="not-last:me-4" />
 								<SelectField.Message>{capitalize(v)}</SelectField.Message>
 							</SelectField.Root>
 						))}
@@ -155,11 +135,9 @@ export default function SelectFieldPage() {
 					</T.Title>
 					<div className="flex flex-col gap-16d">
 						{variantCfg.shape?.map((v) => (
-							<SelectField.Root shape={v} id={v} key={v}>
-								<SelectField.Select items={items}>
-									<SelectField.Label>{capitalize(v)}</SelectField.Label>
-									<SelectField.Trigger />
-								</SelectField.Select>
+							<SelectField.Root shape={v} id={v} key={v} items={items}>
+								<SelectField.Label>{capitalize(v)}</SelectField.Label>
+								<SelectField.Trigger />
 								<SelectField.Message>{capitalize(v)}</SelectField.Message>
 							</SelectField.Root>
 						))}
@@ -175,32 +153,29 @@ export default function SelectFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-16d">
-						<SelectField.Root id={"none-lowered"}>
-							<SelectField.Select items={items}>
-								<SelectField.Label>None</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root id={"none-lowered"} items={items}>
+							<SelectField.Label>None</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>None</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root id={"outlined-lowered"} outlined>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Outlined</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root id={"outlined-lowered"} outlined items={items}>
+							<SelectField.Label>Outlined</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Outlined</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root id={"solid-lowered"} solid>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Solid</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root id={"solid-lowered"} solid items={items}>
+							<SelectField.Label>Solid</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Solid</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root id={"solid-n-outlined-lowered"} solid outlined>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Solid</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root
+							id={"solid-n-outlined-lowered"}
+							solid
+							outlined
+							items={items}
+						>
+							<SelectField.Label>Solid</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Solid</SelectField.Message>
 						</SelectField.Root>
 					</div>
@@ -210,25 +185,24 @@ export default function SelectFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-16d">
-						<SelectField.Root id={"none-lowered"} flat>
-							<SelectField.Select items={items}>
-								<SelectField.Label>None</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root id={"none-lowered"} flat items={items}>
+							<SelectField.Label>None</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>None</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root id={"outlined-lowered"} outlined flat>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Outlined</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root
+							id={"outlined-lowered"}
+							outlined
+							flat
+							items={items}
+						>
+							<SelectField.Label>Outlined</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Outlined</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root id={"solid-lowered"} solid flat>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Solid</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root id={"solid-lowered"} solid flat items={items}>
+							<SelectField.Label>Solid</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Solid</SelectField.Message>
 						</SelectField.Root>
 						<SelectField.Root
@@ -236,11 +210,10 @@ export default function SelectFieldPage() {
 							solid
 							outlined
 							flat
+							items={items}
 						>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Solid</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+							<SelectField.Label>Solid</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Solid</SelectField.Message>
 						</SelectField.Root>
 					</div>
@@ -259,11 +232,10 @@ export default function SelectFieldPage() {
 									width="narrow"
 									emphasis={emphasis}
 									shape={"rounded"}
+									items={items}
 								>
-									<SelectField.Select items={items}>
-										<SelectField.Label>Solid</SelectField.Label>
-										<SelectField.Trigger />
-									</SelectField.Select>
+									<SelectField.Label>Solid</SelectField.Label>
+									<SelectField.Trigger />
 									<SelectField.Message>No Intent</SelectField.Message>
 								</SelectField.Root>
 							))}
@@ -281,11 +253,10 @@ export default function SelectFieldPage() {
 											intent={intent}
 											emphasis={emphasis}
 											shape={"rounded"}
+											items={items}
 										>
-											<SelectField.Select items={items}>
-												<SelectField.Label>Solid</SelectField.Label>
-												<SelectField.Trigger />
-											</SelectField.Select>
+											<SelectField.Label>Solid</SelectField.Label>
+											<SelectField.Trigger />
 											<SelectField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -305,11 +276,10 @@ export default function SelectFieldPage() {
 									width="narrow"
 									emphasis={emphasis}
 									shape={"circular"}
+									items={items}
 								>
-									<SelectField.Select items={items}>
-										<SelectField.Label>Solid & Outlined</SelectField.Label>
-										<SelectField.Trigger />
-									</SelectField.Select>
+									<SelectField.Label>Solid & Outlined</SelectField.Label>
+									<SelectField.Trigger />
 									<SelectField.Message>No Intent</SelectField.Message>
 								</SelectField.Root>
 							))}
@@ -328,11 +298,10 @@ export default function SelectFieldPage() {
 											intent={intent}
 											emphasis={emphasis}
 											shape={"circular"}
+											items={items}
 										>
-											<SelectField.Select items={items}>
-												<SelectField.Label>Solid & Outlined</SelectField.Label>
-												<SelectField.Trigger />
-											</SelectField.Select>
+											<SelectField.Label>Solid & Outlined</SelectField.Label>
+											<SelectField.Trigger />
 											<SelectField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -351,11 +320,10 @@ export default function SelectFieldPage() {
 									width="narrow"
 									emphasis={emphasis}
 									shape={"square"}
+									items={items}
 								>
-									<SelectField.Select items={items}>
-										<SelectField.Label>Outlined</SelectField.Label>
-										<SelectField.Trigger />
-									</SelectField.Select>
+									<SelectField.Label>Outlined</SelectField.Label>
+									<SelectField.Trigger />
 									<SelectField.Message>No Intent</SelectField.Message>
 								</SelectField.Root>
 							))}
@@ -373,11 +341,10 @@ export default function SelectFieldPage() {
 											intent={intent}
 											emphasis={emphasis}
 											shape={"square"}
+											items={items}
 										>
-											<SelectField.Select items={items}>
-												<SelectField.Label>Outlined</SelectField.Label>
-												<SelectField.Trigger />
-											</SelectField.Select>
+											<SelectField.Label>Outlined</SelectField.Label>
+											<SelectField.Trigger />
 											<SelectField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -394,11 +361,10 @@ export default function SelectFieldPage() {
 									id={`none-${emphasis}`}
 									width="narrow"
 									emphasis={emphasis}
+									items={items}
 								>
-									<SelectField.Select items={items}>
-										<SelectField.Label>None</SelectField.Label>
-										<SelectField.Trigger />
-									</SelectField.Select>
+									<SelectField.Label>None</SelectField.Label>
+									<SelectField.Trigger />
 									<SelectField.Message>No Intent</SelectField.Message>
 								</SelectField.Root>
 							))}
@@ -414,11 +380,10 @@ export default function SelectFieldPage() {
 											width="narrow"
 											intent={intent}
 											emphasis={emphasis}
+											items={items}
 										>
-											<SelectField.Select items={items}>
-												<SelectField.Label>None</SelectField.Label>
-												<SelectField.Trigger />
-											</SelectField.Select>
+											<SelectField.Label>None</SelectField.Label>
+											<SelectField.Trigger />
 											<SelectField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -435,35 +400,26 @@ export default function SelectFieldPage() {
 						State
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						<SelectField.Root ringed intent={"danger"}>
-							<SelectField.Select items={items}>
-								<SelectField.Label>
-									Ringed - use it with intent to show a status, such as
-									(in)valid
-								</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root ringed intent={"danger"} items={items}>
+							<SelectField.Label>
+								Ringed - use it with intent to show a status, such as (in)valid
+							</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Ringed</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root disabled>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Disabled</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root disabled items={items}>
+							<SelectField.Label>Disabled</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Disabled</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root loading>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Loading</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root loading items={items}>
+							<SelectField.Label>Loading</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Loading</SelectField.Message>
 						</SelectField.Root>
-						<SelectField.Root disabled loading>
-							<SelectField.Select items={items}>
-								<SelectField.Label>Disabled & Loading</SelectField.Label>
-								<SelectField.Trigger />
-							</SelectField.Select>
+						<SelectField.Root disabled loading items={items}>
+							<SelectField.Label>Disabled & Loading</SelectField.Label>
+							<SelectField.Trigger />
 							<SelectField.Message>Disabled & Loading</SelectField.Message>
 						</SelectField.Root>
 					</div>
