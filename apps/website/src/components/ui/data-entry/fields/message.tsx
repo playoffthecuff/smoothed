@@ -32,20 +32,21 @@ export const fieldMessageVariants = cva(
 	},
 );
 
-export type FieldMessageVariants = VariantProps<typeof fieldMessageVariants>;
-
-export type FieldMessageProps = FlattenIntersection<
-	Variants.EmphasisSurface &
-		Variants.IntentSurface &
-		Variants.Size &
-		FieldMessageVariants
->;
+export namespace FieldMessage {
+	export type Variants = FlattenIntersection<
+		Variants.EmphasisSurface &
+			Variants.IntentSurface &
+			Variants.Size &
+			VariantProps<typeof fieldMessageVariants>
+	>;
+	export type Props = FlattenIntersection<Variants & CompoundProps>;
+}
 
 export function FieldMessage({
 	children,
 	className,
 	...props
-}: FieldMessageProps & CompoundProps) {
+}: FieldMessage.Props) {
 	return (
 		<p
 			className={cn(
