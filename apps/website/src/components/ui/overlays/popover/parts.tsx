@@ -2,6 +2,7 @@ import { Popover as BasePopover } from "@base-ui/react/popover";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
+import type { CompoundProps } from "../../types";
 import { Variants } from "../../variants";
 
 //TODO try use corner-shape
@@ -62,19 +63,24 @@ type PopupProps = Pick<
 	"initialFocus" | "finalFocus" | "render" | "children"
 >;
 
-export type PopoverPortalProps = FlattenIntersection<
-	PopupVariants &
-		ArrowVariants &
-		PopupProps &
-		Variants.EmphasisSurface &
-		Variants.IntentSurface &
-		Variants.Size &
-		Pick<BasePopover.Positioner.Props, "alignOffset">
->;
+export namespace Portal {
+	export type Variants = FlattenIntersection<
+		PopupVariants &
+			ArrowVariants &
+			PopupProps &
+			Variants.EmphasisSurface &
+			Variants.IntentSurface &
+			Variants.Size
+	>;
+	export type Props = FlattenIntersection<
+		Variants & Omit<BasePopover.Positioner.Props, "className"> & CompoundProps
+	>;
+}
+export namespace Root {
+	export type Props = BasePopover.Root.Props;
+}
 
-export const Root = (props: BasePopover.Root.Props) => (
-	<BasePopover.Root {...props} />
-);
+export const Root = (props: Root.Props) => <BasePopover.Root {...props} />;
 
 const Arrow = (p: { outlined?: boolean | null }) => (
 	<div
@@ -90,9 +96,11 @@ const Arrow = (p: { outlined?: boolean | null }) => (
 export const Title = BasePopover.Title;
 export const Description = BasePopover.Description;
 
-export type PopoverTriggerProps = BasePopover.Trigger.Props;
+export namespace Trigger {
+	export type Props = BasePopover.Trigger.Props;
+}
 
-export const Trigger = (props: BasePopover.Trigger.Props) => (
+export const Trigger = (props: Trigger.Props) => (
 	<BasePopover.Trigger
 		nativeButton={false}
 		render={<span tabIndex={-1} />}
@@ -110,11 +118,12 @@ export const Portal = ({
 	finalFocus,
 	initialFocus,
 	render,
+	className,
 	...props
-}: PopoverPortalProps) => (
-	<BasePopover.Portal>
+}: Portal.Props) => (
+	<BasePopover.Portal className={className}>
 		<BasePopover.Positioner
-			sideOffset={8}
+			sideOffset={props.sideOffset ?? 8}
 			side={props.side ?? "top"}
 			alignOffset={alignOffset}
 		>
