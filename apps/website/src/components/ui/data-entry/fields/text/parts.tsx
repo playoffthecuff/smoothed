@@ -102,7 +102,6 @@ export const Control = ({ className, children, ...props }: Props) => {
 			className={cn(
 				"flex relative justify-end items-center",
 				SharedVariants.surfaceCursorVariants(mergedProps),
-				mergedProps.loading && !mergedProps.disabled && "shimmer-bg",
 			)}
 		>
 			<div
@@ -112,6 +111,7 @@ export const Control = ({ className, children, ...props }: Props) => {
 					SharedVariants.interactiveIntentSurfaceVariants(mergedProps),
 					SharedVariants.inputWidthVariants(mergedProps),
 					SharedVariants.surfaceShapeVariants(mergedProps),
+					mergedProps.loading && !mergedProps.disabled && "shimmer-bg",
 					className,
 				)}
 			>

@@ -524,7 +524,7 @@ export default function TextFieldPage() {
 									<TextField.Input defaultValue="Loading" />
 								</TextField.Control>
 							</TextField.Label>
-							<TextField.Message>Disabled</TextField.Message>
+							<TextField.Message>Loading</TextField.Message>
 						</TextField.Root>
 
 						<TextField.Root disabled loading>
