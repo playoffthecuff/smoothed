@@ -19,14 +19,14 @@ export { Popover } from "../popover";
 
 // TODO сделать правила теней для разных цветов (shadow-focus-danger - не работает)
 const checkboxVariants = cva(
-	"rounded-full invalid:focus-visible:shadow-focus-danger sfc-ripple focus-visible:ring-6d checkbox-box [--bg-opacity:0] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none group sfc-subtle hover:[--bg-opacity:.33] focus-visible:[--bg-opacity:.33] active:[--bg-opacity:.4]",
+	"rounded-full invalid:focus-visible:shadow-focus-danger sfc-ripple focus-visible:ring-6d checkbox-box [--bg-opacity:0] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none group sfc-subtle hover:[--bg-opacity:.4] focus-visible:[--bg-opacity:.4] active:[--bg-opacity:.5]",
 	{
 		variants: {
 			disabled: {
 				true: "sfc-disabled pointer-events-none",
 			},
 			loading: {
-				false: null,
+				true: null,
 			},
 		},
 		compoundVariants: [
@@ -38,7 +38,7 @@ const checkboxVariants = cva(
 			{
 				loading: true,
 				disabled: false,
-				className: "after:shimmer-bg",
+				className: "after:shimmer-bg ![--bg-opacity:.4]",
 			},
 		],
 		defaultVariants: {
