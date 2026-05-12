@@ -212,7 +212,7 @@ export default function CheckboxFieldPage() {
 				/>
 				<div className="grid grid-cols-[repeat(3,max-content)] gap-16d">
 					{variantCfg.emphasis?.map((emphasis) => (
-						<CheckboxField.Root solid key={`${emphasis}1`}>
+						<CheckboxField.Root solid key={`${emphasis}1`} emphasis={emphasis}>
 							<CheckboxField.Label>
 								<CheckboxField.Checkbox defaultChecked />
 								Label
@@ -230,6 +230,7 @@ export default function CheckboxFieldPage() {
 										solid
 										key={`${intent}${emphasis}1`}
 										intent={intent}
+										emphasis={emphasis}
 									>
 										<CheckboxField.Label>
 											<CheckboxField.Checkbox defaultChecked />
@@ -251,6 +252,7 @@ export default function CheckboxFieldPage() {
 							outlined
 							key={`${emphasis}2`}
 							shape={"circular"}
+							emphasis={emphasis}
 						>
 							<CheckboxField.Label>
 								<CheckboxField.Checkbox defaultChecked />
@@ -270,6 +272,7 @@ export default function CheckboxFieldPage() {
 										key={`${intent}${emphasis}2`}
 										shape={"circular"}
 										intent={intent}
+										emphasis={emphasis}
 									>
 										<CheckboxField.Label>
 											<CheckboxField.Checkbox defaultChecked />
@@ -286,7 +289,12 @@ export default function CheckboxFieldPage() {
 					})}
 
 					{variantCfg.emphasis?.map((emphasis) => (
-						<CheckboxField.Root outlined key={`${emphasis}3`} shape={"square"}>
+						<CheckboxField.Root
+							outlined
+							key={`${emphasis}3`}
+							shape={"square"}
+							emphasis={emphasis}
+						>
 							<CheckboxField.Label>
 								<CheckboxField.Checkbox defaultChecked />
 								Label
@@ -324,15 +332,15 @@ export default function CheckboxFieldPage() {
 						<CheckboxField.Root key={`${emphasis}4`}>
 							<CheckboxField.Label>
 								<CheckboxField.Checkbox defaultChecked />
-								Label
-							</CheckboxField.Label>
+								Label{" "}
+							</CheckboxField.Label>{" "}
 							<CheckboxField.Message>No Intent</CheckboxField.Message>
 						</CheckboxField.Root>
 					))}
 					{variantCfg.intent?.map((intent) => {
 						const Icon = intentToIcon("filled", intent);
 						return (
-							<>
+							<React.Fragment key={`${intent}4`}>
 								{variantCfg.emphasis?.map((emphasis) => (
 									<CheckboxField.Root
 										key={`${intent}${emphasis}4`}
@@ -348,7 +356,7 @@ export default function CheckboxFieldPage() {
 										</CheckboxField.Message>
 									</CheckboxField.Root>
 								))}
-							</>
+							</React.Fragment>
 						);
 					})}
 				</div>

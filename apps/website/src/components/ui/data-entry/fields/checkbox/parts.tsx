@@ -3,46 +3,33 @@
 import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 import { cva, type VariantProps } from "class-variance-authority";
 import { createContext, useContext } from "react";
+import { CheckIcon } from "@/components/ui/icons/check";
 import { MinusIcon } from "@/components/ui/icons/minus";
+import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import { Popover } from "@/components/ui/overlays/popover";
 import type { CompoundProps } from "@/components/ui/types";
-import { Variants } from "@/components/ui/variants";
+import { useRippleAnimate } from "@/components/ui/use-ripple-animate";
+import { Variants as SharedVariants } from "@/components/ui/variants";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
-import { CheckIcon } from "../../../icons/check";
-import { SpinnerIcon } from "../../../icons/spinner";
-import { useRippleAnimate } from "../../../use-ripple-animate";
-import { FieldLabel, type LabelProps } from "../label";
-import type { FieldMessageProps } from "../message";
+import { FieldLabel } from "../label";
+import type { FieldMessage } from "../message";
 
+export { Popover } from "../popover";
+
+// TODO сделать правила теней для разных цветов (shadow-focus-danger - не работает)
 const checkboxVariants = cva(
-	"rounded-full invalid:focus-visible:shadow-focus-error sfc-ripple checkbox-box [--bg-opacity:0.33] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none",
+	"rounded-full invalid:focus-visible:shadow-focus-danger sfc-ripple focus-visible:ring-6d checkbox-box [--bg-opacity:0] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none group sfc-subtle hover:[--bg-opacity:.33] focus-visible:[--bg-opacity:.33] active:[--bg-opacity:.4]",
 	{
 		variants: {
 			disabled: {
 				true: "sfc-disabled pointer-events-none",
 			},
-			solid: {
-				true: null,
-			},
-			outlined: {
-				true: "sfc-outlined-checkbox",
-			},
 			loading: {
-				false: "not-hover:[--bg-opacity:0]",
+				false: null,
 			},
 		},
 		compoundVariants: [
-			{
-				solid: true,
-				outlined: false,
-				className: "sfc-solid-checkbox",
-			},
-			{
-				outlined: false,
-				solid: false,
-				className: "sfc-outlined-checkbox",
-			},
 			{
 				disabled: true,
 				loading: true,
@@ -55,8 +42,6 @@ const checkboxVariants = cva(
 			},
 		],
 		defaultVariants: {
-			outlined: false,
-			solid: false,
 			disabled: false,
 			loading: false,
 		},
@@ -64,7 +49,7 @@ const checkboxVariants = cva(
 );
 
 const indicatorVariants = cva(
-	"flex items-center justify-center relative —rel-elevation-4 —base-elevation-4 hover:—rel-elevation-7 active:—rel-elevation-1",
+	"flex items-center justify-center relative —rel-elevation-4 —base-elevation-4 group-hover:—rel-elevation-7 group-active:—rel-elevation-1",
 	{
 		variants: {
 			loading: {
@@ -79,10 +64,11 @@ const indicatorVariants = cva(
 				circular: "rounded-full w-[1.5em] h-[1.5em]",
 			},
 			solid: {
-				true: null,
+				true: "sfc-solid",
+				false: "sfc-outlined bg-background-1000d dark:bg-foreground-0d",
 			},
 			outlined: {
-				true: "sfc-outlined sfc-border bg-background-1000d dark:bg-foreground-0d",
+				true: "sfc-border",
 			},
 			flat: {
 				false: "sfc-shadow",
@@ -93,22 +79,6 @@ const indicatorVariants = cva(
 				loading: true,
 				disabled: true,
 				className: "text-transparent",
-			},
-			{
-				outlined: false,
-				solid: true,
-				className: "sfc-solid",
-			},
-			{
-				outlined: false,
-				solid: false,
-				className: "sfc-outlined",
-			},
-			{
-				outlined: false,
-				solid: false,
-				flat: true,
-				className: "sfc-border bg-background-1000d dark:bg-foreground-0d",
 			},
 		],
 		defaultVariants: {
@@ -121,19 +91,24 @@ const indicatorVariants = cva(
 		},
 	},
 );
-
 type IndicatorVariants = VariantProps<typeof indicatorVariants>;
-
 type CheckboxVariants = VariantProps<typeof checkboxVariants>;
-
-export type CheckboxFieldProps = FlattenIntersection<
+export type Variants = FlattenIntersection<
 	CheckboxVariants &
-		LabelProps &
+		FieldLabel.Variants &
 		IndicatorVariants &
-		FieldMessageProps & { required?: boolean }
+		FieldMessage.Variants
+>;
+export type Props = FlattenIntersection<
+	Variants &
+		Omit<BaseCheckbox.Root.Props, "className" | "children" | "render"> &
+		CompoundProps & {
+			required?: boolean;
+			animated?: boolean;
+		}
 >;
 
-const CheckboxFieldContext = createContext<CheckboxFieldProps | null>(null);
+const CheckboxFieldContext = createContext<Variants | null>(null);
 
 const useCheckboxFieldProps = () => {
 	const ctx = useContext(CheckboxFieldContext);
@@ -141,17 +116,13 @@ const useCheckboxFieldProps = () => {
 	return ctx;
 };
 
-export const Root = ({
-	children,
-	className,
-	...props
-}: CheckboxFieldProps & CompoundProps) => {
+export const Root = ({ children, className, ...props }: Props) => {
 	return (
 		<div
 			className={cn(
 				"inline-flex flex-col justify-center w-fit",
-				Variants.fontSizeVariants(props),
-				Variants.semiBoldFontVariants(props),
+				SharedVariants.fontSizeVariants(props),
+				SharedVariants.semiBoldFontVariants(props),
 				className,
 			)}
 		>
@@ -163,10 +134,15 @@ export const Root = ({
 };
 
 export const Checkbox = ({
+	className,
 	animated = true,
 	...props
-}: BaseCheckbox.Root.Props & { animated?: boolean }) => {
-	const ctxProps = useCheckboxFieldProps();
+}: BaseCheckbox.Root.Props & Variants & { animated?: boolean }) => {
+	const mergedProps = {
+		...useCheckboxFieldProps(),
+		...props,
+	};
+	const { solid, outlined, flat, loading, ...checkboxProps } = mergedProps;
 	const effects = useRippleAnimate({
 		animateClassName: "before:animate-ripple",
 		animated: !animated,
@@ -179,23 +155,25 @@ export const Checkbox = ({
 		<div
 			className={cn(
 				"relative flex items-center justify-center",
-				ctxProps.disabled && "cursor-not-allowed",
+				mergedProps.disabled && "cursor-not-allowed",
+				className,
 			)}
 		>
 			<BaseCheckbox.Root
 				ref={effects.ref}
 				className={cn(
-					checkboxVariants(ctxProps),
-					Variants.emphasisSurfaceVariants(ctxProps),
-					Variants.intentSurfaceVariants(ctxProps),
-					Variants.surfaceCursorVariants(ctxProps),
+					checkboxVariants(mergedProps),
+					SharedVariants.emphasisSurfaceVariants(mergedProps),
+					SharedVariants.intentSurfaceVariants(mergedProps),
+					SharedVariants.surfaceCursorVariants(mergedProps),
 				)}
-				{...props}
+				{...checkboxProps}
 				{...effects}
-				id={ctxProps.id}
-				name={ctxProps.name}
+				nativeButton
+				render={<button type="button" />}
+				disabled={mergedProps.disabled ?? undefined}
 			>
-				<div className={cn(indicatorVariants(ctxProps))}>
+				<div className={cn(indicatorVariants(mergedProps))}>
 					<BaseCheckbox.Indicator>
 						{props.indeterminate ? (
 							<MinusIcon size={1} strokeWidth={2.75} />
@@ -205,7 +183,7 @@ export const Checkbox = ({
 					</BaseCheckbox.Indicator>
 				</div>
 			</BaseCheckbox.Root>
-			{ctxProps.loading && ctxProps.disabled && (
+			{loading && mergedProps.disabled && (
 				<SpinnerIcon
 					className="animate-spin absolute z-1 pointer-events-none"
 					size={0.8}
@@ -215,15 +193,20 @@ export const Checkbox = ({
 	);
 };
 
-export const Label = ({ className, children }: CompoundProps) => {
-	const props = useCheckboxFieldProps();
+export const Label = ({
+	className,
+	children,
+	...props
+}: CompoundProps & FieldLabel.Props) => {
+	const mergedProps = { ...useCheckboxFieldProps(), ...props };
 	return (
 		<FieldLabel
-			{...props}
+			{...mergedProps}
 			className={cn(
 				"relative inline-flex items-center gap-[.25em]",
-				props.shape === "circular" && "first-letter:ms-[.525em]",
-				props.required && "after:content-['✺_'] after:sfc-text-danger-450d",
+				mergedProps.shape === "circular" && "first-letter:ms-[.525em]",
+				mergedProps.required &&
+					"after:content-['✺_'] after:sfc-text-danger-450d",
 				className,
 			)}
 		>
@@ -232,14 +215,22 @@ export const Label = ({ className, children }: CompoundProps) => {
 	);
 };
 
-export const Message = ({ children, className }: CompoundProps) => {
-	const props = useCheckboxFieldProps();
+export const Message = ({
+	children,
+	className,
+	...props
+}: CompoundProps &
+	SharedVariants.EmphasisSurface &
+	SharedVariants.IntentSurface &
+	SharedVariants.Size) => {
+	const mergedProps = { ...useCheckboxFieldProps(), ...props };
 	return (
 		<p
 			className={cn(
 				"w-fit h-[2.75em] -mt-[1.75em] pt-[1.5em] w-full transition-all duration-500 ps-[2.75em] sfc-outlined inline-flex items-center gap-[.5ch] leading-[1]",
-				Variants.emphasisSurfaceVariants(props),
-				Variants.intentSurfaceVariants(props),
+				SharedVariants.emphasisSurfaceVariants(mergedProps),
+				SharedVariants.intentSurfaceVariants(mergedProps),
+				SharedVariants.mediumFontVariants(mergedProps),
 				className,
 			)}
 		>
@@ -248,21 +239,15 @@ export const Message = ({ children, className }: CompoundProps) => {
 	);
 };
 
-interface PopoverProps extends CompoundProps {
-	open?: boolean;
-}
-
-const PopoverRoot = ({ children, open, className }: PopoverProps) => {
+export const PopoverMessage = ({
+	children,
+	className,
+	...props
+}: Popover.Portal.Props) => {
+	const mergedProps = { ...useCheckboxFieldProps(), ...props };
 	return (
-		<Popover.Root open={open}>
-			<Popover.Trigger className={className}>{children}</Popover.Trigger>
-		</Popover.Root>
+		<Popover.Portal {...mergedProps} className={className}>
+			{children}
+		</Popover.Portal>
 	);
-};
-
-export { PopoverRoot as Popover };
-
-export const PopoverMessage = ({ children }: CompoundProps) => {
-	const props = useCheckboxFieldProps();
-	return <Popover.Portal {...props}>{children}</Popover.Portal>;
 };
