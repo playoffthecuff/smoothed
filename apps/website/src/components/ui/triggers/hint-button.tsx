@@ -1,16 +1,12 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode } from "react";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
 import { HelpFilledIcon } from "../icons/help-filled";
 import { SpinnerIcon } from "../icons/spinner";
 import { Popover } from "../overlays/popover";
-import type {
-	PopoverPortalProps,
-	PopoverTriggerProps,
-} from "../overlays/popover/parts";
+import type { CompoundProps } from "../types";
 import { Variants } from "../variants";
 
 export const hintButtonVariants = cva("cursor-help h-full aspect-square", {
@@ -28,24 +24,24 @@ export const hintButtonVariants = cva("cursor-help h-full aspect-square", {
 
 type HintButtonVariants = VariantProps<typeof hintButtonVariants>;
 
-export type HintButtonProps = FlattenIntersection<
-	PopoverPortalProps &
-		HintButtonVariants &
-		Variants.EmphasisSurface & {
-			className?: string | undefined;
-			children?: ReactNode;
-			disabled?: boolean | null | undefined;
-			loading?: boolean | null | undefined;
-		} & Pick<PopoverTriggerProps, "openOnHover" | "delay">
->;
+export namespace HintButton {
+	export type Props = FlattenIntersection<
+		Popover.Portal.Props &
+			HintButtonVariants &
+			Variants.EmphasisSurface & {
+				disabled?: boolean | null | undefined;
+				loading?: boolean | null | undefined;
+			} & Pick<Popover.Trigger.Props, "openOnHover" | "delay">
+	>;
+}
 
 export function HintButton({
 	children,
 	className,
-	openOnHover,
-	delay,
+	openOnHover = true,
+	delay = 150,
 	...props
-}: HintButtonProps) {
+}: HintButton.Props & CompoundProps) {
 	return (
 		<Popover.Root>
 			<Popover.Trigger
