@@ -8,14 +8,6 @@ export default function InputPage() {
 		<Sandbox>
 			<div className="flex flex-col gap-4 -base-elevation-10 zero-elevation-0">
 				<T.Title>BUTTON</T.Title>
-				<div className="flex gap-16d">
-					<button
-						type="button"
-						className="trigger lifted-trigger sfc-ripple sfc-color-accent-on-accent sfc-emphasis-high-on-high sfc-border w-16 rounded-12d before:rounded-16d"
-					>
-						o
-					</button>
-				</div>
 				<div className="flex gap-4">
 					<ToggleGroup
 						defaultValue={["left"]}
