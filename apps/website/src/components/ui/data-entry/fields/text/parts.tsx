@@ -64,7 +64,7 @@ export type Props = FlattenIntersection<
 		type?: "text" | "password" | "search" | "email" | "tel" | "url";
 	} & Omit<
 			React.ComponentProps<"input">,
-			"type" | "className" | "children" | "width"
+			"type" | "className" | "children" | "width" | "size"
 		> &
 		CompoundProps
 >;
@@ -151,6 +151,7 @@ export const Input = ({ className, children, ...props }: Props) => {
 			{...ctxProps}
 			{...props}
 			width={undefined}
+			size={undefined}
 		/>
 	);
 };
