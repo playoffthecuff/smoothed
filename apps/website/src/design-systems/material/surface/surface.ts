@@ -180,7 +180,7 @@ export const getToggleStateShortcut: GetStaticShortcut = () => [
 ];
 
 export const getSurfaceKindRules: GetDynamicRule = () => [
-	/^sfc-(?<kind>solid|outlined|text|outlined-checkbox|solid-checkbox|slider-thumb)$/,
+	/^sfc-(?<kind>solid|outlined|text|subtle)$/,
 	({ groups }) => {
 		// TODO отвязать тип поверхности от типа элемента (слайдер, чекбокс), добавив тип описывающий саму поверхность
 		if (!groups) return;
@@ -193,20 +193,16 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 			outlined: `oklch(calc(var(--bg-default-lightness) + var(--imaginary-elevation)) var(--bg-default-chroma) var(--bg-default-hue))`,
 			text: `oklch(calc(var(--bg-default-lightness) + var(--imaginary-elevation)) var(--bg-default-chroma) var(--bg-default-hue))`,
 			toggle: ` color-mix(in oklch, ${bgIdleColor}, ${bgAdmixColor} ${bgAdmixValue})`,
-			"solid-checkbox": `oklch(from color-mix(in oklch, ${bgIdleColor}, ${bgAdmixColor} ${bgAdmixValue}) l c h / var(--bg-opacity))`,
-			"outlined-checkbox": `oklch(from color-mix(in oklch, ${bgIdleColor}, ${bgAdmixColor} ${bgAdmixValue}) l c h / var(--bg-opacity))`,
-			"slider-thumb": `oklch(from color-mix(in oklch, ${bgIdleColor}, ${bgAdmixColor} ${bgAdmixValue}) l c h / var(--bg-opacity))`,
+			subtle: `oklch(from color-mix(in oklch, ${bgIdleColor}, ${bgAdmixColor} ${bgAdmixValue}) l c h / var(--bg-opacity))`,
 		};
 		const bgColors = {
 			solid: "var(--bg-color)",
 			outlined: "var(--bg-color)",
-			"outlined-checkbox": "var(--bg-color)",
-			"solid-checkbox": "var(--bg-color)",
+			subtle: "var(--bg-color)",
 		};
 		const colorVars = {
 			solid: ` color-mix(in oklch, var(--bg-color), ${fgAdmixColor} calc(var(--fg-opacity) * 100%))`,
-			"solid-checkbox": ` color-mix(in oklch, var(--bg-color), ${fgAdmixColor} calc(var(--fg-opacity) * 100%))`,
-			"outlined-checkbox": `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
+			subtle: ` color-mix(in oklch, var(--bg-color), ${fgAdmixColor} calc(var(--fg-opacity) * 100%))`,
 			outlined: `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
 			text: `oklch(calc(var(--fg-default-lightness) + var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue))`,
 		};
@@ -215,16 +211,12 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 			solid: "var(--color)",
 			outlined: "var(--color)",
 			text: "var(--color)",
-			toggle: "var(--color)",
-			"solid-checkbox": "var(--color)",
-			"outlined-checkbox": "var(--color)",
+			subtle: "var(--color)",
 		};
 		const borderColors = {
-			solid: `oklch(var(--border-admix-lightness) 0 var(--bg-mid-hue) / calc((var(--border-d-lightness)) / (var(--border-admix-lightness) - var(--bg-lightness))))`,
+			solid: `oklch(var(--border-admix-lightness) 0 var(--bg-mid-hue) / calc((var(--border-d-lightness)) / (var(--border-admix-lightness) - var(--bg-lightness)) / var(--border-divider, 1)))`,
 			outlined: `oklch(calc(var(--fg-default-lightness) + 2 * var(--imaginary-elevation)) var(--fg-default-chroma) var(--fg-default-hue) / calc((var(--fg-default-lightness) - var(--bg-default-lightness)) / var(--border-d-lightness) / var(--border-divider)))`,
 			text: "transparent",
-			toggle: `oklch(var(--border-admix-lightness) 0 var(--bg-mid-hue) / calc((var(--border-d-lightness)) / (var(--border-admix-lightness) - var(--bg-lightness))))`,
-			"solid-checkbox": `oklch(var(--border-admix-lightness) 0 var(--bg-mid-hue) / calc((var(--border-d-lightness)) / (var(--border-admix-lightness) - var(--bg-lightness))))`,
 		};
 		return {
 			"--bg-color": bgColorVars[groups.kind as keyof typeof bgColorVars],
@@ -323,6 +315,11 @@ export const getSurfaceShadowRule: GetStaticRule = () => [
 	{
 		"box-shadow": `var(--inset) calc(-10 * var(--shadow-sign) * var(--sun-x) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(10 * var(--shadow-sign) * var(--sun-y) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(pow(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 5rem, .5) * 1rem) calc(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 3) oklch(0 0 0 / calc(.5 - var(--rel-elevation) * .45))`,
 	},
+];
+
+export const getSurfaceFocusShadowShortcut: GetStaticShortcut = () => [
+	"sfc-focus-shadow",
+	"focus-visible:shadow-focus focus-visible:after:border-transparent",
 ];
 
 export const getSurfaceBorderRule: GetStaticRule = () => [
@@ -482,13 +479,12 @@ export const getSurfaceCircularShortcut: GetDynamicShortcut = () => [
 		`rounded${groups?.side ? `-${groups.side}` : ""}-full after:rounded${groups?.side ? `-${groups.side}` : ""}-full before:rounded${groups?.side ? `-${groups.side}` : ""}-full`,
 ];
 
-export const getInteractiveSurfaceShortcut: GetStaticShortcut = () => {
+export const getRippleSurfaceShortcut: GetStaticShortcut = () => {
 	const props: ShortcutCategory = {
 		position: "relative before:content-[''] before:absolute before:z-1",
 		size: "before:-inset-12d",
 		border: "outline-none",
 		animation: `transition-all before:scale-0 [--ripple-time:calc(var(--spacing-size)*1rem*var(--text-size)*${Math.round(2 * 2 ** (0.25 * 32)) / 1000}*1s/1px)]`,
-		focus: "focus-visible:shadow-focus-accent focus-visible:border-transparent",
 	};
 	return ["sfc-ripple", Object.values(props)];
 };
@@ -582,7 +578,7 @@ export const getSurfaceRules = (opts: Options): Rule[] => [
 
 export const getSurfaceShortcuts = (opts: Options): Shortcut[] => [
 	getDefaultSurfaceShortcut(),
-	getInteractiveSurfaceShortcut(),
+	getRippleSurfaceShortcut(),
 	getSurfaceRoundingsShortcut(opts),
 	getDisabledSurfaceShortcut(),
 	getSurfaceColorShortcut(opts),
@@ -593,4 +589,5 @@ export const getSurfaceShortcuts = (opts: Options): Shortcut[] => [
 	getSurfaceCircularShortcut(opts),
 	getSurfaceFontSizeShortcut(opts),
 	getBackgroundSurfaceShortcut(),
+	getSurfaceFocusShadowShortcut(),
 ];
