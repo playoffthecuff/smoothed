@@ -2,127 +2,18 @@
 
 import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import type { IconProps } from "@/components/ui/icons/types";
 import { Popover } from "@/components/ui/overlays/popover";
 import { HintButton } from "@/components/ui/triggers/hint-button";
-import { Variants } from "@/components/ui/variants";
+import { Variants as SharedVariants } from "@/components/ui/variants";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
 import { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
 
-const NumberFieldContext = createContext<NumberFieldProps | null>(null);
-
-const useNumberFieldProps = () => {
-	const ctx = useContext(NumberFieldContext);
-	if (!ctx) throw new Error("Must be inside NumberField");
-	return ctx;
-};
-
-export type NumberFieldProps = FlattenIntersection<
-	InputVariants &
-		Variants.Size &
-		Variants.IntentSurface &
-		Variants.EmphasisSurface &
-		Variants.InputWidth &
-		InputWrapperVariants & {
-			required?: boolean;
-			id?: string;
-			name?: string;
-		}
->;
-
-export const Root = ({
-	children,
-	className,
-	...props
-}: NumberFieldProps & CompoundProps) => {
-	return (
-		<NumberFieldContext.Provider value={props}>
-			<div
-				className={cn(
-					Variants.fontSizeVariants(props),
-					Variants.semiBoldFontVariants(props),
-					"flex-col",
-					props.width === "fill" ? "flex" : "inline-flex w-min",
-					className,
-				)}
-			>
-				{children}
-			</div>
-		</NumberFieldContext.Provider>
-	);
-};
-
-interface CompoundProps {
-	children?: ReactNode;
-	className?: string;
-}
-
-export const Label = ({ className, children }: CompoundProps) => {
-	const props = useNumberFieldProps();
-	return (
-		<FieldLabel
-			{...props}
-			className={cn(
-				props.shape === "circular" && "first-letter:ms-[.525em]",
-				props.required && "before:content-['✺_'] before:sfc-text-danger-450d",
-				className,
-			)}
-		>
-			{children}
-		</FieldLabel>
-	);
-};
-
-export const Hint = ({ children, className }: CompoundProps) => {
-	const props = useNumberFieldProps();
-	return (
-		<HintButton {...props} disabled={false} className={className}>
-			{children}
-		</HintButton>
-	);
-};
-
-export const Message = ({ children, className }: CompoundProps) => {
-	const props = useNumberFieldProps();
-	return (
-		<FieldMessage
-			className={cn(
-				"w-fit h-[3.5em] -mt-[2em] pt-[2em] w-full transition-all duration-500",
-				!children && "bg-transparent",
-				(props.shape === "circular" || props.solid || props.outlined) &&
-					"ps-[.525em]",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</FieldMessage>
-	);
-};
-
-interface PopoverProps extends CompoundProps {
-	open?: boolean;
-}
-
-const PopoverRoot = ({ children, open }: PopoverProps) => {
-	return <Popover.Root open={open}>{children}</Popover.Root>;
-};
-
-export { PopoverRoot as Popover };
-
-export const PopoverTrigger = ({ children, className }: CompoundProps) => {
-	return <Popover.Trigger className={className}>{children}</Popover.Trigger>;
-};
-
-export const PopoverMessage = ({ children }: CompoundProps) => {
-	const props = useNumberFieldProps();
-	return <Popover.Portal {...props}>{children}</Popover.Portal>;
-};
+export { Popover } from "../popover";
 
 const buttonVariants = cva(
 	"relative z-1 first:z-2 last:z-0 flex items-center justify-center cursor-pointer sfc-border h-full aspect-square transition-all rel-elevation-0 —base-elevation-9 hover:rel-elevation-10 active:—rel-elevation-4",
@@ -137,10 +28,6 @@ const buttonVariants = cva(
 				square: null,
 				rounded: "sfc-rounded",
 				circular: "rounded-full",
-			},
-			type: {
-				increment: "rounded-s-0",
-				decrement: "rounded-e-0",
 			},
 			solid: {
 				true: "sfc-solid",
@@ -158,16 +45,6 @@ const buttonVariants = cva(
 		},
 		compoundVariants: [
 			{ flat: true, solid: true, className: "border-[var(--border-color)]" },
-			{
-				type: "increment",
-				controlsPosition: "start",
-				className: "rounded-0 -ms-[0.075em]",
-			},
-			{
-				type: "decrement",
-				controlsPosition: "end",
-				className: "rounded-0 -me-[0.075em]",
-			},
 		],
 		defaultVariants: {
 			controlsPosition: "between",
@@ -224,7 +101,16 @@ const inputWrapperVariants = cva(
 		},
 		compoundVariants: [
 			{ solid: true, outlined: true, className: "sfc-solid" },
-			{ outlined: false, solid: false, className: "[--border-divider:4.8]" },
+			{
+				outlined: false,
+				solid: false,
+				className: "[--border-divider:4.8] dark:[--border-divider:32]",
+			},
+			{
+				solid: true,
+				outlined: false,
+				className: "[--border-divider:4.8] dark:[--border-divider:2.4]",
+			},
 		],
 		defaultVariants: {
 			shape: "rounded",
@@ -306,22 +192,162 @@ const inputVariants = cva(
 	},
 );
 
-export type InputWrapperVariants = VariantProps<typeof inputWrapperVariants>;
-type ButtonContent = React.ComponentType<IconProps> | string | number;
-type ButtonVariants = VariantProps<typeof buttonVariants>;
-type IconVariants = VariantProps<typeof iconVariants>;
+namespace NumberInput {
+	type ButtonContent = React.ComponentType<IconProps> | string | number;
+	type ButtonVariants = VariantProps<typeof buttonVariants>;
+	type IconVariants = VariantProps<typeof iconVariants>;
+	export type ButtonProps = ButtonVariants &
+		IconVariants & {
+			content?: ButtonContent;
+		};
+	export type Props = FlattenIntersection<
+		{
+			placeholder?: string;
+			decrementContent?: ButtonContent;
+			incrementContent?: ButtonContent;
+			controlsPosition?: ButtonProps["controlsPosition"];
+		} & Omit<BaseNumberField.Root.Props, "render">
+	>;
+}
 
-type ButtonProps = ButtonVariants &
-	IconVariants & {
-		content?: ButtonContent;
+type InputWrapperVariants = VariantProps<typeof inputWrapperVariants>;
+export type Variants = FlattenIntersection<
+	InputVariants &
+		SharedVariants.Size &
+		SharedVariants.IntentSurface &
+		SharedVariants.EmphasisSurface &
+		SharedVariants.InputWidth &
+		InputWrapperVariants
+>;
+export type Props = FlattenIntersection<Variants & NumberInput.Props>;
+
+type ContextProps = Omit<Props, "className" | "children" | "style">;
+
+const NumberFieldContext = createContext<ContextProps | null>(null);
+
+const useNumberFieldProps = () => {
+	const ctx = useContext(NumberFieldContext);
+	if (!ctx) throw new Error("Must be inside NumberField");
+	return ctx;
+};
+
+export const Root = ({
+	children,
+	className,
+	controlsPosition,
+	incrementContent = "+",
+	decrementContent = "-",
+	...props
+}: Props) => {
+	return (
+		<NumberFieldContext.Provider
+			value={{ ...props, incrementContent, decrementContent, controlsPosition }}
+		>
+			<div
+				className={cn(
+					SharedVariants.fontSizeVariants(props),
+					SharedVariants.semiBoldFontVariants(props),
+					"flex-col",
+					props.width === "fill" ? "flex" : "inline-flex w-min",
+					className,
+				)}
+			>
+				{children}
+			</div>
+		</NumberFieldContext.Provider>
+	);
+};
+
+export const Label = ({ className, children, ...props }: FieldLabel.Props) => {
+	const {
+		incrementContent,
+		decrementContent,
+		controlsPosition,
+		...mergedProps
+	} = {
+		...useNumberFieldProps(),
+		...props,
 	};
+	return (
+		<FieldLabel
+			{...mergedProps}
+			className={cn(
+				mergedProps.shape === "circular" && "first-letter:ms-[.525em]",
+				mergedProps.required &&
+					"before:content-['✺_'] before:sfc-text-danger-450d",
+				className,
+			)}
+		>
+			{children}
+		</FieldLabel>
+	);
+};
 
-const FieldDecrement = ({ content: Content, size, ...props }: ButtonProps) => (
+export const Hint = ({ children, className, ...props }: HintButton.Props) => {
+	const {
+		incrementContent,
+		decrementContent,
+		controlsPosition,
+		...mergedProps
+	} = {
+		...useNumberFieldProps(),
+		...props,
+	};
+	return (
+		<HintButton {...mergedProps} disabled={false} className={className}>
+			{children}
+		</HintButton>
+	);
+};
+
+export const Message = ({
+	children,
+	className,
+	...props
+}: FieldMessage.Props) => {
+	const {
+		incrementContent,
+		decrementContent,
+		controlsPosition,
+		...mergedProps
+	} = { ...useNumberFieldProps(), ...props };
+	return (
+		<FieldMessage
+			className={cn(
+				"w-fit h-[3.5em] -mt-[2em] pt-[2em] w-full transition-all duration-500",
+				!children && "bg-transparent",
+				(mergedProps.shape === "circular" ||
+					mergedProps.solid ||
+					mergedProps.outlined) &&
+					"ps-[.525em]",
+				className,
+			)}
+			{...mergedProps}
+		>
+			{children}
+		</FieldMessage>
+	);
+};
+
+export const PopoverMessage = (props: Popover.Portal.Props) => {
+	const { incrementContent, decrementContent, ...mergedProps } = {
+		...useNumberFieldProps(),
+		...props,
+	};
+	return <Popover.Portal {...mergedProps} />;
+};
+
+const FieldDecrement = ({
+	content: Content,
+	size,
+	...props
+}: NumberInput.ButtonProps) => (
 	<BaseNumberField.Decrement
-		className={buttonVariants({
-			...props,
-			type: "decrement",
-		})}
+		className={cn(
+			buttonVariants(props),
+			props.controlsPosition === "end" && "rounded-0 -me-[0.075em]",
+			"rounded-e-0",
+		)}
 		disabled={props.disabled ?? undefined}
 	>
 		{Content &&
@@ -332,12 +358,17 @@ const FieldDecrement = ({ content: Content, size, ...props }: ButtonProps) => (
 			))}
 	</BaseNumberField.Decrement>
 );
-const FieldIncrement = ({ content: Content, size, ...props }: ButtonProps) => (
+const FieldIncrement = ({
+	content: Content,
+	size,
+	...props
+}: NumberInput.ButtonProps) => (
 	<BaseNumberField.Increment
-		className={buttonVariants({
-			...props,
-			type: "increment",
-		})}
+		className={cn(
+			buttonVariants(props),
+			props.controlsPosition === "start" && "rounded-0 -ms-[0.075em]",
+			"rounded-s-0",
+		)}
 		disabled={props.disabled ?? undefined}
 	>
 		{Content &&
@@ -351,66 +382,89 @@ const FieldIncrement = ({ content: Content, size, ...props }: ButtonProps) => (
 
 export type InputVariants = VariantProps<typeof inputVariants>;
 
-export type NumberInputProps = FlattenIntersection<
-	{
-		placeholder?: string;
-		decrementContent?: ButtonContent;
-		incrementContent?: ButtonContent;
-		controlsPosition?: ButtonProps["controlsPosition"];
-	} & BaseNumberField.Root.Props
->;
-
-export const Input = ({
-	className,
-	placeholder,
-	decrementContent = "-",
-	incrementContent = "+",
-	children,
-	...props
-}: NumberInputProps) => {
-	const ctxProps = useNumberFieldProps();
-	const decrement = <FieldDecrement {...ctxProps} content={decrementContent} />;
-	const increment = <FieldIncrement {...ctxProps} content={incrementContent} />;
+export const Input = ({ className, children, ...props }: NumberInput.Props) => {
+	const {
+		incrementContent,
+		decrementContent,
+		flat,
+		solid,
+		ringed,
+		loading,
+		outlined,
+		controlsPosition,
+		intent,
+		width,
+		emphasis,
+		...mergedProps
+	} = {
+		...useNumberFieldProps(),
+		...props,
+	};
+	const decrement = (
+		<FieldDecrement
+			{...mergedProps}
+			content={decrementContent}
+			controlsPosition={controlsPosition}
+			solid={solid}
+			outlined={outlined}
+			flat={flat}
+		/>
+	);
+	const increment = (
+		<FieldIncrement
+			{...mergedProps}
+			content={incrementContent}
+			controlsPosition={controlsPosition}
+			solid={solid}
+			outlined={outlined}
+			flat={flat}
+		/>
+	);
 	return (
 		<BaseNumberField.Root
 			className={cn(
-				ctxProps.width !== "fill" &&
-					"w-fit inline-flex items-center justify-center",
+				width !== "fill" && "w-fit inline-flex items-center justify-center",
 				"group font-mono",
-				ctxProps.disabled && "cursor-not-allowed",
+				mergedProps.disabled && "cursor-not-allowed",
 				className,
 			)}
-			{...props}
-			id={ctxProps.id}
-			name={ctxProps.name}
-			disabled={ctxProps.disabled ?? undefined}
+			{...mergedProps}
 		>
 			{children}
 			<BaseNumberField.Group
 				className={cn(
 					inputWrapperVariants({
-						...ctxProps,
-						ringed: ctxProps.ringed,
+						ringed,
+						outlined,
+						solid,
+						...mergedProps,
 					}),
-					Variants.interactiveIntentSurfaceVariants(ctxProps),
-					Variants.emphasisSurfaceVariants(ctxProps),
-					Variants.inputWidthVariants(ctxProps),
+					SharedVariants.interactiveIntentSurfaceVariants({ intent }),
+					SharedVariants.emphasisSurfaceVariants({ emphasis }),
+					SharedVariants.inputWidthVariants({ width }),
 				)}
 			>
-				{ctxProps.controlsPosition !== "end" && decrement}
-				{ctxProps.controlsPosition === "start" && increment}
+				{controlsPosition !== "end" && decrement}
+				{controlsPosition === "start" && increment}
 				<BaseNumberField.Input
 					className={cn(
-						inputVariants(ctxProps),
-						ctxProps.intent && "sfc-intent-selection",
+						inputVariants({
+							solid,
+							outlined,
+							flat,
+							controlsPosition,
+							loading,
+							...mergedProps,
+						}),
+						intent && "sfc-intent-selection",
 					)}
-					placeholder={placeholder}
-					disabled={ctxProps.disabled ?? undefined}
+					placeholder={mergedProps.placeholder}
+					disabled={mergedProps.disabled ?? undefined}
 				/>
-				{ctxProps.controlsPosition === "end" && decrement}
-				{ctxProps.controlsPosition !== "start" && increment}
+				{controlsPosition === "end" && decrement}
+				{controlsPosition !== "start" && increment}
 			</BaseNumberField.Group>
-			{ctxProps.disabled && ctxProps.loading && (
+			{mergedProps.disabled && loading && (
 				<SpinnerIcon className="animate-spin z-1 absolute pointer-events-none" />
 			)}
 		</BaseNumberField.Root>

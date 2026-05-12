@@ -44,38 +44,46 @@ export default function NumberFieldPage() {
 						Options
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						<NumberField.Root id="ol">
+						<NumberField.Root id="ol" defaultValue={100}>
 							<NumberField.Label>Only Label</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 						</NumberField.Root>
-						<NumberField.Root id="required" required>
+						<NumberField.Root id="required" required defaultValue={100}>
 							<NumberField.Label>Required</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 						</NumberField.Root>
-						<NumberField.Root id="wm">
+						<NumberField.Root id="wm" defaultValue={100}>
 							<NumberField.Label>With Message</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Message</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id="cps" controlsPosition={"start"}>
+						<NumberField.Root
+							id="cps"
+							controlsPosition={"start"}
+							defaultValue={100}
+						>
 							<NumberField.Label>Control Position Start</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Control Position Start</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id="cpe" controlsPosition={"end"}>
+						<NumberField.Root
+							id="cpe"
+							controlsPosition={"end"}
+							defaultValue={100}
+						>
 							<NumberField.Label>Control Position End</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Control Position End</NumberField.Message>
 						</NumberField.Root>
 						<NumberField.Root id="pm">
 							<NumberField.Label>Popover Message</NumberField.Label>
 							<NumberField.Popover open>
-								<NumberField.PopoverTrigger>
+								<NumberField.Popover>
 									<NumberField.Input defaultValue={200} />
-								</NumberField.PopoverTrigger>
-								<NumberField.PopoverMessage className="leading-none">
-									Message
-								</NumberField.PopoverMessage>
+									<NumberField.PopoverMessage className="leading-none">
+										Message
+									</NumberField.PopoverMessage>
+								</NumberField.Popover>
 							</NumberField.Popover>
 						</NumberField.Root>
 					</div>
@@ -104,9 +112,14 @@ export default function NumberFieldPage() {
 					</li>
 					<div className="flex flex-col gap-12d">
 						{variantsCfg.width?.map((v) => (
-							<NumberField.Root id={`${v}-flex`} key={v} width={v}>
+							<NumberField.Root
+								id={`${v}-flex`}
+								key={v}
+								width={v}
+								defaultValue={100}
+							>
 								<NumberField.Label>{capitalize(v)}</NumberField.Label>
-								<NumberField.Input defaultValue={100} />
+								<NumberField.Input />
 								<NumberField.Message>{capitalize(v)}</NumberField.Message>
 							</NumberField.Root>
 						))}
@@ -122,10 +135,11 @@ export default function NumberFieldPage() {
 								id={`${v}-block`}
 								key={v}
 								width={v}
+								defaultValue={100}
 								className="not-last:me-4"
 							>
 								<NumberField.Label>{capitalize(v)}</NumberField.Label>
-								<NumberField.Input defaultValue={100} />
+								<NumberField.Input />
 								<NumberField.Message>{capitalize(v)}</NumberField.Message>
 							</NumberField.Root>
 						))}
@@ -138,9 +152,9 @@ export default function NumberFieldPage() {
 					</T.Title>
 					<div className="flex flex-col gap-16d">
 						{variantsCfg.shape?.map((v) => (
-							<NumberField.Root id={v} key={v} shape={v}>
+							<NumberField.Root id={v} key={v} shape={v} defaultValue={100}>
 								<NumberField.Label>{capitalize(v)}</NumberField.Label>
-								<NumberField.Input defaultValue={100} />
+								<NumberField.Input />
 								<NumberField.Message>{capitalize(v)}</NumberField.Message>
 							</NumberField.Root>
 						))}
@@ -156,24 +170,34 @@ export default function NumberFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-16d">
-						<NumberField.Root id={"none"}>
+						<NumberField.Root id={"none"} defaultValue={100}>
 							<NumberField.Label>None</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>None</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"outlined"} outlined>
+						<NumberField.Root id={"outlined"} outlined defaultValue={100}>
 							<NumberField.Label>Outlined</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Outlined</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"solid"} solid outlined={false}>
+						<NumberField.Root
+							id={"solid"}
+							solid
+							outlined={false}
+							defaultValue={100}
+						>
 							<NumberField.Label>Solid</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Solid</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"outlinednsolid"} outlined solid>
+						<NumberField.Root
+							id={"outlinednsolid"}
+							outlined
+							solid
+							defaultValue={100}
+						>
 							<NumberField.Label>Solid & Outlined</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Solid & Outlined</NumberField.Message>
 						</NumberField.Root>
 					</div>
@@ -183,24 +207,36 @@ export default function NumberFieldPage() {
 						</T.Title>
 					</li>
 					<div className="flex flex-col gap-16d">
-						<NumberField.Root id={"none"} flat>
+						<NumberField.Root id={"none"} flat defaultValue={100}>
 							<NumberField.Label>None</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>None</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"outlined"} outlined flat>
+						<NumberField.Root id={"outlined"} outlined flat defaultValue={100}>
 							<NumberField.Label>Outlined</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Outlined</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"solid"} solid outlined={false} flat>
+						<NumberField.Root
+							id={"solid"}
+							solid
+							outlined={false}
+							flat
+							defaultValue={100}
+						>
 							<NumberField.Label>Solid</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Solid</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id={"outlinednsolid"} outlined solid flat>
+						<NumberField.Root
+							id={"outlinednsolid"}
+							outlined
+							solid
+							flat
+							defaultValue={100}
+						>
 							<NumberField.Label>Solid & Outlined</NumberField.Label>
-							<NumberField.Input defaultValue={100} />
+							<NumberField.Input />
 							<NumberField.Message>Solid & Outlined</NumberField.Message>
 						</NumberField.Root>
 					</div>
@@ -219,9 +255,10 @@ export default function NumberFieldPage() {
 									emphasis={emphasis}
 									shape={"rounded"}
 									solid
+									defaultValue={100}
 								>
 									<NumberField.Label>Label</NumberField.Label>
-									<NumberField.Input defaultValue={100} />
+									<NumberField.Input />
 									<NumberField.Message>No Intent</NumberField.Message>
 								</NumberField.Root>
 							))}
@@ -239,9 +276,10 @@ export default function NumberFieldPage() {
 											emphasis={emphasis}
 											shape={"rounded"}
 											solid
+											defaultValue={100}
 										>
 											<NumberField.Label>Label</NumberField.Label>
-											<NumberField.Input defaultValue={100} />
+											<NumberField.Input />
 											<NumberField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -261,9 +299,10 @@ export default function NumberFieldPage() {
 									shape={"circular"}
 									solid
 									outlined
+									defaultValue={100}
 								>
 									<NumberField.Label>Label</NumberField.Label>
-									<NumberField.Input defaultValue={100} />
+									<NumberField.Input />
 									<NumberField.Message>No Intent</NumberField.Message>
 								</NumberField.Root>
 							))}
@@ -282,9 +321,10 @@ export default function NumberFieldPage() {
 											shape={"circular"}
 											solid
 											outlined
+											defaultValue={100}
 										>
 											<NumberField.Label>Label</NumberField.Label>
-											<NumberField.Input defaultValue={100} />
+											<NumberField.Input />
 											<NumberField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -303,9 +343,10 @@ export default function NumberFieldPage() {
 									emphasis={emphasis}
 									shape={"square"}
 									outlined
+									defaultValue={100}
 								>
 									<NumberField.Label>Label</NumberField.Label>
-									<NumberField.Input defaultValue={100} />
+									<NumberField.Input />
 									<NumberField.Message>No Intent</NumberField.Message>
 								</NumberField.Root>
 							))}
@@ -323,9 +364,10 @@ export default function NumberFieldPage() {
 											emphasis={emphasis}
 											shape={"square"}
 											outlined
+											defaultValue={100}
 										>
 											<NumberField.Label>Label</NumberField.Label>
-											<NumberField.Input defaultValue={100} />
+											<NumberField.Input />
 											<NumberField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -342,9 +384,10 @@ export default function NumberFieldPage() {
 									id={`${emphasis}-4`}
 									width="narrow"
 									emphasis={emphasis}
+									defaultValue={100}
 								>
 									<NumberField.Label>Label</NumberField.Label>
-									<NumberField.Input defaultValue={100} />
+									<NumberField.Input />
 									<NumberField.Message>No Intent</NumberField.Message>
 								</NumberField.Root>
 							))}
@@ -360,9 +403,10 @@ export default function NumberFieldPage() {
 											width="narrow"
 											intent={intent}
 											emphasis={emphasis}
+											defaultValue={100}
 										>
 											<NumberField.Label>Label</NumberField.Label>
-											<NumberField.Input defaultValue={100} />
+											<NumberField.Input />
 											<NumberField.Message>
 												{Icon && <Icon size={1} />}
 												{capitalize(intent)}
@@ -379,26 +423,31 @@ export default function NumberFieldPage() {
 						State
 					</T.Title>
 					<div className="flex flex-col gap-16d">
-						<NumberField.Root id="ringed" ringed intent={"danger"}>
+						<NumberField.Root
+							id="ringed"
+							ringed
+							intent={"danger"}
+							defaultValue={100}
+						>
 							<NumberField.Label>
 								Ringed - use it with intent to show a status, such as (in)valid
 							</NumberField.Label>
-							<NumberField.Input defaultValue={100}></NumberField.Input>
+							<NumberField.Input />
 							<NumberField.Message>Ringed</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id="disabled" disabled>
+						<NumberField.Root id="disabled" disabled defaultValue={100}>
 							<NumberField.Label>Disabled</NumberField.Label>
-							<NumberField.Input defaultValue={100}></NumberField.Input>
+							<NumberField.Input />
 							<NumberField.Message>Message</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id="loading" loading>
+						<NumberField.Root id="loading" loading defaultValue={100}>
 							<NumberField.Label>Loading</NumberField.Label>
-							<NumberField.Input defaultValue={100}></NumberField.Input>
+							<NumberField.Input />
 							<NumberField.Message>Message</NumberField.Message>
 						</NumberField.Root>
-						<NumberField.Root id="dnl" disabled loading>
+						<NumberField.Root id="dnl" disabled loading defaultValue={100}>
 							<NumberField.Label>Disabled & Loading</NumberField.Label>
-							<NumberField.Input defaultValue={100}></NumberField.Input>
+							<NumberField.Input />
 							<NumberField.Message>Message</NumberField.Message>
 						</NumberField.Root>
 					</div>
