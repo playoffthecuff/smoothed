@@ -1,7 +1,7 @@
+import { intentToIcon } from "@/app/intent-to-icon";
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { NumberField } from "@/components/ui/data-entry/fields/number/index";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
 import { emphases } from "@/design-systems/material/options";
 import { capitalize } from "@/lib/utils/str";

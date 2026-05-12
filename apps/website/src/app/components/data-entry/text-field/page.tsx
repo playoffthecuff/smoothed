@@ -1,9 +1,9 @@
+import { intentToIcon } from "@/app/intent-to-icon";
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { TextField } from "@/components/ui/data-entry/fields/text/index";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { AirplaneIcon } from "@/components/ui/icons/airplane";
 import { MagnifierIcon } from "@/components/ui/icons/magnifier";
-import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
 import { capitalize } from "@/lib/utils/str";
 

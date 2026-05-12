@@ -1,8 +1,8 @@
 import React from "react";
+import { intentToIcon } from "@/app/intent-to-icon";
 import { Sandbox } from "@/components/sandbox/sandbox";
 import { CheckboxField } from "@/components/ui/data-entry/fields/checkbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
-import { intentToIcon } from "@/components/ui/intent-to-icon";
 import { T } from "@/components/ui/typography";
 import { capitalize } from "@/lib/utils/str";
 
