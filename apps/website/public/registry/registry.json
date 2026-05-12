@@ -4,140 +4,143 @@
 	"url": "https://smoothed.vercel.app",
 	"items": [
 		{
-			"name": "button",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "use-wave-animate"],
-			"files": [
-				{
-					"path": "src/components/ui/button/button.tsx"
-				}
-			]
-		},
-		{
 			"name": "card",
-			"regDeps": ["title", "cn"],
-			"files": [
-				{
-					"path": "src/components/ui/card/card.tsx"
-				}
-			]
-		},
-		{
-			"name": "checkbox",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "use-wave-animate", "check-icon"],
+			"regDeps": ["cn", "typography", "types"],
 			"files": [
 				{
-					"path": "src/components/ui/checkbox/checkbox.tsx"
+					"path": "src/components/ui/data-display/card/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/data-display/card/index.ts"
 				}
 			]
 		},
-		{
-			"name": "dialog",
-			"regDeps": ["cn"],
-			"files": [
-				{
-					"path": "src/components/ui/dialog/dialog.tsx"
-				}
-			]
-		},
+
 		{
 			"name": "checkbox-field",
 			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
-				"checkbox",
 				"cn",
-				"error-icon",
-				"success-icon",
-				"warning-icon",
-				"intent-message",
-				"label",
-				"hint-button"
+				"check-icon",
+				"minus-icon",
+				"spinner-icon",
+				"field-message",
+				"field-label",
+				"field-popover",
+				"use-ripple-animate",
+				"hint-button",
+				"variants",
+				"popover",
+				"types",
+				"type-helpers"
 			],
 			"files": [
 				{
-					"path": "src/components/ui/fields/checkbox.tsx"
+					"path": "src/components/ui/data-entry/fields/checkbox/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/data-entry/fields/checkbox/index.ts"
 				}
 			]
 		},
 		{
 			"name": "number-field",
+			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
-				"number-input",
-				"error-icon",
-				"success-icon",
-				"warning-icon",
-				"intent-message",
-				"label",
-				"hint-button"
+				"cn",
+				"spinner-icon",
+				"popover",
+				"hint-button",
+				"field-message",
+				"field-label",
+				"field-popover",
+				"variants",
+				"types",
+				"type-helpers"
 			],
 			"files": [
 				{
-					"path": "src/components/ui/fields/number.tsx"
+					"path": "src/components/ui/data-entry/fields/number/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/data-entry/fields/number/index.ts"
 				}
 			]
 		},
 		{
 			"name": "select-field",
+			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
-				"select",
-				"error-icon",
-				"success-icon",
-				"warning-icon",
-				"intent-message",
-				"label",
-				"hint-button"
+				"cn",
+				"spinner-icon",
+				"popover",
+				"hint-button",
+				"field-message",
+				"field-label",
+				"field-popover",
+				"variants",
+				"types",
+				"type-helpers"
 			],
 			"files": [
 				{
-					"path": "src/components/ui/fields/select.tsx"
+					"path": "src/components/ui/data-entry/fields/select/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/data-entry/fields/select/index.ts"
 				}
 			]
 		},
 		{
 			"name": "slider-field",
+			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
-				"slider",
-				"error-icon",
-				"success-icon",
-				"warning-icon",
-				"intent-message",
-				"label",
-				"hint-button"
+				"cn",
+				"popover",
+				"hint-button",
+				"spinner-icon",
+				"field-message",
+				"field-label",
+				"field-popover",
+				"variants",
+				"types",
+				"type-helpers"
 			],
 			"files": [
 				{
-					"path": "src/components/ui/fields/slider.tsx"
+					"path": "src/components/ui/data-entry/fields/slider/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/data-entry/fields/slider/index.ts"
 				}
 			]
 		},
 		{
 			"name": "text-field",
+			"pkgDeps": ["class-variance-authority"],
 			"regDeps": [
-				"text-input",
-				"error-icon",
-				"success-icon",
-				"warning-icon",
-				"intent-message",
-				"label",
-				"hint-button"
+				"cn",
+				"spinner-icon",
+				"popover",
+				"hint-button",
+				"field-message",
+				"field-label",
+				"field-popover",
+				"variants",
+				"types",
+				"type-helpers"
 			],
 			"files": [
 				{
-					"path": "src/components/ui/fields/text.tsx"
-				}
-			]
-		},
-		{
-			"name": "hint-button",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["button", "info-icon", "popover"],
-			"files": [
+					"path": "src/components/ui/data-entry/fields/text/parts.tsx"
+				},
 				{
-					"path": "src/components/ui/fields/hint-button.tsx"
+					"path": "src/components/ui/data-entry/fields/text/index.ts"
 				}
 			]
 		},
+
 		{
 			"name": "airplane-icon",
 			"regDeps": ["icon-types"],
@@ -192,7 +195,6 @@
 				}
 			]
 		},
-
 		{
 			"name": "chevron-up-icon",
 			"regDeps": ["icon-types"],
@@ -239,11 +241,20 @@
 			]
 		},
 		{
-			"name": "error-icon",
+			"name": "error-filled-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/error.tsx"
+					"path": "src/components/ui/icons/error-filled.tsx"
+				}
+			]
+		},
+		{
+			"name": "error-outlined-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/error-outlined.tsx"
 				}
 			]
 		},
@@ -257,11 +268,29 @@
 			]
 		},
 		{
+			"name": "eye-off-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/eye-off.tsx"
+				}
+			]
+		},
+		{
 			"name": "eye-open-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/eye-open.tsx"
+				}
+			]
+		},
+		{
+			"name": "eye-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/eye.tsx"
 				}
 			]
 		},
@@ -302,20 +331,47 @@
 			]
 		},
 		{
-			"name": "help-icon",
+			"name": "help-filled-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/help.tsx"
+					"path": "src/components/ui/icons/help-filled.tsx"
 				}
 			]
 		},
 		{
-			"name": "info-icon",
+			"name": "help-outlined-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/info.tsx"
+					"path": "src/components/ui/icons/help-outlined.tsx"
+				}
+			]
+		},
+		{
+			"name": "info-filled-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/info-filled.tsx"
+				}
+			]
+		},
+		{
+			"name": "info-outlined-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/info-outlined.tsx"
+				}
+			]
+		},
+		{
+			"name": "key-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/key.tsx"
 				}
 			]
 		},
@@ -325,6 +381,15 @@
 			"files": [
 				{
 					"path": "src/components/ui/icons/like.tsx"
+				}
+			]
+		},
+		{
+			"name": "magnifier-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/magnifier.tsx"
 				}
 			]
 		},
@@ -366,6 +431,7 @@
 		},
 		{
 			"name": "plus-icon",
+			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/plus.tsx"
@@ -373,15 +439,8 @@
 			]
 		},
 		{
-			"name": "smartphone-icon",
-			"files": [
-				{
-					"path": "src/components/ui/icons/smartphone.tsx"
-				}
-			]
-		},
-		{
 			"name": "signin-icon",
+			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/sign-in.tsx"
@@ -389,7 +448,17 @@
 			]
 		},
 		{
+			"name": "smartphone-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/smartphone.tsx"
+				}
+			]
+		},
+		{
 			"name": "sparkle-icon",
+			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/sparkle.tsx"
@@ -398,6 +467,7 @@
 		},
 		{
 			"name": "spinner-icon",
+			"regDeps": ["icon-types"],
 			"files": [
 				{
 					"path": "src/components/ui/icons/spinner.tsx"
@@ -405,11 +475,20 @@
 			]
 		},
 		{
-			"name": "success-icon",
+			"name": "success-filled-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/success.tsx"
+					"path": "src/components/ui/icons/success-filled.tsx"
+				}
+			]
+		},
+		{
+			"name": "success-outlined-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/success-outlined.tsx"
 				}
 			]
 		},
@@ -476,11 +555,20 @@
 			]
 		},
 		{
-			"name": "warning-icon",
+			"name": "warning-filled-icon",
 			"regDeps": ["icon-types"],
 			"files": [
 				{
-					"path": "src/components/ui/icons/warning.tsx"
+					"path": "src/components/ui/icons/warning-filled.tsx"
+				}
+			]
+		},
+		{
+			"name": "warning-outlined-icon",
+			"regDeps": ["icon-types"],
+			"files": [
+				{
+					"path": "src/components/ui/icons/warning-outlined.tsx"
 				}
 			]
 		},
@@ -494,124 +582,203 @@
 			]
 		},
 		{
-			"name": "number-input",
+			"name": "field-label",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": [
-				"spinner-icon",
-				"triangle-up-rounded-icon",
-				"triangle-up-sharp-icon",
-				"triangle-down-rounded-icon",
-				"triangle-down-sharp-icon",
-				"cn"
-			],
+			"regDeps": ["cn", "variants"],
 			"files": [
 				{
-					"path": "src/components/ui/input/number.tsx"
+					"path": "src/components/ui/data-entry/fields/label.tsx"
 				}
 			]
 		},
 		{
-			"name": "text-input",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "eye-close-icon", "eye-open-icon", "cn"],
+			"name": "field-popover",
+			"regDeps": ["types", "popover"],
 			"files": [
 				{
-					"path": "src/components/ui/input/text.tsx"
+					"path": "src/components/ui/data-entry/fields/popover.tsx"
 				}
 			]
 		},
 		{
-			"name": "intent-message",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["icon-types", "cn"],
+			"name": "link-variants",
+			"regDeps": ["variants", "type-helpers"],
 			"files": [
 				{
-					"path": "src/components/ui/intent-message/intent-message.tsx"
-				}
-			]
-		},
-		{
-			"name": "label",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["cn"],
-			"files": [
+					"path": "src/components/ui/navigation/link/parts.tsx"
+				},
 				{
-					"path": "src/components/ui/label/label.tsx"
+					"path": "src/components/ui/navigation/link/index.ts"
 				}
 			]
 		},
 		{
 			"name": "next-link",
+			"regDeps": ["types", "link-variants", "cn", "helper-types"],
 			"files": [
 				{
-					"path": "src/components/ui/link/link.tsx"
+					"path": "src/components/ui/navigation/next-link/index.tsx"
+				}
+			]
+		},
+		{
+			"name": "dialog",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["cn", "variants", "type-helpers"],
+			"files": [
+				{
+					"path": "src/components/ui/overlays/dialog/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/overlays/dialog/index.ts"
 				}
 			]
 		},
 		{
 			"name": "popover",
 			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["cn", "variants", "types", "type-helpers"],
 			"files": [
 				{
-					"path": "src/components/ui/popover/popover.tsx"
+					"path": "src/components/ui/overlays/popover/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/overlays/popover/index.ts"
 				}
 			]
 		},
 		{
-			"name": "select",
+			"name": "button",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "check-icon", "cn", "chevron-up-down-icon"],
+			"regDeps": [
+				"spinner-icon",
+				"use-ripple-animate",
+				"cn",
+				"variants",
+				"type-helpers"
+			],
 			"files": [
 				{
-					"path": "src/components/ui/select/select.tsx"
+					"path": "src/components/ui/triggers/button.tsx"
 				}
 			]
 		},
 		{
-			"name": "slider",
+			"name": "hint-button",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "cn"],
+			"regDeps": [
+				"help-filled-icon",
+				"spinner-icon",
+				"popover",
+				"cn",
+				"variants",
+				"types",
+				"type-helpers"
+			],
 			"files": [
 				{
-					"path": "src/components/ui/slider/slider.tsx"
+					"path": "src/components/ui/triggers/hint-button.tsx"
 				}
 			]
 		},
 		{
 			"name": "toggle",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["spinner-icon", "cn", "use-wave-animate"],
+			"regDeps": [
+				"spinner-icon",
+				"cn",
+				"use-ripple-animate",
+				"variants",
+				"type-helpers"
+			],
 			"files": [
 				{
-					"path": "src/components/ui/toggle/toggle.tsx"
+					"path": "src/components/ui/triggers/toggle.tsx"
 				}
 			]
 		},
 		{
 			"name": "toggle-group",
 			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["cn"],
+			"regDeps": [
+				"cn",
+				"variants",
+				"types",
+				"type-helpers",
+				"use-ripple-animate"
+			],
 			"files": [
 				{
-					"path": "src/components/ui/toggle-group/toggle-group.tsx"
+					"path": "src/components/ui/triggers/toggle-group/parts.tsx"
+				},
+				{
+					"path": "src/components/ui/triggers/toggle-group/index.ts"
 				}
 			]
 		},
 		{
-			"name": "title",
-			"pkgDeps": ["class-variance-authority"],
-			"regDeps": ["cn"],
+			"name": "typography",
+			"regDeps": ["cn", "variants", "types", "type-helpers"],
 			"files": [
+				{
+					"path": "src/components/ui/typography/parts.ts"
+				},
+				{
+					"path": "src/components/ui/typography/index.ts"
+				},
+				{
+					"path": "src/components/ui/typography/text.tsx"
+				},
 				{
 					"path": "src/components/ui/typography/title.tsx"
+				},
+				{
+					"path": "src/components/ui/typography/typography.tsx"
 				}
 			]
 		},
 		{
-			"name": "use-wave-animate",
+			"name": "variants",
+			"pkgDeps": ["class-variance-authority"],
 			"files": [
 				{
-					"path": "src/components/ui/use-wave-animate.ts"
+					"path": "src/components/ui/variants/parts.ts"
+				},
+				{
+					"path": "src/components/ui/variants/index.ts"
+				},
+				{
+					"path": "src/components/ui/variants/emphasis-surface.ts"
+				},
+				{
+					"path": "src/components/ui/variants/intent-surface.ts"
+				},
+				{
+					"path": "src/components/ui/variants/surface-cursor.ts"
+				},
+				{
+					"path": "src/components/ui/variants/surface-shape.ts"
+				},
+				{
+					"path": "src/components/ui/variants/size/index.ts"
+				},
+				{
+					"path": "src/components/ui/variants/size/types.ts"
+				},
+				{
+					"path": "src/components/ui/variants/size/font-size.ts"
+				},
+				{
+					"path": "src/components/ui/variants/size/font-weight.ts"
+				},
+				{
+					"path": "src/components/ui/variants/width/index.ts"
+				},
+				{
+					"path": "src/components/ui/variants/width/types.ts"
+				},
+				{
+					"path": "src/components/ui/variants/width/input.ts"
 				}
 			]
 		},
@@ -625,10 +792,53 @@
 			]
 		},
 		{
+			"name": "use-ripple-animate",
+			"files": [
+				{
+					"path": "src/components/ui/use-ripple-animate.ts"
+				}
+			]
+		},
+		{
+			"name": "types",
+			"files": [
+				{
+					"path": "src/components/ui/types.ts"
+				}
+			]
+		},
+		{
+			"name": "field-message",
+			"pkgDeps": ["class-variance-authority"],
+			"regDeps": ["cn", "variants", "types", "type-helpers"],
+			"files": [
+				{
+					"path": "src/components/ui/data-entry/fields/message.tsx"
+				}
+			]
+		},
+		{
+			"name": "material-design",
+			"files": [
+				{
+					"path": ""
+				}
+			]
+		},
+		{
 			"name": "default-theme-config",
+			"regDeps": ["material-design"],
 			"files": [
 				{
 					"path": "uno.config.ts"
+				}
+			]
+		},
+		{
+			"name": "type-helpers",
+			"files": [
+				{
+					"path": "src/lib/types/helpers.ts"
 				}
 			]
 		}
