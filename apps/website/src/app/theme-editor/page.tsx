@@ -1,4 +1,4 @@
-import { Link } from "@/components/ui/navigation/link/link";
+import { Link } from "@/components/ui/navigation/next-link";
 import { T } from "@/components/ui/typography";
 
 export default function ThemeEditorPage() {

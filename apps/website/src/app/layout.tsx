@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { ThemeToggle } from "@/components/features/theme/toggle";
 
-import { Link } from "@/components/ui/navigation/link/link";
+import { Link } from "@/components/ui/navigation/next-link";
 
 const sansFont = localFont({
 	src: "./nunito.ttf",

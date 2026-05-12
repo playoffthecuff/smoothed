@@ -5,7 +5,7 @@ import { Sandbox } from "@/components/sandbox/sandbox";
 import { HighlightedCode } from "@/components/ui/highlighted-code";
 import { DislikeIcon } from "@/components/ui/icons/dislike";
 import { LikeIcon } from "@/components/ui/icons/like";
-import { Link } from "@/components/ui/navigation/link/link";
+import { Link } from "@/components/ui/navigation/next-link";
 import { ToggleGroup } from "@/components/ui/triggers/toggle-group";
 import { T } from "@/components/ui/typography";
 
