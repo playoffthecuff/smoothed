@@ -1,0 +1,16 @@
+{
+	"name": "card",
+	"regDeps": ["cn", "typography", "types"],
+	"pkgDeps": ["class-variance-authority"],
+	"files": [
+		{
+			"path": "src/components/ui/data-display/card/parts.tsx",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils/cn\";\nimport type { CompoundProps } from \"../../types\";\nimport { T } from \"../../typography\";\n\n//TODO Add variants\n//TODO Add data slots attributes to all compound components\n\nexport const cardVariants = cva(\n\t\"flex flex-col gap-12d bg-2 rounded-12d overflow-hidden rel-elevation-6 —base-elevation-4 sfc-solid\",\n\t{\n\t\tvariants: {\n\t\t\tflat: {\n\t\t\t\ttrue: null,\n\t\t\t\tfalse: \"sfc-shadow\",\n\t\t\t},\n\t\t},\n\t\tdefaultVariants: {\n\t\t\tflat: false,\n\t\t},\n\t},\n);\n\nexport type CardVariants = VariantProps<typeof cardVariants>;\n\nexport const Root = ({\n\tchildren,\n\tclassName,\n\t...props\n}: CardVariants & CompoundProps) => {\n\treturn (\n\t\t<article data-slot=\"card\" className={cn(cardVariants(props), className)}>\n\t\t\t{children}\n\t\t</article>\n\t);\n};\n\nexport const Header = ({ children, className }: CompoundProps) => (\n\t<header\n\t\tdata-slot=\"card-header\"\n\t\tclassName={cn(\"flex items-center gap-16d\", className)}\n\t>\n\t\t{children}\n\t</header>\n);\n\nexport const Title = (props: T.TitleProps) => (\n\t<T.Title data-slot=\"card-title\" as=\"h3\" size={\"l\"} {...props} />\n);\n\nexport const Description = (props: T.TextProps) => (\n\t<T.Text data-slot=\"card-description\" as=\"p\" emphasis={\"medium\"} {...props} />\n);\n\nexport const Content = ({ children, className }: CompoundProps) => (\n\t<div data-slot=\"card-content\" className={cn(\"px-16d\", className)}>\n\t\t{children}\n\t</div>\n);\n\nexport const Footer = ({ children, className }: CompoundProps) => (\n\t<footer data-slot=\"card-footer\" className={cn(\"px-16d\", className)}>\n\t\t{children}\n\t</footer>\n);\n"
+		},
+		{
+			"path": "src/components/ui/data-display/card/index.ts",
+			"content": "export * as Card from \"./parts\";\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

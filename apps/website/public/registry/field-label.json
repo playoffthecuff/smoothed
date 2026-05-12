@@ -1,0 +1,12 @@
+{
+	"name": "field-label",
+	"regDeps": ["cn", "variants"],
+	"pkgDeps": ["class-variance-authority"],
+	"files": [
+		{
+			"path": "src/components/ui/data-entry/fields/label.tsx",
+			"content": "import type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { cn } from \"@/lib/utils/cn\";\nimport type { CompoundProps } from \"../../types\";\nimport { Variants } from \"../../variants\";\n\nexport namespace FieldLabel {\n\texport type Variants = Variants.EmphasisSurface;\n\texport type Props = FlattenIntersection<\n\t\tVariants &\n\t\t\tCompoundProps & {\n\t\t\t\tid?: string;\n\t\t\t\tname?: string;\n\t\t\t\trequired?: boolean;\n\t\t\t}\n\t>;\n}\n\nexport const FieldLabel = ({\n\tchildren,\n\tclassName,\n\t...props\n}: FieldLabel.Props) => (\n\t<label\n\t\tclassName={cn(\n\t\t\t\"leading-[1.25] sfc-text sfc-color-default-on-default\",\n\t\t\tVariants.emphasisSurfaceVariants(props),\n\t\t\tclassName,\n\t\t)}\n\t\thtmlFor={props.id ?? props.name}\n\t>\n\t\t{children}\n\t</label>\n);\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

@@ -605,7 +605,7 @@
 			"regDeps": ["variants", "type-helpers"],
 			"files": [
 				{
-					"path": "src/components/ui/navigation/link/parts.tsx"
+					"path": "src/components/ui/navigation/link/parts.ts"
 				},
 				{
 					"path": "src/components/ui/navigation/link/index.ts"
@@ -821,7 +821,40 @@
 			"name": "material-design",
 			"files": [
 				{
-					"path": ""
+					"path": "src/design-systems/ds-utils.ts"
+				},
+				{
+					"path": "src/design-systems/material/preset.ts"
+				},
+				{
+					"path": "src/design-systems/material/options.ts"
+				},
+				{
+					"path": "src/design-systems/material/types.ts"
+				},
+				{
+					"path": "src/design-systems/material/utils.ts"
+				},
+				{
+					"path": "src/design-systems/material/animation/animation.ts"
+				},
+				{
+					"path": "src/design-systems/material/color/color.ts"
+				},
+				{
+					"path": "src/design-systems/material/geometry/geometry.ts"
+				},
+				{
+					"path": "src/design-systems/material/shadows/shadows.ts"
+				},
+				{
+					"path": "src/design-systems/material/surface/computation.ts"
+				},
+				{
+					"path": "src/design-systems/material/surface/surface.ts"
+				},
+				{
+					"path": "src/design-systems/material/typography/typography.ts"
 				}
 			]
 		},

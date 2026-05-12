@@ -1,0 +1,11 @@
+{
+	"name": "help-outlined-icon",
+	"regDeps": ["icon-types"],
+	"files": [
+		{
+			"path": "src/components/ui/icons/help-outlined.tsx",
+			"content": "import type { IconProps } from \"./types\";\n\nexport function HelpOutlinedIcon({\n\tsize = 1.25,\n\twidth,\n\theight,\n\tfill,\n\tstroke = \"currentColor\",\n\tstrokeWidth = 1.75,\n\t...props\n}: IconProps) {\n\treturn (\n\t\t<svg\n\t\t\twidth={`${size}em` || width}\n\t\t\theight={`${size}em` || height}\n\t\t\tviewBox=\"0 0 24 24\"\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\tstrokeLinecap=\"round\"\n\t\t\tstrokeWidth={strokeWidth}\n\t\t\tstroke={stroke}\n\t\t\tfill=\"none\"\n\t\t\t{...props}\n\t\t>\n\t\t\t<circle cx=\"12\" cy=\"12\" r=\"9\" />\n\t\t\t<circle cx=\"12\" cy=\"17\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\" />\n\t\t\t<path d=\"M9.5 9L9.5347 8.8612C9.80816 7.76736 10.791 7 11.9185 7H11.9984C13.1534 7 14.1392 7.83506 14.3291 8.97439C14.4346 9.60765 14.1894 10.2485 13.6881 10.6495L12.7809 11.3753C12.2873 11.7701 12 12.3679 12 13\" />\n\t\t</svg>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

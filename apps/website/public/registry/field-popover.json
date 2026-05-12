@@ -1,0 +1,11 @@
+{
+	"name": "field-popover",
+	"regDeps": ["types", "popover"],
+	"files": [
+		{
+			"path": "src/components/ui/data-entry/fields/popover.tsx",
+			"content": "import { Popover as BasePopover } from \"../../overlays/popover\";\nimport type { CompoundProps } from \"../../types\";\n\nexport const FieldPopover = ({\n\tchildren,\n\tclassName,\n\t...props\n}: BasePopover.Root.Props & CompoundProps) => {\n\treturn (\n\t\t<BasePopover.Root {...props}>\n\t\t\t<BasePopover.Trigger className={className}>\n\t\t\t\t{children}\n\t\t\t</BasePopover.Trigger>\n\t\t</BasePopover.Root>\n\t);\n};\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

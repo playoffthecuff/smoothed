@@ -1,0 +1,27 @@
+{
+	"name": "typography",
+	"regDeps": ["cn", "variants", "types", "type-helpers"],
+	"files": [
+		{
+			"path": "src/components/ui/typography/parts.ts",
+			"content": "export * from \"./text\";\nexport * from \"./title\";\n"
+		},
+		{
+			"path": "src/components/ui/typography/index.ts",
+			"content": "export * as T from \"./parts\";\n"
+		},
+		{
+			"path": "src/components/ui/typography/text.tsx",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { cn } from \"@/lib/utils/cn\";\nimport { Typography, type TypographyProps } from \"./typography\";\n\nconst textVariants = cva(null, {\n\tvariants: {\n\t\tsize: {\n\t\t\txxxs: \"text-12\",\n\t\t\txxs: \"text-13\",\n\t\t\txs: \"text-14\",\n\t\t\ts: \"text-15\",\n\t\t\tm: \"text-16\",\n\t\t\tl: \"text-17\",\n\t\t\txl: \"text-18\",\n\t\t\txxl: \"text-19\",\n\t\t\txxxl: \"text-20\",\n\t\t},\n\t},\n});\n\nexport type TextVariants = VariantProps<typeof textVariants>;\nexport type TextProps = FlattenIntersection<TypographyProps & TextVariants>;\n\nexport const Text = ({\n\tclassName,\n\tsize = \"m\",\n\temphasis = \"high\",\n\tas = \"span\",\n\t...props\n}: TextProps) => (\n\t<Typography\n\t\tclassName={cn(textVariants({ size }), className)}\n\t\temphasis={emphasis}\n\t\t{...props}\n\t></Typography>\n);\n"
+		},
+		{
+			"path": "src/components/ui/typography/title.tsx",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { cn } from \"@/lib/utils/cn\";\nimport { Typography, type TypographyProps } from \"./typography\";\n\nconst titleVariants = cva(\"fw-11d\", {\n\tvariants: {\n\t\tsize: {\n\t\t\txxs: \"text-15\",\n\t\t\txs: \"text-16\",\n\t\t\ts: \"text-17\",\n\t\t\tm: \"text-18\",\n\t\t\tl: \"text-19\",\n\t\t\txl: \"text-20\",\n\t\t\txxl: \"text-21\",\n\t\t},\n\t},\n});\n\nexport type TitleVariants = VariantProps<typeof titleVariants>;\nexport type TitleProps = FlattenIntersection<TypographyProps & TitleVariants>;\n\nexport const Title = ({\n\tclassName,\n\tsize = \"xxl\",\n\temphasis = \"high\",\n\tas = \"h1\",\n\t...props\n}: TitleProps) => (\n\t<Typography\n\t\tclassName={cn(titleVariants({ size }), className)}\n\t\temphasis={emphasis}\n\t\t{...props}\n\t></Typography>\n);\n"
+		},
+		{
+			"path": "src/components/ui/typography/typography.tsx",
+			"content": "import type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { cn } from \"@/lib/utils/cn\";\nimport type { CompoundProps } from \"../types\";\nimport { Variants } from \"../variants\";\n\nexport type TypographyProps = FlattenIntersection<\n\tVariants.EmphasisSurface &\n\t\tCompoundProps & {\n\t\t\tas?: React.ElementType;\n\t\t}\n>;\n\nexport const Typography = ({\n\tas: Tag = \"span\",\n\temphasis,\n\tclassName,\n\t...props\n}: TypographyProps) => {\n\treturn (\n\t\t<Tag\n\t\t\tclassName={cn(\n\t\t\t\t\"sfc-text sfc-color-default-on-default\",\n\t\t\t\tVariants.emphasisSurfaceVariants({ emphasis }),\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n};\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

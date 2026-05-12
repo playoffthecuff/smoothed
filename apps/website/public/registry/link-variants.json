@@ -1,0 +1,15 @@
+{
+	"name": "link-variants",
+	"regDeps": ["variants", "type-helpers"],
+	"files": [
+		{
+			"path": "src/components/ui/navigation/link/parts.ts",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\nimport type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { Variants as SharedVariants } from \"../../variants\";\n\nexport const emphasis = SharedVariants.emphasisSurfaceVariants;\nexport const intent = SharedVariants.interactiveIntentSurfaceVariants;\nexport const size = SharedVariants.fontSizeVariants;\nexport const weight = SharedVariants.mediumFontVariants;\nexport const link = cva(\"lifted-text sfc-text hover:underline self-start\");\nexport const intentVisited = cva(null, {\n\tvariants: {\n\t\tvisitedIntent: {\n\t\t\tneutral: \"visited:sfc-color-neutral-on-neutral-ia\",\n\t\t\tvisited: \"visited:sfc-color-visited-on-visited-ia\",\n\t\t},\n\t},\n\tcompoundVariants: [\n\t\t{\n\t\t\tvisitedIntent: undefined,\n\t\t\tclassName: \"visited:sfc-color-default-on-default-ia\",\n\t\t},\n\t],\n});\n\ntype VisitedIntentVariants = VariantProps<typeof intentVisited>;\n\nexport type Variants = FlattenIntersection<\n\tSharedVariants.EmphasisSurface &\n\t\tSharedVariants.IntentSurface &\n\t\tSharedVariants.Size &\n\t\tVisitedIntentVariants\n>;\n"
+		},
+		{
+			"path": "src/components/ui/navigation/link/index.ts",
+			"content": "export * as Link from \"./parts\";\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

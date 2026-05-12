@@ -1,0 +1,59 @@
+{
+	"name": "variants",
+	"pkgDeps": ["class-variance-authority"],
+	"files": [
+		{
+			"path": "src/components/ui/variants/parts.ts",
+			"content": "export * from \"./emphasis-surface\";\nexport * from \"./intent-surface\";\nexport * from \"./size\";\nexport * from \"./surface-cursor\";\nexport * from \"./surface-shape\";\nexport * from \"./width\";\n"
+		},
+		{
+			"path": "src/components/ui/variants/index.ts",
+			"content": "export * as Variants from \"./parts\";\n"
+		},
+		{
+			"path": "src/components/ui/variants/emphasis-surface.ts",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\n\nexport const emphasisSurfaceVariants = cva(null, {\n\tvariants: {\n\t\temphasis: {\n\t\t\tlow: \"sfc-emphasis-low-on-low\",\n\t\t\tmedium: \"sfc-emphasis-medium-on-medium\",\n\t\t\thigh: \"sfc-emphasis-high-on-high\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\temphasis: \"medium\",\n\t},\n});\nexport type EmphasisSurface = VariantProps<typeof emphasisSurfaceVariants>;\n"
+		},
+		{
+			"path": "src/components/ui/variants/intent-surface.ts",
+			"content": "import { cva } from \"class-variance-authority\";\n\nexport type IntentSurface = {\n\tintent?: \"neutral\" | \"accent\" | \"success\" | \"warning\" | \"danger\" | \"info\";\n};\n\ntype Config = {\n\tintent: Record<NonNullable<IntentSurface[\"intent\"]>, string>;\n};\n\nexport const intentSurfaceVariants = cva<Config>(null, {\n\tvariants: {\n\t\tintent: {\n\t\t\tneutral: \"sfc-color-neutral-on-neutral\",\n\t\t\taccent: \"sfc-color-accent-on-accent\",\n\t\t\tsuccess: \"sfc-color-success-on-success\",\n\t\t\twarning: \"sfc-color-warning-on-warning\",\n\t\t\tdanger: \"sfc-color-danger-on-danger\",\n\t\t\tinfo: \"sfc-color-info-on-info\",\n\t\t},\n\t},\n\tcompoundVariants: [\n\t\t{\n\t\t\tintent: undefined,\n\t\t\tclassName: \"sfc-color-default-on-default\",\n\t\t},\n\t],\n});\n\nexport const interactiveIntentSurfaceVariants = cva<Config>(null, {\n\tvariants: {\n\t\tintent: {\n\t\t\tneutral: \"sfc-color-neutral-on-neutral-ia\",\n\t\t\taccent: \"sfc-color-accent-on-accent-ia\",\n\t\t\tsuccess: \"sfc-color-success-on-success-ia\",\n\t\t\twarning: \"sfc-color-warning-on-warning-ia\",\n\t\t\tdanger: \"sfc-color-danger-on-danger-ia\",\n\t\t\tinfo: \"sfc-color-info-on-info-ia\",\n\t\t},\n\t},\n\tcompoundVariants: [\n\t\t{\n\t\t\tintent: undefined,\n\t\t\tclassName: \"sfc-color-default-on-default-ia\",\n\t\t},\n\t],\n});\n"
+		},
+		{
+			"path": "src/components/ui/variants/surface-cursor.ts",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\n\nexport const surfaceCursorVariants = cva(null, {\n\tvariants: {\n\t\tdisabled: {\n\t\t\ttrue: \"cursor-not-allowed\",\n\t\t},\n\t\tloading: {\n\t\t\ttrue: null,\n\t\t},\n\t},\n\tcompoundVariants: [\n\t\t{ disabled: false, loading: true, className: \"cursor-wait\" },\n\t\t{ disabled: false, loading: false, className: \"cursor-pointer\" },\n\t],\n\tdefaultVariants: {\n\t\tdisabled: false,\n\t\tloading: false,\n\t},\n});\n\nexport type SurfaceCursor = VariantProps<typeof surfaceCursorVariants>;\n"
+		},
+		{
+			"path": "src/components/ui/variants/surface-shape.ts",
+			"content": "import { cva, type VariantProps } from \"class-variance-authority\";\n\nexport const surfaceShapeVariants = cva(null, {\n\tvariants: {\n\t\tshape: {\n\t\t\tsquare: null,\n\t\t\trounded: \"sfc-rounded\",\n\t\t\tcircular: \"sfc-circular\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\tshape: \"rounded\",\n\t},\n});\n\nexport type SurfaceShape = VariantProps<typeof surfaceShapeVariants>;\n"
+		},
+		{
+			"path": "src/components/ui/variants/size/index.ts",
+			"content": "export * from \"./font-size\";\nexport * from \"./font-weight\";\nexport * from \"./types\";\n"
+		},
+		{
+			"path": "src/components/ui/variants/size/types.ts",
+			"content": "type SizeVariants = \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\";\n\nexport type Size = {\n\tsize?: SizeVariants;\n};\n"
+		},
+		{
+			"path": "src/components/ui/variants/size/font-size.ts",
+			"content": "import { cva } from \"class-variance-authority\";\nimport type { Size } from \"./types\";\n\nexport const fontSizeVariants = cva<{\n\tsize: Record<NonNullable<Size[\"size\"]>, string>;\n}>(null, {\n\tvariants: {\n\t\tsize: {\n\t\t\txs: \"fs-14d\",\n\t\t\ts: \"fs-15d\",\n\t\t\tm: \"fs-16d\",\n\t\t\tl: \"fs-17d\",\n\t\t\txl: \"fs-18d\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\tsize: \"m\",\n\t},\n});\n"
+		},
+		{
+			"path": "src/components/ui/variants/size/font-weight.ts",
+			"content": "import { cva } from \"class-variance-authority\";\nimport type { Size } from \"./types\";\n\ntype Config = {\n\tsize: Record<NonNullable<Size[\"size\"]>, string>;\n};\n\nexport const mediumFontVariants = cva<Config>(null, {\n\tvariants: {\n\t\tsize: {\n\t\t\txs: \"fw-9d\",\n\t\t\ts: \"fw-8.5d\",\n\t\t\tm: \"fw-8d\",\n\t\t\tl: \"fw-7.5d\",\n\t\t\txl: \"fw-7d\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\tsize: \"m\",\n\t},\n});\n\nexport const semiBoldFontVariants = cva<Config>(null, {\n\tvariants: {\n\t\tsize: {\n\t\t\txs: \"fw-9.5d\",\n\t\t\ts: \"fw-9d\",\n\t\t\tm: \"fw-8.5d\",\n\t\t\tl: \"fw-8d\",\n\t\t\txl: \"fw-7.5d\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\tsize: \"m\",\n\t},\n});\n\nexport const boldFontVariants = cva<Config>(null, {\n\tvariants: {\n\t\tsize: {\n\t\t\txs: \"fw-10d\",\n\t\t\ts: \"fw-9.5d\",\n\t\t\tm: \"fw-9d\",\n\t\t\tl: \"fw-8.5d\",\n\t\t\txl: \"fw-8d\",\n\t\t},\n\t},\n});\n"
+		},
+		{
+			"path": "src/components/ui/variants/width/index.ts",
+			"content": "export * from \"./input\";\nexport * from \"./types\";\n"
+		},
+		{
+			"path": "src/components/ui/variants/width/types.ts",
+			"content": "type WidthVariants = \"fit\" | \"narrow\" | \"normal\" | \"wide\" | \"fill\";\n\nexport type InputWidth = {\n\twidth?: Exclude<WidthVariants, \"fit\"> | null;\n};\n"
+		},
+		{
+			"path": "src/components/ui/variants/width/input.ts",
+			"content": "import { cva } from \"class-variance-authority\";\nimport type { InputWidth } from \"./types\";\n\ntype Config = {\n\twidth: Record<NonNullable<InputWidth[\"width\"]>, string>;\n};\n\nexport const inputWidthVariants = cva<Config>(null, {\n\tvariants: {\n\t\twidth: {\n\t\t\tnarrow: \"input-box-narrow\",\n\t\t\tnormal: \"input-box-normal\",\n\t\t\twide: \"input-box-wide\",\n\t\t\tfill: \"input-box-fill\",\n\t\t},\n\t},\n\tdefaultVariants: {\n\t\twidth: \"normal\",\n\t},\n});\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

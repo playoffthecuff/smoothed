@@ -1,0 +1,11 @@
+{
+	"name": "next-link",
+	"regDeps": ["types", "link-variants", "cn", "helper-types"],
+	"files": [
+		{
+			"path": "src/components/ui/navigation/next-link/index.tsx",
+			"content": "import NextLink, { type LinkProps as NextLinkProps } from \"next/link\";\nimport type { FlattenIntersection } from \"@/lib/types/helpers\";\nimport { cn } from \"@/lib/utils/cn\";\nimport type { CompoundProps } from \"../../types\";\nimport { Link as BaseLink } from \"../link\";\n\nexport type LinkProps = FlattenIntersection<BaseLink.Variants & NextLinkProps>;\n\nexport function Link({\n\tchildren,\n\tclassName,\n\temphasis,\n\tintent,\n\tsize,\n\tvisitedIntent,\n\t...props\n}: LinkProps & CompoundProps) {\n\treturn (\n\t\t<NextLink\n\t\t\t{...props}\n\t\t\tclassName={cn(\n\t\t\t\tBaseLink.emphasis({ emphasis }),\n\t\t\t\tBaseLink.intent({ intent }),\n\t\t\t\tBaseLink.link(),\n\t\t\t\tBaseLink.size({ size }),\n\t\t\t\tBaseLink.weight({ size }),\n\t\t\t\tBaseLink.intentVisited({ visitedIntent }),\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t>\n\t\t\t{children}\n\t\t</NextLink>\n\t);\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

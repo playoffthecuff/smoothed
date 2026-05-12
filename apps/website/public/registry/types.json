@@ -1,0 +1,10 @@
+{
+	"name": "types",
+	"files": [
+		{
+			"path": "src/components/ui/types.ts",
+			"content": "export type Size = \"xs\" | \"s\" | \"m\" | \"l\" | \"xl\";\nexport type Shape = \"square\" | \"rounded\" | \"circular\";\nexport type Width = \"narrow\" | \"normal\" | \"wide\" | \"fill\";\nexport type State = \"disabled\" | \"loading\";\nexport type Status = \"valid\" | \"warning\" | \"invalid\";\nexport type Appearance =\n\t| \"solid\"\n\t| \"subtle\"\n\t| \"outline\"\n\t| \"dashed\"\n\t| \"ghost\"\n\t| \"text\";\nexport type Intent =\n\t| \"neutral\"\n\t| \"accent\"\n\t| \"info\"\n\t| \"success\"\n\t| \"warning\"\n\t| \"danger\";\n\nexport interface ComponentAppearance {\n\tsize: Size | null;\n\tshape: Shape | null;\n\twidth: Width | null;\n\tintent: Intent | null;\n}\n\nexport interface ComponentState {\n\tdisabled: boolean | null;\n\tloading: boolean | null;\n\tstatus: Status | null;\n}\n\nexport interface CompoundProps {\n\tchildren?: React.ReactNode;\n\tclassName?: string;\n}\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}

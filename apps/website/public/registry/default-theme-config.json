@@ -1,0 +1,11 @@
+{
+	"name": "default-theme-config",
+	"regDeps": ["material-design"],
+	"files": [
+		{
+			"path": "uno.config.ts",
+			"content": "import { defineConfig } from \"unocss\";\nimport { options } from \"./src/design-systems/material/options\";\nimport material from \"./src/design-systems/material/preset\";\nexport default defineConfig({\n\tpresets: [material(options)],\n\tcontent: {\n\t\tpipeline: {\n\t\t\texclude: [\"src/**/*.{js,ts}\"],\n\t\t},\n\t},\n});\n"
+		}
+	],
+	"$schema": "https://smoothed.vercel.app/item-schema.json"
+}
