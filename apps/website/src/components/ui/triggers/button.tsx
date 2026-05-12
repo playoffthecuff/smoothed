@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils/cn";
 import { useRippleAnimate } from "../use-ripple-animate";
 import { Variants } from "../variants";
 
-const buttonVariants = cva("sfc-ripple", {
+const buttonVariants = cva("sfc-ripple sfc-focus-shadow", {
 	variants: {
 		width: {
 			fit: "trigger-box-fit",
