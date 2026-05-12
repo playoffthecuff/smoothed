@@ -2,7 +2,6 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
-// import { useRippleAnimate } from "@/components/ui/use-ripple-animate";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
 import { useRippleAnimate } from "../use-ripple-animate";
