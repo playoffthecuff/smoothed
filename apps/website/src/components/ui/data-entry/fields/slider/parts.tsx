@@ -1,64 +1,20 @@
 "use client";
 import { Slider as BaseSlider } from "@base-ui/react/slider";
 import { cva, type VariantProps } from "class-variance-authority";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import { SpinnerIcon } from "@/components/ui/icons/spinner";
 import { Popover } from "@/components/ui/overlays/popover";
 import type { CompoundProps } from "@/components/ui/types";
-import { Variants } from "@/components/ui/variants";
-import { emphasisSurfaceVariants } from "@/components/ui/variants/emphasis-surface";
+import { Variants as SharedVariants } from "@/components/ui/variants";
 import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
-import { FieldLabel } from "../label";
-import { FieldMessage, type FieldMessageVariants } from "../message";
+import type { FieldLabel } from "../label";
+import { FieldMessage } from "../message";
+
+export { Popover } from "../popover";
 
 // TODO сделать спиннер видимым в отключенном состоянии
 // TODO добавить градации emphasis через готовые или подобные интерполированные поверхности
-
-const rootVariants = cva(
-	"inline-flex flex-col justify-center pe-[.5em] —base-elevation-8",
-	{
-		variants: {
-			width: {
-				narrow: "w-fit",
-				normal: "w-fit",
-				wide: "w-fit",
-				fill: "w-full",
-			},
-			shape: {
-				square: null,
-				rounded: "sfc-rounded-6",
-				circular: "rounded-full",
-			},
-			outlined: {
-				true: "sfc-border",
-			},
-			solid: {
-				true: "sfc-solid",
-			},
-		},
-		defaultVariants: {
-			shape: "rounded",
-			width: "normal",
-			solid: false,
-			outlined: false,
-		},
-	},
-);
-
-const controlVariants = cva("flex touch-none items-center h-[2em]", {
-	variants: {
-		width: {
-			narrow: "w-[8em]",
-			normal: "w-[11.31em]",
-			wide: "w-[16em]",
-			fill: "w-full",
-		},
-	},
-	defaultVariants: {
-		width: "normal",
-	},
-});
 
 const trackVariants = cva(
 	"select-none sfc-color-background-on-background sfc-solid —rel-elevation-5 base-elevation-0 w-full data-[dragging]:h-1/2 group transition-all",
@@ -112,16 +68,13 @@ const indicatorVariants = cva(
 );
 
 const thumbVariants = cva(
-	"not-hover:[--bg-opacity:0] rounded-full checkbox-box rounded-full [--bg-opacity:0.3] active:[--bg-opacity:0.4] lifted-trigger sfc-slider-thumb before:scale-50 group active:h-[3em] active:w-[3em] group-data-[dragging]:[--bg-opacity:0.4] group-data-[dragging]:h-[3em] group-data-[dragging]:w-[3em]",
+	"[--bg-opacity:0] rounded-full checkbox-box rounded-full hover:[--bg-opacity:.3] active:[--bg-opacity:.4] lifted-trigger sfc-subtle before:scale-50 group active:h-[3em] active:w-[3em] group-data-[dragging]:[--bg-opacity:.4] group-data-[dragging]:h-[3em] group-data-[dragging]:w-[3em] has-focus:[--bg-opacity:.4]",
 );
 
 const thumbCoreVariants = cva(
 	"flex items-center justify-center bg-[var(--bg-color)] rel-elevation-6 base-elevation-6",
 	{
 		variants: {
-			loading: {
-				true: "text-transparent",
-			},
 			shape: {
 				square: "w-[1em] h-[1em]",
 				rounded: "sfc-rounded-2 w-[1em] h-[1em]",
@@ -157,26 +110,28 @@ const thumbCoreVariants = cva(
 	},
 );
 
-type RootVariants = VariantProps<typeof rootVariants>;
 type IndicatorVariants = VariantProps<typeof indicatorVariants>;
 type ThumbCoreVariants = VariantProps<typeof thumbCoreVariants>;
-
-export type SliderProps = FlattenIntersection<
-	RootVariants &
-		FieldMessageVariants &
-		IndicatorVariants &
-		Variants.IntentSurface &
-		Variants.EmphasisSurface &
-		Variants.Size &
-		Variants.SurfaceCursor &
-		ThumbCoreVariants & {
-			required?: boolean;
-		}
+export type Variants = FlattenIntersection<
+	FieldMessage.Variants &
+		SharedVariants.InputWidth &
+		SharedVariants.IntentSurface &
+		SharedVariants.EmphasisSurface &
+		SharedVariants.Size &
+		SharedVariants.SurfaceCursor &
+		ThumbCoreVariants &
+		IndicatorVariants
 >;
 
-const SliderFieldContext = createContext<
-	(SliderProps & { isRange: boolean; outputWidth: string }) | null
->(null);
+type ContextProps = FlattenIntersection<
+	Variants &
+		Pick<BaseSlider.Root.Props, "value" | "defaultValue"> &
+		Omit<FieldLabel.Props, "className" | "children">
+>;
+
+export type Props = FlattenIntersection<CompoundProps & ContextProps>;
+
+const SliderFieldContext = createContext<ContextProps | null>(null);
 
 const useSliderFieldProps = () => {
 	const ctx = useContext(SliderFieldContext);
@@ -187,6 +142,8 @@ const useSliderFieldProps = () => {
 export const Root = ({
 	children,
 	className,
+	value,
+	defaultValue,
 	disabled,
 	emphasis,
 	flat,
@@ -199,7 +156,7 @@ export const Root = ({
 	width,
 	required,
 	...props
-}: SliderProps & CompoundProps & BaseSlider.Root.Props) => {
+}: Props & BaseSlider.Root.Props) => {
 	const variantProps = {
 		disabled,
 		emphasis,
@@ -212,31 +169,29 @@ export const Root = ({
 		solid,
 		size,
 		width,
-		isRange:
-			(Array.isArray(props.defaultValue) && props.defaultValue.length === 2) ||
-			(Array.isArray(props.value) && props.value.length === 2),
-		outputWidth: `${`${props.max ?? 100}`.length}ch`,
+		value,
+		defaultValue,
 	};
 
 	return (
 		<BaseSlider.Root
 			className={cn(
-				rootVariants(variantProps),
-				Variants.emphasisSurfaceVariants(variantProps),
-				Variants.fontSizeVariants(variantProps),
-				Variants.semiBoldFontVariants(variantProps),
-				variantProps.isRange ? "ps-[.5em]" : "ps-[1.5em]",
+				"flex-col justify-center",
+				width === "fill" ? "flex" : "inline-flex w-min",
+				SharedVariants.emphasisSurfaceVariants(variantProps),
+				SharedVariants.fontSizeVariants(variantProps),
+				SharedVariants.semiBoldFontVariants(variantProps),
 				className,
 			)}
 			disabled={disabled}
 			{...props}
+			value={value}
+			defaultValue={defaultValue}
 		>
-			{loading && (
-				<SpinnerIcon className="absolute animate-spin self-end me-[.5em]" />
+			{loading && disabled && (
+				<SpinnerIcon className="absolute animate-spin self-center z-1 mt-[.25em]" />
 			)}
-			<div
-				className={cn("flex flex-col py-[.5em]", disabled && "sfc-disabled")}
-			>
+			<div className={cn("flex flex-col", disabled && "sfc-disabled")}>
 				<SliderFieldContext.Provider value={variantProps}>
 					{children}
 				</SliderFieldContext.Provider>
@@ -245,159 +200,149 @@ export const Root = ({
 	);
 };
 
-export const Slider = () => {
-	const props = useSliderFieldProps();
+export const Slider = (props: Variants) => {
+	const mergedProps = { ...useSliderFieldProps(), ...props };
+	const value = mergedProps.defaultValue || mergedProps.value;
+	const [hovered, setHovered] = useState<boolean[]>(
+		Array.isArray(value) ? value.map((_) => false) : [false],
+	);
 	return (
-		<div className={cn("flex items-center gap-[1em]")}>
-			{props.isRange && (
-				<span
-					className="relative flex items-center justify-end h-[1.6em]"
-					style={{ width: props.outputWidth }}
+		<BaseSlider.Control
+			className={cn(
+				"pt-[.5em] h-[2.5em]",
+				SharedVariants.inputWidthVariants(mergedProps),
+				SharedVariants.surfaceCursorVariants(mergedProps),
+			)}
+		>
+			<div className={cn("h-full w-full flex items-center group px-[.525em]")}>
+				<BaseSlider.Track
+					className={cn(
+						trackVariants(mergedProps),
+						SharedVariants.emphasisSurfaceVariants(mergedProps),
+						mergedProps.disabled && "pointer-events-none",
+					)}
 				>
-					<BaseSlider.Value
-						render={(_, p) => {
-							return (
-								<output
-									className={cn(
-										"fw-mono",
-										props.loading && "text-transparent",
-										(props.disabled || props.loading) && "select-none",
-									)}
-								>
-									{p.values[0]}
-								</output>
-							);
+					<BaseSlider.Indicator
+						className={cn(
+							indicatorVariants(mergedProps),
+							SharedVariants.intentSurfaceVariants(mergedProps),
+							SharedVariants.emphasisSurfaceVariants(mergedProps),
+						)}
+						style={{
+							height: "100%",
 						}}
 					/>
-				</span>
-			)}
-			<BaseSlider.Control
-				className={cn(
-					controlVariants(props),
-					Variants.surfaceCursorVariants(props),
-				)}
-			>
-				<div className={cn("h-full w-full flex items-center group")}>
-					<BaseSlider.Track
-						className={cn(
-							trackVariants(props),
-							Variants.emphasisSurfaceVariants(props),
-							props.disabled && "pointer-events-none",
-						)}
-					>
-						<BaseSlider.Indicator
-							className={cn(
-								indicatorVariants(props),
-								Variants.intentSurfaceVariants(props),
-								Variants.emphasisSurfaceVariants(props),
+					{hovered.map((_, i) => (
+						<BaseSlider.Value
+							key={i}
+							render={(_, p) => (
+								<BaseSlider.Thumb
+									tabIndex={mergedProps.loading ? -1 : 0}
+									className={cn(
+										thumbVariants(),
+										SharedVariants.interactiveIntentSurfaceVariants(
+											mergedProps,
+										),
+										SharedVariants.emphasisSurfaceVariants(mergedProps),
+									)}
+								>
+									<Popover.Root
+										open={
+											(p.dragging && p.activeThumbIndex === i) ||
+											p.focused ||
+											hovered[i]
+										}
+									>
+										<Popover.Trigger
+											delay={10}
+											className="outline-none"
+											onMouseEnter={() =>
+												setHovered(
+													hovered.map((v, idx) => (idx === i ? true : v)),
+												)
+											}
+											onMouseLeave={() =>
+												setHovered(
+													hovered.map((v, idx) => (idx === i ? false : v)),
+												)
+											}
+										>
+											<div className={thumbCoreVariants(mergedProps)}></div>
+										</Popover.Trigger>
+										<Popover.Portal sideOffset={24} {...mergedProps}>
+											<output
+												className={cn(
+													"fw-mono",
+													(mergedProps.disabled || mergedProps.loading) &&
+														"select-none",
+												)}
+											>
+												{p.values[i]}
+											</output>
+										</Popover.Portal>
+									</Popover.Root>
+								</BaseSlider.Thumb>
 							)}
-							style={{
-								height: "100%",
-							}}
 						/>
-						<BaseSlider.Thumb
-							tabIndex={props.loading ? -1 : 0}
-							className={cn(
-								thumbVariants(),
-								Variants.interactiveIntentSurfaceVariants(props),
-								Variants.emphasisSurfaceVariants(props),
-							)}
-							index={0}
-						>
-							<div className={thumbCoreVariants(props)}></div>
-						</BaseSlider.Thumb>
-						{props.isRange && (
-							<BaseSlider.Thumb
-								tabIndex={props.loading ? -1 : 0}
-								className={cn(
-									thumbVariants(),
-									Variants.interactiveIntentSurfaceVariants(props),
-									Variants.emphasisSurfaceVariants(props),
-								)}
-								index={1}
-							>
-								<div className={thumbCoreVariants(props)}></div>
-							</BaseSlider.Thumb>
-						)}
-					</BaseSlider.Track>
-				</div>
-			</BaseSlider.Control>
-			<span
-				className="relative flex items-center h-[1.6em] justify-start"
-				style={{ width: props.outputWidth }}
-			>
-				<BaseSlider.Value
-					render={(_, p) => (
-						<output
-							className={cn(
-								"fw-mono",
-								props.loading && "text-transparent",
-								(props.disabled || props.loading) && "select-none",
-							)}
-						>
-							{p.values[+props.isRange]}
-						</output>
-					)}
-				/>
-			</span>
-		</div>
+					))}
+				</BaseSlider.Track>
+			</div>
+		</BaseSlider.Control>
 	);
 };
 
-export const Message = ({ children, className }: CompoundProps) => {
-	const { isRange, outputWidth, outlined, solid, ...props } =
-		useSliderFieldProps();
+export const Message = ({
+	children,
+	className,
+	...props
+}: FieldMessage.Props) => {
+	const mergedProps = { ...useSliderFieldProps(), ...props };
 	return (
 		<FieldMessage
 			className={cn(
-				"transition-all duration-500",
-				isRange && "ms-[2.75em]",
-				props.width === "fill" ? "w-full" : "w-fit",
+				"h-[4em] -mt-[2.5em] pt-[2.5em] w-full transition-all duration-500",
+				(mergedProps.shape === "circular" ||
+					mergedProps.solid ||
+					mergedProps.outlined) &&
+					"ps-[.525em]",
 				!children && "bg-transparent",
-				props.shape === "circular" && "ps-[.525em]",
+				mergedProps.loading && !mergedProps.disabled && "shimmer-bg",
 				className,
 			)}
-			{...props}
+			{...mergedProps}
 		>
 			{children}
 		</FieldMessage>
 	);
 };
 
-interface PopoverProps extends CompoundProps {
-	open?: boolean;
-}
-
-const PopoverRoot = ({ children, open, className }: PopoverProps) => {
+export const PopoverMessage = ({
+	children,
+	className,
+	...props
+}: Popover.Portal.Props) => {
+	const mergedProps = { ...useSliderFieldProps(), ...props };
 	return (
-		<Popover.Root open={open}>
-			<Popover.Trigger className={className}>{children}</Popover.Trigger>
-		</Popover.Root>
+		<Popover.Portal {...mergedProps} className={className}>
+			{children}
+		</Popover.Portal>
 	);
 };
 
-export { PopoverRoot as Popover };
-
-export const PopoverMessage = ({ children }: CompoundProps) => {
-	const { isRange, outputWidth, ...props } = useSliderFieldProps();
-	return <Popover.Portal {...props}>{children}</Popover.Portal>;
-};
-
-export const Label = ({ children, className }: CompoundProps) => {
-	const props = useSliderFieldProps();
+export const Label = ({ children, className, ...props }: FieldLabel.Props) => {
+	const mergedProps = { ...useSliderFieldProps(), ...props };
 	return (
-		<FieldLabel
-			emphasis={props.emphasis}
-			required={props.required}
+		<BaseSlider.Label
 			className={cn(
 				"leading-[1.25] sfc-text sfc-color-default-on-default",
-				props.shape === "circular" && "first-letter:ms-[.525em]",
-				emphasisSurfaceVariants(props),
-				props.required && "before:content-['✺_'] before:sfc-text-danger-450d",
+				mergedProps.shape === "circular" && "first-letter:ms-[.525em]",
+				SharedVariants.emphasisSurfaceVariants(mergedProps),
+				mergedProps.required &&
+					"before:content-['✺_'] before:sfc-text-danger-450d",
 				className,
 			)}
 		>
 			{children}
-		</FieldLabel>
+		</BaseSlider.Label>
 	);
 };
