@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils/cn";
 import { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
 
-export { Popover } from "../popover";
+export { FieldPopover as Popover } from "../popover";
 
 const inputVariants = cva(
 	"justify-end focus-within:after:ring-6d transition-all lowered-text-input",

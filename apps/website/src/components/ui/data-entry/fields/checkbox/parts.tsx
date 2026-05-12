@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils/cn";
 import { FieldLabel } from "../label";
 import type { FieldMessage } from "../message";
 
-export { Popover } from "../popover";
+export { FieldPopover as Popover } from "../popover";
 
 // TODO сделать правила теней для разных цветов (shadow-focus-danger - не работает)
 const checkboxVariants = cva(

@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils/cn";
 import { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
 
-export { Popover } from "../popover";
+export { FieldPopover as Popover } from "../popover";
 
 const buttonVariants = cva(
 	"relative z-1 first:z-2 last:z-0 flex items-center justify-center cursor-pointer sfc-border h-full aspect-square transition-all rel-elevation-0 —base-elevation-9 hover:rel-elevation-10 active:—rel-elevation-4",

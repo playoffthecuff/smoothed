@@ -1,7 +1,7 @@
 import { Popover as BasePopover } from "../../overlays/popover";
 import type { CompoundProps } from "../../types";
 
-export const Popover = ({
+export const FieldPopover = ({
 	children,
 	className,
 	...props

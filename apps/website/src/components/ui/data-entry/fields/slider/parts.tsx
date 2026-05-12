@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils/cn";
 import type { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
 
-export { Popover } from "../popover";
+export { FieldPopover as Popover } from "../popover";
 
 // TODO сделать спиннер видимым в отключенном состоянии
 // TODO добавить градации emphasis через готовые или подобные интерполированные поверхности

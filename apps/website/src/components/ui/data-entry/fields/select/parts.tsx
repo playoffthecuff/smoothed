@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils/cn";
 import type { FieldLabel } from "../label";
 import { FieldMessage } from "../message";
 
-export { Popover } from "../popover";
+export { FieldPopover as Popover } from "../popover";
 
 // TODO изменить дефолтный внешний вид всех компонентов на emphasis:medium outlined:true solid:false
 
