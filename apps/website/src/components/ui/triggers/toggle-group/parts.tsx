@@ -29,7 +29,7 @@ const rootVariants = cva("flex leading-none h-fit", {
 });
 type RootVariants = VariantProps<typeof rootVariants>;
 
-const toggleVariants = cva("sfc-ripple trigger-box", {
+const toggleVariants = cva("sfc-ripple focus-visible:ring-6d trigger-box", {
 	variants: {
 		pressedIntent: {
 			accent: "data-[pressed]:sfc-color-accent-on-accent-ia",

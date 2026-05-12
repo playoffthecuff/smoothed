@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils/cn";
 import { useRippleAnimate } from "../use-ripple-animate";
 import { Variants } from "../variants";
 
-export const toggleVariants = cva("sfc-ripple trigger-box", {
+export const toggleVariants = cva("sfc-ripple sfc-focus-shadow trigger-box", {
 	variants: {
 		shape: {
 			square: null,
