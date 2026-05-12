@@ -68,7 +68,7 @@ const indicatorVariants = cva(
 );
 
 const thumbVariants = cva(
-	"[--bg-opacity:0] rounded-full checkbox-box rounded-full hover:[--bg-opacity:.3] active:[--bg-opacity:.4] lifted-trigger sfc-subtle before:scale-50 group active:h-[3em] active:w-[3em] group-data-[dragging]:[--bg-opacity:.4] group-data-[dragging]:h-[3em] group-data-[dragging]:w-[3em] has-focus:[--bg-opacity:.4]",
+	"[--bg-opacity:0] rounded-full checkbox-box rounded-full hover:[--bg-opacity:.4] active:[--bg-opacity:.5] lifted-trigger sfc-subtle before:scale-50 group active:h-[3em] active:w-[3em] group-data-[dragging]:[--bg-opacity:.5] group-data-[dragging]:h-[3em] group-data-[dragging]:w-[3em] has-focus:[--bg-opacity:.5]",
 );
 
 const thumbCoreVariants = cva(
@@ -255,7 +255,7 @@ export const Slider = (props: Variants) => {
 									>
 										<Popover.Trigger
 											delay={10}
-											className="outline-none"
+											className="outline-none w-full h-full"
 											onMouseEnter={() =>
 												setHovered(
 													hovered.map((v, idx) => (idx === i ? true : v)),
