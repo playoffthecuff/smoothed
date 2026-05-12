@@ -12,7 +12,7 @@ import { getColorRules } from "./color/color";
 import { getGeometryRules } from "./geometry/geometry";
 import { type Options, options } from "./options";
 import {
-	getShadowFocuses,
+	getFocusShadows,
 	getShadowShortcuts,
 	getShadowsRules,
 } from "./shadows/shadows";
@@ -60,7 +60,7 @@ const material = (opts?: Options): Preset => {
 			colors: {},
 			shadow: {
 				...theme.shadow,
-				...getShadowFocuses(options),
+				...getFocusShadows(),
 			},
 			media: {
 				...theme.media,

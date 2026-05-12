@@ -1,10 +1,10 @@
 import { describe, test } from "bun:test";
 import { options } from "../options";
-import { getShadowFocuses } from "./shadows";
+import { getFocusShadows } from "./shadows";
 
 describe.skip("getShadowFocuses", () => {
 	test("", () => {
-		const r = getShadowFocuses(options);
+		const r = getFocusShadows(options);
 		console.log("🚀 ~ r:", r);
 	});
 });

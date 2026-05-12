@@ -1,19 +1,14 @@
-// import { round3 } from "../../ds-utils";
 import type { Options } from "../options";
 import type { GetDynamicRule, GetStaticShortcut } from "../types";
 import { calcSize } from "../utils";
 
-export const getShadowFocuses = (opts: Options) =>
-	Object.fromEntries(
-		opts.allColors.map((v) => [
-			`focus-${v}`,
-			[
-				"0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75)) calc(var(--spacing-size) * 1rem * 2) canvas",
-				"0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75)) calc(var(--spacing-size) * 1rem * 3) var(--focus-shadow-color)",
-				`0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75) / 2) calc(var(--spacing-size) * 1rem * 5) oklch(from var(--bg-color) l c h / 1)`,
-			],
-		]),
-	);
+export const getFocusShadows = () => ({
+	focus: [
+		"0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75)) calc(var(--spacing-size) * 1rem * 2) canvas",
+		"0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75)) calc(var(--spacing-size) * 1rem * 3) var(--focus-shadow-color)",
+		`0 0 calc(var(--spacing-size) * 1rem * pow(2, 0.75) / 2) calc(var(--spacing-size) * 1rem * 5) oklch(from var(--bg-color) l c h / 1)`,
+	],
+});
 
 export const getRingRule: GetDynamicRule = () => [
 	/^ring-(?<value>\d+)d$/,
