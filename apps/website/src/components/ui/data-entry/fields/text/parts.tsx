@@ -112,6 +112,8 @@ export const Control = ({ className, children, ...props }: Props) => {
 					SharedVariants.inputWidthVariants(mergedProps),
 					SharedVariants.surfaceShapeVariants(mergedProps),
 					mergedProps.loading && !mergedProps.disabled && "shimmer-bg",
+					(mergedProps.shape === "rounded" || !mergedProps.shape) &&
+						"[--rounding:.5em]",
 					className,
 				)}
 			>
