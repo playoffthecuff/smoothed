@@ -16,11 +16,6 @@ const buttonVariants = cva("sfc-ripple sfc-focus-shadow", {
 			wide: "trigger-box-wide",
 			fill: "trigger-box-fill",
 		},
-		shape: {
-			square: null,
-			rounded: "sfc-rounded",
-			circular: "sfc-circular",
-		},
 		solid: {
 			true: "sfc-solid lifted-trigger",
 		},
@@ -46,7 +41,7 @@ const buttonVariants = cva("sfc-ripple sfc-focus-shadow", {
 		{
 			outlined: false,
 			solid: false,
-			className: "sfc-text lifted-text ",
+			className: "sfc-text lifted-text",
 		},
 		{
 			outlined: true,
@@ -72,7 +67,6 @@ const buttonVariants = cva("sfc-ripple sfc-focus-shadow", {
 		},
 	],
 	defaultVariants: {
-		shape: "rounded",
 		width: "normal",
 		disabled: false,
 		loading: false,
@@ -89,6 +83,7 @@ export type ButtonProps = FlattenIntersection<
 		ButtonVariants &
 		Variants.IntentSurface &
 		Variants.EmphasisSurface &
+		Variants.SurfaceShape &
 		Variants.Size & { animated?: boolean }
 >;
 
@@ -134,10 +129,10 @@ export function Button({
 						disabled: props.disabled,
 						loading,
 					}),
+					Variants.surfaceShapeVariants({ shape }),
 					buttonVariants({
 						className,
 						disabled: props.disabled,
-						shape,
 						width,
 						loading,
 						flat,
