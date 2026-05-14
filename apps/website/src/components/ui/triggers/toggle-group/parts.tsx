@@ -14,7 +14,7 @@ const rootVariants = cva("flex leading-none h-fit", {
 		shape: {
 			square: null,
 			rounded:
-				"[&>div:first-child>button]:sfc-rounded-s [&>div:last-child>button]:sfc-rounded-e",
+				"[&>div:first-child>button]:sfc-rounded-s [&>div:last-child>button]:sfc-rounded-e [--rounding:.5em]",
 			circular:
 				"[&>div:first-child>button]:rounded-s-full [&>div:last-child>button]:rounded-e-full [&>div:first-child>button:before]:rounded-s-full [&>div:last-child>button:before]:rounded-e-full",
 		},
