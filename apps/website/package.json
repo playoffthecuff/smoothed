@@ -1,5 +1,5 @@
 {
-	"name": "smoothed",
+	"name": "@playoffthecuff/smoothed/website",
 	"version": "0.1.0",
 	"private": true,
 	"author": {
@@ -11,12 +11,7 @@
 		"dev": "bun run --bun next dev",
 		"build": "bun run --bun next build",
 		"start": "bun run --bun next start",
-		"lint": "biome check",
-		"format": "biome format --write",
-		"format:migrate": "biome migrate --write",
-		"registry:build": "smoothed build",
-		"type:check": "tsc --noEmit",
-		"test": "bun test"
+		"registry:build": "smoothed build"
 	},
 	"dependencies": {
 		"@base-ui/react": "^1.4.0",
@@ -31,7 +26,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.13",
-		"@playoffthecuff/smoothed": "^0.0.7",
+		"@playoffthecuff/smoothed/cli": "workspace:*",
 		"@types/node": "^20.19.27",
 		"@types/react": "^19.2.7",
 		"@types/react-dom": "^19.2.3",
