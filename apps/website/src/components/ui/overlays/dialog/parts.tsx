@@ -34,7 +34,7 @@ export const Header = ({ children }: { children: ReactNode }) => (
 );
 
 export const popupVariants = cva(
-	"fixed top-1/2 left-1/2 -mt-12d max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 rounded-12d shadow-lifted-4 transition-all data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 overflow-hidden outline-none [--padding:1em]",
+	"fixed top-1/2 left-1/2 -mt-12d max-w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 shadow-lifted-4 transition-all data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 overflow-hidden outline-none sfc-p-1",
 	{
 		variants: {
 			solid: {
@@ -44,11 +44,6 @@ export const popupVariants = cva(
 			outlined: {
 				true: "sfc-border",
 			},
-			shape: {
-				rounded: "sfc-rounded",
-				square: "rounded-none",
-				circular: "rounded-full",
-			},
 			flat: {
 				false: "sfc-shadow",
 			},
@@ -57,7 +52,6 @@ export const popupVariants = cva(
 			{ outlined: true, solid: false, className: "sfc-outlined" },
 		],
 		defaultVariants: {
-			shape: "rounded",
 			flat: false,
 			solid: false,
 			outlined: true,
@@ -69,6 +63,7 @@ type PopupVariants = VariantProps<typeof popupVariants>;
 
 export type DialogPortalProps = FlattenIntersection<
 	PopupVariants &
+		Variants.SurfaceShape &
 		Variants.EmphasisSurface &
 		Variants.IntentSurface &
 		Variants.Size &
@@ -95,6 +90,7 @@ export const Portal = ({
 				Variants.intentSurfaceVariants(props),
 				Variants.fontSizeVariants(props),
 				Variants.mediumFontVariants(props),
+				Variants.surfaceShapeVariants(props),
 				props.intent && "sfc-intent-selection",
 				className,
 			)}
