@@ -1,13 +1,15 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import type { FlattenIntersection } from "@/lib/types/helpers";
 import { cn } from "@/lib/utils/cn";
 import type { CompoundProps } from "../../types";
 import { T } from "../../typography";
+import { Variants } from "../../variants";
 
 //TODO Add variants
 //TODO Add data slots attributes to all compound components
 
 export const cardVariants = cva(
-	"flex flex-col gap-12d bg-2 rounded-12d overflow-hidden rel-elevation-6 —base-elevation-4 sfc-solid",
+	"flex flex-col gap-[.5em] bg-2 sfc-p-1 overflow-hidden rel-elevation-5 —base-elevation-3 hover:rel-elevation-10 sfc-solid transition-all",
 	{
 		variants: {
 			flat: {
@@ -23,13 +25,21 @@ export const cardVariants = cva(
 
 export type CardVariants = VariantProps<typeof cardVariants>;
 
-export const Root = ({
-	children,
-	className,
-	...props
-}: CardVariants & CompoundProps) => {
+export type CardProps = FlattenIntersection<
+	CardVariants & Variants.Size & Variants.SurfaceShape & CompoundProps
+>;
+
+export const Root = ({ children, className, ...props }: CardProps) => {
 	return (
-		<article data-slot="card" className={cn(cardVariants(props), className)}>
+		<article
+			data-slot="card"
+			className={cn(
+				cardVariants(props),
+				Variants.fontSizeVariants(props),
+				Variants.surfaceShapeVariants(props),
+				className,
+			)}
+		>
 			{children}
 		</article>
 	);
@@ -53,13 +63,13 @@ export const Description = (props: T.TextProps) => (
 );
 
 export const Content = ({ children, className }: CompoundProps) => (
-	<div data-slot="card-content" className={cn("px-16d", className)}>
+	<div data-slot="card-content" className={className}>
 		{children}
 	</div>
 );
 
 export const Footer = ({ children, className }: CompoundProps) => (
-	<footer data-slot="card-footer" className={cn("px-16d", className)}>
+	<footer data-slot="card-footer" className={className}>
 		{children}
 	</footer>
 );
