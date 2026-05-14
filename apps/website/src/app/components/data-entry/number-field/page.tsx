@@ -80,7 +80,7 @@ export default function NumberFieldPage() {
 							<NumberField.Popover open>
 								<NumberField.Popover>
 									<NumberField.Input defaultValue={200} />
-									<NumberField.PopoverMessage className="leading-none">
+									<NumberField.PopoverMessage>
 										Message
 									</NumberField.PopoverMessage>
 								</NumberField.Popover>

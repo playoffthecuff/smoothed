@@ -78,12 +78,12 @@ const iconVariants = cva(null, {
 });
 
 const inputWrapperVariants = cva(
-	"focus-within:ring-6d has-[>input:invalid]:ring-6d after:pointer-events-none after:z-1",
+	"focus-within:ring-6d has-[>input:invalid]:ring-6d after:pointer-events-none after:z-1 bg-transparent",
 	{
 		variants: {
 			shape: {
 				square: null,
-				rounded: "sfc-rounded",
+				rounded: "sfc-rounded [--rounding:.5em]",
 				circular: "rounded-full",
 			},
 			outlined: {
