@@ -10,7 +10,7 @@ export const fieldMessageVariants = cva(
 		variants: {
 			shape: {
 				square: null,
-				rounded: "sfc-rounded",
+				rounded: "sfc-rounded [--rounding:.5em]",
 				circular: "rounded-[1em]",
 			},
 			solid: {
