@@ -19,11 +19,13 @@ export { FieldPopover as Popover } from "../popover";
 
 // TODO сделать правила теней для разных цветов (shadow-focus-danger - не работает)
 const checkboxVariants = cva(
-	"rounded-full invalid:focus-visible:shadow-focus-danger sfc-ripple focus-visible:ring-6d checkbox-box [--bg-opacity:0] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none group sfc-subtle hover:[--bg-opacity:.4] focus-visible:[--bg-opacity:.4] active:[--bg-opacity:.5]",
+	"rounded-full invalid:focus-visible:shadow-focus-danger sfc-ripple focus-visible:ring-6d checkbox-box [--bg-opacity:0] lifted-trigger before:rounded-full after:content-[''] after:absolute after:inset-0 after:rounded-full after:pointer-events-none group sfc-subtle",
 	{
 		variants: {
 			disabled: {
 				true: "sfc-disabled pointer-events-none",
+				false:
+					"hover:[--bg-opacity:.4] focus-visible:[--bg-opacity:.4] active:[--bg-opacity:.5]",
 			},
 			loading: {
 				true: null,
@@ -49,14 +51,14 @@ const checkboxVariants = cva(
 );
 
 const indicatorVariants = cva(
-	"flex items-center justify-center relative —rel-elevation-4 —base-elevation-4 group-hover:—rel-elevation-7 group-active:—rel-elevation-1",
+	"flex items-center justify-center relative —rel-elevation-4 —base-elevation-4",
 	{
 		variants: {
 			loading: {
 				true: null,
 			},
 			disabled: {
-				true: null,
+				false: "group-hover:—rel-elevation-7 group-active:—rel-elevation-1",
 			},
 			shape: {
 				square: "w-[1.32em] h-[1.32em]",
