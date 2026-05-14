@@ -10,11 +10,6 @@ import { Variants } from "../variants";
 
 export const toggleVariants = cva("sfc-ripple sfc-focus-shadow trigger-box", {
 	variants: {
-		shape: {
-			square: null,
-			rounded: "sfc-rounded",
-			circular: "sfc-circular",
-		},
 		pressedIntent: {
 			accent: "data-[pressed]:sfc-color-accent-on-accent-ia",
 			neutral: "data-[pressed]:sfc-color-neutral-on-neutral-ia",
@@ -77,7 +72,6 @@ export const toggleVariants = cva("sfc-ripple sfc-focus-shadow trigger-box", {
 		},
 	],
 	defaultVariants: {
-		shape: "rounded",
 		toggleEffect: "fill",
 		disabled: false,
 		loading: false,
@@ -94,6 +88,7 @@ export type ToggleProps = FlattenIntersection<
 		ToggleVariants &
 		Variants.IntentSurface &
 		Variants.EmphasisSurface &
+		Variants.SurfaceShape &
 		Variants.Size & {
 			loading?: boolean;
 			animated?: boolean;
@@ -124,17 +119,19 @@ export function Toggle({
 			className={cn(
 				"inline-flex items-center justify-center",
 				props.disabled && "cursor-not-allowed",
+				(props.shape === "rounded" || !props.shape) && "[--rounding:.5em]",
 				className,
 			)}
 		>
 			<BaseToggle
 				data-slot="button"
 				className={cn(
+					toggleVariants(props),
 					Variants.interactiveIntentSurfaceVariants(props),
 					Variants.emphasisSurfaceVariants(props),
 					Variants.fontSizeVariants(props),
 					Variants.semiBoldFontVariants(props),
-					toggleVariants(props),
+					Variants.surfaceShapeVariants(props),
 					Variants.surfaceCursorVariants(props),
 				)}
 				disabled={props.disabled}
