@@ -117,7 +117,7 @@ const popupVariants = cva(
 			{
 				outlined: false,
 				shape: "rounded",
-				className: "sfc-rounded",
+				className: "sfc-rounded [--rounding:.5em]",
 			},
 			{
 				outlined: false,
@@ -228,8 +228,9 @@ export const Root = <T,>({
 			className={cn(
 				SharedVariants.fontSizeVariants(props),
 				SharedVariants.semiBoldFontVariants(props),
-				"flex-col",
 				props.width === "fill" ? "flex" : "inline-flex w-min",
+				(props.shape === "rounded" || !props.shape) && "[--rounding:.5em]",
+				"flex-col",
 			)}
 		>
 			<BaseSelect.Root items={items} {...props}>
