@@ -7,7 +7,7 @@ import { Variants } from "../../variants";
 
 //TODO try use corner-shape
 const popupVariants = cva(
-	"origin-[var(--transform-origin)] transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none leading-none px-[0.5em] py-[0.4em]",
+	"origin-[var(--transform-origin)] transition-all duration-500 transition-[transform,scale,opacity] data-[ending-style=true]:scale-90 data-[ending-style=true]:opacity-0 data-[starting-style=true]:scale-90 data-[starting-style=true]:opacity-0 outline-none sfc-px-.63 sfc-py-.08",
 	{
 		variants: {
 			solid: {
@@ -18,7 +18,7 @@ const popupVariants = cva(
 				true: "sfc-border",
 			},
 			shape: {
-				rounded: "rounded-[0.25em]",
+				rounded: "sfc-rounded",
 				square: "rounded-none",
 				circular: "rounded-full",
 			},
