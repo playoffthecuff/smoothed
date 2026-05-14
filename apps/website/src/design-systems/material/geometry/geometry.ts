@@ -73,21 +73,14 @@ export const getGapRule: GetDynamicRule = () => [
 	}),
 ];
 
-export const marginPaddingRule = {
-	re: /^(m|p)(x|y|t|r|b|l|s|e)?-(\d+)d$/,
-	fn: (prop: string, side: string, value: string) => ({
-		[`${prop === "m" ? "margin" : "padding"}${side ? `-${{ x: "inline", y: "block", t: "top", b: "bottom", l: "left", r: "right", s: "inline-start", e: "inline-end" }[side]}` : ""}`]: `calc(var(--spacing-size) * ${calcSize(value)}rem)`,
-	}),
-};
-
 export const getPaddingMarginRule: GetDynamicRule = () => [
 	/^(?<prop>m|p)(?<side>x|y|t|r|b|l|s|e)?-(?<value>\d+)d$/,
-	({ groups }) => {
-		if (!groups) return;
-		return {
-			[`${groups.prop === "m" ? "margin" : "padding"}${groups.side ? `-${{ x: "inline", y: "block", t: "top", b: "bottom", l: "left", r: "right", s: "inline-start", e: "inline-end" }[groups.side]}` : ""}`]: `calc(var(--spacing-size) * ${calcSize(groups.value)}rem)`,
-		};
-	},
+	({ groups }) =>
+		groups
+			? {
+					[`${groups.prop === "m" ? "margin" : "padding"}${getCssSide(groups.side)}`]: `calc(var(--spacing-size) * ${calcSize(groups.value)}rem)`,
+				}
+			: undefined,
 ];
 
 export const getGeometryRules = (opts: Options) => [

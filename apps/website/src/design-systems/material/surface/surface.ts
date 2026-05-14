@@ -2,6 +2,7 @@ import type { CSSObject, DynamicRule, Rule, Shortcut } from "unocss";
 import {
 	assertCssProp,
 	getCssPropByUtilProp,
+	getCssSide,
 	lerp,
 	round3,
 } from "../../ds-utils";
@@ -228,6 +229,8 @@ export const getSurfaceKindRules: GetDynamicRule = () => [
 				"calc(var(--zero-elevation, 0) + var(--rel-elevation, 0) - var(--base-elevation, 0))",
 			"--bg-admix-lightness":
 				"clamp(0, calc(var(--imaginary-elevation) * 1000), 1)",
+			"--shadow-divider":
+				groups.kind === "solid" ? "var(--shadow-admix, 1)" : 1,
 		};
 	},
 ];
@@ -245,6 +248,7 @@ export const getElevationRule: (opts: Options) => DynamicRule = () => [
 		const inset = groups.minus === "—" ? "inset" : "";
 		const admixHue =
 			groups.minus === "—" ? "var(--bg-min-hue)" : "var(--bg-max-hue)";
+		const shadowAdmix = groups.minus === "—" ? 2 : 1;
 		const shadowSign = groups.minus === "—" ? -1 : 1;
 		const rules = {
 			zero: {
@@ -254,6 +258,7 @@ export const getElevationRule: (opts: Options) => DynamicRule = () => [
 				"--rel-elevation": nHeight,
 				"--inset": inset,
 				"--shadow-sign": shadowSign,
+				"--shadow-admix": shadowAdmix,
 				"--admix-hue": admixHue,
 			},
 			base: {
@@ -310,11 +315,19 @@ export const getSurfaceColorRules: GetDynamicRule = (opts) => [
 	},
 ];
 
-export const getSurfaceShadowRule: GetStaticRule = () => [
-	"sfc-shadow",
-	{
-		"box-shadow": `var(--inset) calc(-10 * var(--shadow-sign) * var(--sun-x) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(10 * var(--shadow-sign) * var(--sun-y) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(pow(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 5rem, .5) * 1rem) calc(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 3) oklch(0 0 0 / calc(.5 - var(--rel-elevation) * .45))`,
+export const getSurfaceShadowRule: GetDynamicRule = () => [
+	/^sfc-shadow-(?<mode>light|dark)$/,
+	({ groups }) => {
+		if (!groups) return;
+		return {
+			"box-shadow": `var(--inset) calc(-10 * var(--shadow-sign) * var(--sun-x) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(10 * var(--shadow-sign) * var(--sun-y) * var(--rel-elevation) * var(--spacing-size) * 1em) calc(pow(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 5rem, .5) * 1rem) calc(var(--sun-z) * var(--rel-elevation) * var(--shadow-sign) * var(--spacing-size) * 1em / 3) oklch(0 0 0 / calc((1 - max(var(--rel-elevation), -1 * var(--rel-elevation)) * 0.9) / ${groups.mode === "dark" ? "var(--shadow-divider, 1)" : 2.5}))`,
+		};
 	},
+];
+
+export const getSurfaceShadowShortcut: GetStaticShortcut = () => [
+	"sfc-shadow",
+	"sfc-shadow-light dark:sfc-shadow-dark",
 ];
 
 export const getSurfaceFocusShadowShortcut: GetStaticShortcut = () => [
@@ -338,10 +351,10 @@ export const getBoxShortcut: GetDynamicShortcut = () => [
 			trigger: {
 				none: "h-[2em]",
 				fit: "gap-[0.375em] h-[1.41em]",
-				narrow: "px-[0.375em] gap-[0.375em] h-[2em]",
-				normal: "px-[0.63em] gap-[0.63em] h-[2em]",
-				wide: "px-[1.06em] gap-[1.06em] h-[2em]",
-				fill: "w-full gap-[1.06em] h-[2em]",
+				narrow: "gap-[0.375em] h-[2em] px-[.375em] [--rounding:.5em]",
+				normal: "gap-[0.63em] h-[2em] px-[.63em] [--rounding:.5em]",
+				wide: "gap-[1.06em] h-[2em] px-[1.06em] [--rounding:.5em]",
+				fill: "w-full h-[2em] gap-[1.06em] [--rounding:.5em]",
 			},
 			checkbox: {
 				none: null,
@@ -468,15 +481,14 @@ export const getDisabledSurfaceShortcut: GetStaticShortcut = () => [
 ];
 
 export const getSurfaceRoundingsShortcut: GetDynamicShortcut = () => [
-	/^sfc-rounded(?:-(?<side>s|e|t|r|b|l|bl|br|tl|tr|es|ee|se|ss))?(?:-(?<value>\d+))?$/,
-	({ groups }) =>
-		`rounded${groups?.side ? `-${groups.side}` : ""}-[calc(${calcSize(+(groups?.value ?? 4), 0.125)}em*var(--radius))] after:rounded${groups?.side ? `-${groups.side}` : ""}-[calc(${calcSize(+(groups?.value ?? 4), 0.125)}em*var(--radius))] before:rounded${groups?.side ? `-${groups.side}` : ""}-[calc(${calcSize(+(groups?.value ?? 4), 0.125)}em*var(--radius)+var(--spacing-size)*1rem*${calcSize(12)})]`,
-];
-
-export const getSurfaceCircularShortcut: GetDynamicShortcut = () => [
-	/^sfc-circular(?:-(?<side>s|e|t|r|b|l|bl|br|tl|tr|es|ee|se|ss))?$/,
-	({ groups }) =>
-		`rounded${groups?.side ? `-${groups.side}` : ""}-full after:rounded${groups?.side ? `-${groups.side}` : ""}-full before:rounded${groups?.side ? `-${groups.side}` : ""}-full`,
+	/^sfc-(?<kind>rounded|circular)(?:-(?<side>s|e|t|r|b|l|bl|br|tl|tr|es|ee|se|ss))?$/,
+	({ groups }) => {
+		if (!groups) return;
+		const side = groups.side ? `-${groups.side}` : "";
+		return groups.kind === "circular"
+			? `rounded${side}-full after:rounded${side}-full before:rounded${side}-full`
+			: `rounded${side}-[calc(var(--rounding,0)*var(--radius)/2)] after:rounded${side}-[calc(var(--rounding,0)*var(--radius)/2)] before:rounded${side}-[calc(calc(var(--rounding,0)*var(--radius)/2)+var(--spacing-size)*1rem*${calcSize(12)})]`;
+	},
 ];
 
 export const getRippleSurfaceShortcut: GetStaticShortcut = () => {
@@ -564,16 +576,32 @@ export const getSurfaceFontWeightRule: GetDynamicRule = () => [
 	},
 ];
 
+export const getSurfacePaddingRule: GetDynamicRule = () => [
+	/^sfc-p(?<side>x|y|r|l|t|b|s|e)?-(?<value>\d*(\.)?\d*)$/,
+	({ groups }) => {
+		if (!groups) return;
+		if (!+groups.value) return;
+		const isHorizontal =
+			/^[xrlse]$/.test(groups.side) || groups.side === undefined;
+		const padding = `${+(groups.value ?? 0)}em`;
+		return {
+			"--rounding": isHorizontal ? padding : undefined,
+			[`padding${getCssSide(groups.side)}`]: padding,
+		};
+	},
+];
+
 export const getSurfaceRules = (opts: Options): Rule[] => [
 	getElevationRule(opts),
 	getSurfaceKindRules(opts),
 	getEmphasisRules(opts),
 	getSurfaceColorRules(opts),
-	getSurfaceShadowRule(),
+	getSurfaceShadowRule(opts),
 	getSurfaceBorderRule(),
 	getToggleStateRule(opts),
 	getSurfaceColorRule(opts),
 	getSurfaceFontWeightRule(opts),
+	getSurfacePaddingRule(opts),
 ];
 
 export const getSurfaceShortcuts = (opts: Options): Shortcut[] => [
@@ -586,8 +614,8 @@ export const getSurfaceShortcuts = (opts: Options): Shortcut[] => [
 	getToggleStateShortcut(),
 	getSelectionShortcut(opts),
 	getComponentElevationShortcut(opts),
-	getSurfaceCircularShortcut(opts),
 	getSurfaceFontSizeShortcut(opts),
 	getBackgroundSurfaceShortcut(),
 	getSurfaceFocusShadowShortcut(),
+	getSurfaceShadowShortcut(),
 ];

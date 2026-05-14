@@ -67,7 +67,7 @@ export function hasOwn<T extends object>(
  * @returns
  */
 export const getCssSide = (side: string) =>
-	hasOwn(cssIndentSides, side) ? `-${cssIndentSides[side]}` : undefined;
+	hasOwn(cssIndentSides, side) ? `-${cssIndentSides[side]}` : "";
 
 interface UtilProps {
 	bg: string;
