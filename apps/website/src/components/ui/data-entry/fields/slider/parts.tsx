@@ -17,12 +17,12 @@ export { FieldPopover as Popover } from "../popover";
 // TODO добавить градации emphasis через готовые или подобные интерполированные поверхности
 
 const trackVariants = cva(
-	"select-none sfc-color-background-on-background sfc-solid —rel-elevation-5 base-elevation-0 w-full data-[dragging]:h-1/2 group transition-all",
+	"select-none sfc-color-background-on-background sfc-solid —rel-elevation-6 base-elevation-0 w-full data-[dragging]:h-1/2 group transition-all",
 	{
 		variants: {
 			shape: {
 				square: null,
-				rounded: "sfc-rounded-2",
+				rounded: "sfc-rounded [--rounding:.375em]",
 				circular: "rounded-full",
 			},
 			flat: {
@@ -34,7 +34,7 @@ const trackVariants = cva(
 			},
 			disabled: {
 				false:
-					"group-hover:[&:not(:has(*:hover))]:—rel-elevation-10 group-hover:[&:not(:has(*:hover))]:base-elevation-15 group-hover:h-1/2",
+					"group-hover:[&:not(:has(*:hover))]:—rel-elevation-10 dark:group-hover:[&:not(:has(*:hover))]:—rel-elevation-2 group-hover:[&:not(:has(*:hover))]:base-elevation-14 group-hover:h-1/2 dark:group-hover:[&:not(:has(*:hover))]:—base-elevation-20",
 			},
 		},
 		compoundVariants: [],
@@ -48,12 +48,12 @@ const trackVariants = cva(
 );
 
 const indicatorVariants = cva(
-	"sfc-solid transition-all —rel-elevation-5 —base-elevation-5 hover:—rel-elevation-2 hover:—base-elevation-14",
+	"sfc-solid —rel-elevation-6 —base-elevation-6 hover:—rel-elevation-2 hover:—base-elevation-14",
 	{
 		variants: {
 			shape: {
 				square: null,
-				rounded: "sfc-rounded-2",
+				rounded: "sfc-rounded",
 				circular: "rounded-full",
 			},
 			flat: {
@@ -77,7 +77,7 @@ const thumbCoreVariants = cva(
 		variants: {
 			shape: {
 				square: "w-[1em] h-[1em]",
-				rounded: "sfc-rounded-2 w-[1em] h-[1em]",
+				rounded: "sfc-rounded w-[1em] h-[1em]",
 				circular: "rounded-full w-[1.128em] h-[1.128em]",
 			},
 			solid: {
@@ -225,7 +225,7 @@ export const Slider = (props: Variants) => {
 					<BaseSlider.Indicator
 						className={cn(
 							indicatorVariants(mergedProps),
-							SharedVariants.intentSurfaceVariants(mergedProps),
+							SharedVariants.interactiveIntentSurfaceVariants(mergedProps),
 							SharedVariants.emphasisSurfaceVariants(mergedProps),
 						)}
 						style={{
@@ -255,7 +255,7 @@ export const Slider = (props: Variants) => {
 									>
 										<Popover.Trigger
 											delay={10}
-											className="outline-none w-full h-full"
+											className="outline-none"
 											onMouseEnter={() =>
 												setHovered(
 													hovered.map((v, idx) => (idx === i ? true : v)),
@@ -267,9 +267,11 @@ export const Slider = (props: Variants) => {
 												)
 											}
 										>
-											<div className={thumbCoreVariants(mergedProps)}></div>
+											<div className="h-[2.5em] w-[2.5em] flex items-center justify-center">
+												<div className={thumbCoreVariants(mergedProps)}></div>
+											</div>
 										</Popover.Trigger>
-										<Popover.Portal sideOffset={24} {...mergedProps}>
+										<Popover.Portal sideOffset={12} {...mergedProps}>
 											<output
 												className={cn(
 													"fw-mono",
@@ -304,7 +306,7 @@ export const Message = ({
 				(mergedProps.shape === "circular" ||
 					mergedProps.solid ||
 					mergedProps.outlined) &&
-					"ps-[.525em]",
+					"ps-[.525em] [--rounding:.75em]",
 				!children && "bg-transparent",
 				mergedProps.loading && !mergedProps.disabled && "shimmer-bg",
 				className,
